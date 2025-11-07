@@ -23,7 +23,7 @@ const OrderManagement = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/pedidos/admin`,
+        `${process.env.REACT_APP_API_BASE_URL || '/api'}/pedidos/admin`,
         {
           headers: {
             'Authorization': `Bearer ${authService.getToken()}`
@@ -49,7 +49,7 @@ const OrderManagement = () => {
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/pedidos/admin/${orderId}/status`,
+        `${process.env.REACT_APP_API_BASE_URL || '/api'}/pedidos/admin/${orderId}/status`,
         {
           method: 'PUT',
           headers: {
@@ -124,7 +124,7 @@ const OrderManagement = () => {
       if (result.success) {
         if (result.data?.pdf_url) {
           // Abrir PDF em nova aba
-          const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+          const baseUrl = process.env.REACT_APP_API_BASE_URL || '/api';
           const apiUrl = baseUrl.replace('/api', '');
           const fullUrl = `${apiUrl}${result.data.pdf_url}`;
           window.open(fullUrl, '_blank');

@@ -298,7 +298,7 @@ const FullMenu = () => {
     try {
       setIsLoadingHistory(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/clientes/buscar/${telefoneLimpo}`
+        `${process.env.REACT_APP_API_BASE_URL || '/api'}/clientes/buscar/${telefoneLimpo}`
       );
       const data = await response.json();
       
@@ -367,7 +367,7 @@ const FullMenu = () => {
       setIsProcessing(true);
       info('Processando pedido...');
 
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/pedidos-simples`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/pedidos-simples`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

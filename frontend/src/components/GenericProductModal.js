@@ -33,7 +33,7 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
         tipo = category;
       }
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/acrescimos?tipo=${tipo}`);
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=${tipo}`);
       const result = await response.json();
       
       if (result.status === 'success') {

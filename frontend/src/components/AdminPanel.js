@@ -303,7 +303,7 @@ const AdminPanel = () => {
       formData.append('file', file);
 
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/upload/image`,
+        `${process.env.REACT_APP_API_BASE_URL || '/api'}/upload/image`,
         {
           method: 'POST',
           body: formData

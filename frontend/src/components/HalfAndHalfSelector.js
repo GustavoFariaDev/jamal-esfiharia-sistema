@@ -31,7 +31,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
       setLoading(true);
       
       // Buscar acréscimos por metade
-      const extrasResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/acrescimos?tipo=pizza_metade`);
+      const extrasResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=pizza_metade`);
       const extrasResult = await extrasResponse.json();
       
       if (extrasResult.status === 'success') {
@@ -39,7 +39,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
       }
       
       // Buscar bordas
-      const bordasResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/acrescimos?tipo=borda`);
+      const bordasResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=borda`);
       const bordasResult = await bordasResponse.json();
       
       if (bordasResult.status === 'success') {

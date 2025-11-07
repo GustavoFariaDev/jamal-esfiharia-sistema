@@ -31,7 +31,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
       setLoading(true);
       
       if (isEsfiha) {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/acrescimos?tipo=esfiha`);
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=esfiha`);
         const result = await response.json();
         
         if (result.status === 'success') {
@@ -49,7 +49,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
         const extrasData = {};
         
         for (const tipo of tipos) {
-          const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/acrescimos?tipo=${tipo}`);
+          const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=${tipo}`);
           const result = await response.json();
           
           if (result.status === 'success') {

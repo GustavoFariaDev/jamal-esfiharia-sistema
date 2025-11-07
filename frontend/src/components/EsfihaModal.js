@@ -22,7 +22,7 @@ const EsfihaModal = ({ isOpen, onClose, esfiha, onAddToCart }) => {
   const fetchExtras = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/acrescimos?tipo=esfiha`);
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=esfiha`);
       const result = await response.json();
       
       if (result.status === 'success') {
