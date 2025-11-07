@@ -83,7 +83,8 @@ yarn-error.log*
 # Build do frontend
 frontend/build/
 frontend/dist/
-backend/static/
+backend/static/*
+!backend/static/uploads/
 
 # Testes
 .pytest_cache/
