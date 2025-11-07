@@ -36,7 +36,7 @@ def criar_admin():
                 email='admin@jamal.com',
                 is_admin=True
             )
-            novo_admin.set_password('admin123')
+            novo_admin.set_password('SOA$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
             
             db.session.add(novo_admin)
             db.session.commit()
@@ -44,7 +44,7 @@ def criar_admin():
             print("✓ Usuário admin criado com sucesso!")
             print(f"  Username: admin")
             print(f"  Email: admin@jamal.com")
-            print(f"  Senha: admin123")
+            print(f"  Senha: SOA$k4N_,f}}xj*X?RZ3ZVO^LripwE*Ck")
             
         except Exception as e:
             db.session.rollback()

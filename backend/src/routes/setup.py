@@ -23,7 +23,7 @@ def create_admin():
             email='admin@jamal.com',
             is_admin=True
         )
-        novo_admin.set_password('admin123')
+        novo_admin.set_password('SOA$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
         
         db.session.add(novo_admin)
         db.session.commit()
@@ -32,7 +32,7 @@ def create_admin():
             "status": "success",
             "message": "Usuário admin criado com sucesso!",
             "username": "admin",
-            "password": "admin123",
+            "password": "SOA$k4N_,f}}xj*X?RZ3ZVO^LripwE*Ck",
             "note": "Por favor, altere a senha após o primeiro login"
         }), 201
         
