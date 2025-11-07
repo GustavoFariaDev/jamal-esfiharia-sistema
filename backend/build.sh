@@ -34,20 +34,27 @@ with app.app_context():
     db.create_all()
     print('✅ Tabelas criadas')
     
-    # Criar admin se não existir
+    # Criar ou atualizar admin
     admin = User.query.filter_by(username='admin').first()
     if not admin:
+        # Criar novo admin
         novo_admin = User(
             username='admin',
             email='admin@jamal.com',
             is_admin=True
         )
-        novo_admin.set_password('SOA\$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
+        novo_admin.set_password('admin123')
         db.session.add(novo_admin)
         db.session.commit()
-        print('✅ Usuário admin criado: admin / SOA\$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
+        print('✅ Usuário admin criado: admin / admin123')
     else:
-        print('✅ Usuário admin já existe')
+        # Atualizar senha do admin existente
+        print('✅ Usuário admin já existe - atualizando senha...')
+        admin.set_password('admin123')
+        admin.email = 'admin@jamal.com'
+        admin.is_admin = True
+        db.session.commit()
+        print('✅ Senha do admin atualizada: admin / admin123')
 EOF
 
 echo "✅ Build concluído com sucesso!"

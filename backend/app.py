@@ -79,7 +79,6 @@ def create_app():
     app.register_blueprint(status_pedido_bp, url_prefix='/api/pedidos')
     app.register_blueprint(setup_bp, url_prefix='/api/setup')
     
-    
     # Rota para servir arquivos de upload
     @app.route('/uploads/<filename>')
     def uploaded_file(filename):
