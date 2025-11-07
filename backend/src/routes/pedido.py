@@ -1,0 +1,485 @@
+import os
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from src.models.user import db, User
+from src.models.pedido import Pedido, ItemPedido, StatusPedido
+from src.models.esfiha import Esfiha
+from src.middleware.auth import admin_required
+from src.services.delivery_fee import DeliveryFeeCalculator
+from src.services.google_maps import GoogleMapsService
+from datetime import datetime, timezone
+
+pedido_bp = Blueprint("pedido", __name__)
+
+# Stripe removido - Pagamento na entrega com motoboy
+
+
+# ==============================
+# ROTAS PARA O USUÁRIO
+# ==============================
+
+@pedido_bp.route("/me", methods=["GET"])
+@jwt_required()
+def listar_meus_pedidos():
+    """Lista os pedidos do usuário logado."""
+    current_user_id = get_jwt_identity()
+    
+    # Parâmetros de paginação
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+    
+    # Filtro por status
+    status_filter = request.args.get('status', None)
+    
+    query = Pedido.query.filter_by(cliente_id=current_user_id)
+    
+    if status_filter:
+        query = query.filter_by(status=status_filter)
+    
+    pagination = query.order_by(Pedido.data_criacao.desc()).paginate(
+        page=page, per_page=per_page, error_out=False
+    )
+    
+    pedidos_list = [pedido.to_dict() for pedido in pagination.items]
+    return jsonify({
+        "status": "success",
+        "pedidos": pedidos_list,
+        "data": pedidos_list,
+        "pagination": {
+            "page": page,
+            "per_page": per_page,
+            "total": pagination.total,
+            "pages": pagination.pages
+        }
+    }), 200
+
+
+@pedido_bp.route("/me/<int:id>", methods=["GET"])
+@jwt_required()
+def obter_meu_pedido(id):
+    """Obtém um pedido específico do usuário logado."""
+    current_user_id = get_jwt_identity()
+    pedido = Pedido.query.filter_by(id=id, cliente_id=current_user_id).first()
+    
+    if not pedido:
+        return jsonify({
+            "status": "error",
+            "message": "Pedido não encontrado."
+        }), 404
+    
+    return jsonify({
+        "status": "success",
+        "data": pedido.to_dict()
+    }), 200
+
+
+@pedido_bp.route("/me/cancelar/<int:id>", methods=["PATCH"])
+@jwt_required()
+def cancelar_meu_pedido(id):
+    """Cancela um pedido do usuário logado (se permitido)."""
+    current_user_id = get_jwt_identity()
+    pedido = Pedido.query.filter_by(id=id, cliente_id=current_user_id).first()
+    
+    if not pedido:
+        return jsonify({
+            "status": "error",
+            "message": "Pedido não encontrado."
+        }), 404
+
+    if not pedido.pode_cancelar():
+        return jsonify({
+            "status": "error",
+            "message": "Este pedido não pode mais ser cancelado."
+        }), 400
+
+    # Cancelar pedido (sem integração de pagamento online)
+    pedido.status = StatusPedido.CANCELADO
+    pedido.data_atualizacao = datetime.now(timezone.utc)
+    
+    try:
+        db.session.commit()
+        return jsonify({
+            "status": "success",
+            "message": "Pedido cancelado com sucesso.",
+            "data": pedido.to_dict()
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": f"Erro ao cancelar pedido: {str(e)}"
+        }), 500
+
+
+@pedido_bp.route("/criar", methods=["POST"])
+@jwt_required(optional=True)
+def criar_pedido():
+    """Cria um pedido para pagamento na entrega (sem pagamento online)."""
+    dados = request.json
+    current_user_id = get_jwt_identity()
+
+    # Validação básica de campos obrigatórios
+    required_fields = ["nome_cliente", "telefone", "itens", "forma_entrega"]
+    for field in required_fields:
+        if not dados.get(field):
+            return jsonify({
+                "status": "error",
+                "message": f"Campo obrigatório ausente: {field}"
+            }), 400
+
+    # Validar forma de entrega
+    if dados.get("forma_entrega") not in ["retirada", "entrega"]:
+        return jsonify({
+            "status": "error",
+            "message": "Forma de entrega inválida. Use 'retirada' ou 'entrega'."
+        }), 400
+
+    # Se for entrega, endereço é obrigatório
+    if dados.get("forma_entrega") == "entrega":
+        if not dados.get("endereco"):
+            return jsonify({
+                "status": "error",
+                "message": "Endereço é obrigatório para entrega."
+            }), 400
+
+    valor_total_calculado = 0
+    itens_pedido_info = []
+
+    # Validar itens e calcular total
+    for item_data in dados.get("itens", []):
+        esfiha_id = item_data.get("esfiha_id")
+        quantidade = item_data.get("quantidade", 1)
+
+        if not esfiha_id or not isinstance(quantidade, int) or quantidade <= 0:
+            return jsonify({
+                "status": "error",
+                "message": f"Item inválido: {item_data}"
+            }), 400
+
+        esfiha = Esfiha.query.get(esfiha_id)
+        if not esfiha:
+            return jsonify({
+                "status": "error",
+                "message": f"Esfiha ID {esfiha_id} não encontrada."
+            }), 404
+            
+        if not esfiha.disponivel:
+            return jsonify({
+                "status": "error",
+                "message": f"Esfiha '{esfiha.nome}' não está disponível no momento."
+            }), 400
+
+        subtotal = esfiha.preco * quantidade
+        valor_total_calculado += subtotal
+        itens_pedido_info.append({
+            "esfiha_id": esfiha_id,
+            "quantidade": quantidade,
+            "preco_unitario": esfiha.preco,
+            "observacoes": item_data.get("observacoes", "")
+        })
+
+    if not itens_pedido_info:
+        return jsonify({
+            "status": "error",
+            "message": "O pedido deve conter pelo menos um item."
+        }), 400
+
+    # Calcular taxa de entrega se for entrega
+    taxa_entrega = 0.0
+    distancia_km = None
+    duracao_estimada = None
+    
+    if dados.get("forma_entrega") == "entrega":
+        # Se distância foi fornecida manualmente, usar ela
+        if dados.get("distancia_km"):
+            try:
+                distancia_km = float(dados.get("distancia_km"))
+            except (ValueError, TypeError):
+                return jsonify({
+                    "status": "error",
+                    "message": "Distância inválida. Deve ser um número."
+                }), 400
+        else:
+            # Calcular distância automaticamente usando Google Maps
+            endereco_cliente = dados.get("endereco")
+            resultado_maps = GoogleMapsService.calcular_distancia(endereco_cliente)
+            
+            if resultado_maps["erro"]:
+                return jsonify({
+                    "status": "error",
+                    "message": f"Erro ao calcular distância: {resultado_maps['erro']}"
+                }), 400
+            
+            distancia_km = resultado_maps["distancia_km"]
+            duracao_estimada = resultado_maps["duracao_texto"]
+        
+        # Calcular taxa baseada na distância
+        resultado_taxa = DeliveryFeeCalculator.calcular_taxa(distancia_km)
+        
+        if resultado_taxa["erro"]:
+            return jsonify({
+                "status": "error",
+                "message": resultado_taxa["erro"]
+            }), 400
+        
+        taxa_entrega = resultado_taxa["taxa"]
+    
+    # Calcular valor total (produtos + taxa de entrega)
+    valor_total_final = round(valor_total_calculado + taxa_entrega, 2)
+
+    # Criar Pedido
+    novo_pedido = Pedido(
+        cliente_id=current_user_id,
+        nome_cliente=dados.get("nome_cliente"),
+        telefone=dados.get("telefone"),
+        endereco=dados.get("endereco"),
+        forma_entrega=dados.get("forma_entrega"),
+        distancia_km=distancia_km,
+        taxa_entrega=taxa_entrega,
+        status=StatusPedido.PENDENTE,
+        valor_total=valor_total_final,
+        observacoes=dados.get("observacoes", ""),
+        forma_pagamento=dados.get("forma_pagamento", "dinheiro"),
+        troco_para=dados.get("troco_para")
+    )
+    db.session.add(novo_pedido)
+    db.session.flush()
+
+    # Adicionar itens ao pedido
+    for item_info in itens_pedido_info:
+        novo_item = ItemPedido(
+            pedido_id=novo_pedido.id,
+            esfiha_id=item_info["esfiha_id"],
+            quantidade=item_info["quantidade"],
+            preco_unitario=item_info["preco_unitario"],
+            observacoes=item_info["observacoes"]
+        )
+        db.session.add(novo_item)
+
+    try:
+        db.session.commit()
+
+        return jsonify({
+            "status": "success",
+            "message": "Pedido criado com sucesso! Pagamento na entrega.",
+            "data": novo_pedido.to_dict()
+        }), 201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": f"Erro ao criar pedido: {str(e)}"
+        }), 500
+
+
+# Webhook do Stripe removido - Sistema usa pagamento na entrega
+
+
+# ==============================
+# ROTAS PARA ADMIN
+# ==============================
+
+@pedido_bp.route("/admin", methods=["GET"])
+@admin_required
+def listar_todos_pedidos_admin():
+    """Lista todos os pedidos com filtros e paginação (Admin)."""
+    # Parâmetros de paginação
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 20, type=int)
+    
+    # Filtros
+    status_filter = request.args.get('status', None)
+    cliente_id_filter = request.args.get('cliente_id', None, type=int)
+    forma_entrega_filter = request.args.get('forma_entrega', None)
+    data_inicio = request.args.get('data_inicio', None)
+    data_fim = request.args.get('data_fim', None)
+    search = request.args.get('search', None)
+    
+    query = Pedido.query
+    
+    # Aplicar filtros
+    if status_filter:
+        query = query.filter_by(status=status_filter)
+    
+    if cliente_id_filter:
+        query = query.filter_by(cliente_id=cliente_id_filter)
+    
+    if forma_entrega_filter:
+        query = query.filter_by(forma_entrega=forma_entrega_filter)
+    
+    if data_inicio:
+        try:
+            data_inicio_dt = datetime.fromisoformat(data_inicio)
+            query = query.filter(Pedido.data_criacao >= data_inicio_dt)
+        except ValueError:
+            pass
+    
+    if data_fim:
+        try:
+            data_fim_dt = datetime.fromisoformat(data_fim)
+            query = query.filter(Pedido.data_criacao <= data_fim_dt)
+        except ValueError:
+            pass
+    
+    if search:
+        query = query.filter(
+            (Pedido.nome_cliente.contains(search)) |
+            (Pedido.telefone.contains(search)) |
+            (Pedido.id == int(search) if search.isdigit() else False)
+        )
+    
+    # Paginação
+    pagination = query.order_by(Pedido.data_criacao.desc()).paginate(
+        page=page, per_page=per_page, error_out=False
+    )
+    
+    pedidos_list = [pedido.to_dict() for pedido in pagination.items]
+    return jsonify({
+        "status": "success",
+        "pedidos": pedidos_list,
+        "data": pedidos_list,
+        "pagination": {
+            "page": page,
+            "per_page": per_page,
+            "total": pagination.total,
+            "pages": pagination.pages
+        }
+    }), 200
+
+
+@pedido_bp.route("/admin/<int:pedido_id>", methods=["GET"])
+@admin_required
+def obter_pedido_admin(pedido_id):
+    """Obtém um pedido específico pelo ID (Admin)."""
+    pedido = Pedido.query.get(pedido_id)
+    
+    if not pedido:
+        return jsonify({
+            "status": "error",
+            "message": "Pedido não encontrado."
+        }), 404
+    
+    return jsonify({
+        "status": "success",
+        "data": pedido.to_dict()
+    }), 200
+
+
+@pedido_bp.route("/admin/<int:pedido_id>/status", methods=["PUT"])
+@admin_required
+def atualizar_status_admin(pedido_id):
+    """Atualiza o status de um pedido (Admin)."""
+    pedido = Pedido.query.get(pedido_id)
+    
+    if not pedido:
+        return jsonify({
+            "status": "error",
+            "message": "Pedido não encontrado."
+        }), 404
+    
+    dados = request.json
+
+    if "status" not in dados:
+        return jsonify({
+            "status": "error",
+            "message": "Status não fornecido."
+        }), 400
+
+    novo_status = dados["status"]
+    status_validos = [
+        StatusPedido.PENDENTE, 
+        StatusPedido.APROVADO, 
+        StatusPedido.RECUSADO,
+        StatusPedido.EM_PREPARACAO, 
+        StatusPedido.A_CAMINHO, 
+        StatusPedido.PRONTO_RETIRADA,
+        StatusPedido.ENTREGUE, 
+        StatusPedido.CANCELADO, 
+        StatusPedido.FALHA_PAGAMENTO,
+        StatusPedido.PAGAMENTO_PENDENTE
+    ]
+
+    if novo_status not in status_validos:
+        return jsonify({
+            "status": "error",
+            "message": f"Status inválido. Status válidos: {', '.join(status_validos)}"
+        }), 400
+
+    pedido.status = novo_status
+    pedido.data_atualizacao = datetime.now(timezone.utc)
+    
+    try:
+        db.session.commit()
+        return jsonify({
+            "status": "success",
+            "message": "Status do pedido atualizado com sucesso.",
+            "data": pedido.to_dict()
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": f"Erro ao atualizar status: {str(e)}"
+        }), 500
+
+
+@pedido_bp.route("/admin/<int:pedido_id>", methods=["DELETE"])
+@admin_required
+def deletar_pedido_admin(pedido_id):
+    """Deleta um pedido (Admin) - use com cautela."""
+    pedido = Pedido.query.get(pedido_id)
+    
+    if not pedido:
+        return jsonify({
+            "status": "error",
+            "message": "Pedido não encontrado."
+        }), 404
+    
+    try:
+        db.session.delete(pedido)
+        db.session.commit()
+        return jsonify({
+            "status": "success",
+            "message": "Pedido deletado com sucesso."
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": f"Erro ao deletar pedido: {str(e)}"
+        }), 500
+
+
+@pedido_bp.route("/admin/estatisticas", methods=["GET"])
+@admin_required
+def obter_estatisticas_admin():
+    """Retorna estatísticas gerais dos pedidos (Admin)."""
+    try:
+        total_pedidos = Pedido.query.count()
+        pedidos_pendentes = Pedido.query.filter_by(status=StatusPedido.PENDENTE).count()
+        pedidos_em_preparacao = Pedido.query.filter_by(status=StatusPedido.EM_PREPARACAO).count()
+        pedidos_entregues = Pedido.query.filter_by(status=StatusPedido.ENTREGUE).count()
+        pedidos_cancelados = Pedido.query.filter_by(status=StatusPedido.CANCELADO).count()
+        
+        # Calcular valor total de pedidos entregues
+        valor_total_entregues = db.session.query(
+            db.func.sum(Pedido.valor_total)
+        ).filter_by(status=StatusPedido.ENTREGUE).scalar() or 0
+        
+        return jsonify({
+            "status": "success",
+            "data": {
+                "total_pedidos": total_pedidos,
+                "pedidos_pendentes": pedidos_pendentes,
+                "pedidos_em_preparacao": pedidos_em_preparacao,
+                "pedidos_entregues": pedidos_entregues,
+                "pedidos_cancelados": pedidos_cancelados,
+                "valor_total_entregues": round(valor_total_entregues, 2)
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Erro ao obter estatísticas: {str(e)}"
+        }), 500

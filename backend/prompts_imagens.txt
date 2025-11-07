@@ -1,0 +1,2570 @@
+
+================================================================================
+BATATA RECHEADA
+================================================================================
+
+ID: 67
+Nome: BATATA FRITA RECHEADA GRANDE
+Prompt: Professional food photography: porção de batatas fritas com cobertura e recheio, em prato branco, batata frita recheada grande, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/67_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 66
+Nome: BATATA FRITA RECHEADA PEQUENA
+Prompt: Professional food photography: porção de batatas fritas com cobertura e recheio, em prato branco, batata frita recheada pequena, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/66_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+BATATA SIMPLES
+================================================================================
+
+ID: 64
+Nome: BATATA FRITA GRANDE
+Prompt: Professional food photography: porção de batatas fritas crocantes douradas em prato branco, fundo limpo, batata frita grande, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/64_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 65
+Nome: BATATA FRITA PEQUENA
+Prompt: Professional food photography: porção de batatas fritas crocantes douradas em prato branco, fundo limpo, batata frita pequena, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/65_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+BEBIDAS
+================================================================================
+
+ID: 486
+Nome: Coca-Cola 2L
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, coca-cola 2l, with refrigerante coca-cola 2 litros, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/486_20251106_101016.jpeg
+--------------------------------------------------------------------------------
+ID: 487
+Nome: Coca-Cola Lata 350ml
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, coca-cola lata 350ml, with refrigerante coca-cola lata 350ml, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/487_20251106_101016.jpeg
+--------------------------------------------------------------------------------
+ID: 490
+Nome: Fanta Laranja 2L
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, fanta laranja 2l, with refrigerante fanta laranja 2 litros, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/490_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 491
+Nome: Fanta Laranja Lata 350ml
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, fanta laranja lata 350ml, with refrigerante fanta laranja lata 350ml, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/491_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 488
+Nome: Guaraná Antarctica 2L
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, guaraná antarctica 2l, with refrigerante guaraná antarctica 2 litros, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/488_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 489
+Nome: Guaraná Antarctica Lata 350ml
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, guaraná antarctica lata 350ml, with refrigerante guaraná antarctica lata 350ml, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/489_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 492
+Nome: Sprite 2L
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, sprite 2l, with refrigerante sprite 2 litros, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/492_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 494
+Nome: Suco de Laranja Natural 500ml
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, suco de laranja natural 500ml, with suco de laranja natural 500ml, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/494_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 495
+Nome: Suco de Limão Natural 500ml
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, suco de limão natural 500ml, with suco de limão natural 500ml, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/495_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 493
+Nome: Água Mineral 500ml
+Prompt: Professional food photography: comida brasileira em prato branco, fundo limpo, água mineral 500ml, with água mineral sem gás 500ml, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/493_20251106_101016.webp
+--------------------------------------------------------------------------------
+
+================================================================================
+BEIRUTES
+================================================================================
+
+ID: 49
+Nome: AGADIR
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, agadir, with calabresa fatiada, mussarela, tomate, cebola, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/49_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 48
+Nome: ALADIM
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, aladim, with presunto, mussarela, cebola, maionese e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/48_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 50
+Nome: BRÓCOLIS
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, brócolis, with peito de peru, brócolis, palmito, milho muçarela, cebola, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/50_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 51
+Nome: DA CASA
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, da casa, with carne seca, muçarela, ovos, presunto, tomate, cebola, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/51_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 52
+Nome: EGÍPCIO
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, egípcio, with salame, presunto, provolone, mussarela, cebola, maionese, tomate e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/52_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 53
+Nome: FAQUIR
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, faquir, with atum temperado, mussarela, cebola, maionese e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/53_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 54
+Nome: FARAÓ
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, faraó, with rosbife de panela, mussarela, cebola, maionese e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/54_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 55
+Nome: IPIRANGA
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, ipiranga, with frango desfiado, mussarela, cheddar, milho, maionese, tomate e cebola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/55_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 56
+Nome: KALIFA
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, kalifa, with filé mignon, mussarela, tomate, cebola, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/56_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 57
+Nome: KALIFA ESPECIAL
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, kalifa especial, with filé mignon, mussarela, tomate, cebola, presunto, bacon, ovos, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/57_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 58
+Nome: KARNAK
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, karnak, with peito de peru, champignon, mussarela, tomate, cebola, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/58_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 59
+Nome: LIBANÊS
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, libanês, with presunto, mussarela, rosbife de panela, escarola temperada, tomate, cebola, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/59_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 60
+Nome: MIQUEIRINOS
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, miqueirinos, with lombinho, bacon, mussarela, cebola, tomate, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/60_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 61
+Nome: NILO
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, nilo, with presunto, bacon, ovos, mussarela, cebola, tomate, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/61_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 62
+Nome: TEBAS
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, tebas, with frango desfiado, champignon, mussarela, cebola, tomate, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/62_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 63
+Nome: VEGETARIANO
+Prompt: Professional food photography: sanduíche beirute árabe cortado ao meio mostrando recheio, em prato branco, fundo limpo, vegetariano, with mussarela, milho, palmito, escarola, tomate, cebola, maionese e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/63_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+ESFIHAS DOCES
+================================================================================
+
+ID: 164
+Nome: BANANA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2243294082e96be631e117e528690132_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 165
+Nome: BRIGADEIRO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, brigadeiro, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/8adada0383a5189dda0df4697f700601_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 166
+Nome: CHOCOLATE
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/45c43d78ef3111eadc45963f66cf0e5e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 174
+Nome: CHOCOLATE BRANCO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/f7aa432c63ddea05c9881030ee86896d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 176
+Nome: CHOCOLATE BRANCO C/ ABACAXI
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate branco c/ abacaxi, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/72ae64cbfc281ff2f048b4a72d1cd436_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 177
+Nome: CHOCOLATE BRANCO C/ MM'S
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate branco c/ mm's, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/bf5e84761c7248e713b13df0d4d83cf3_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 175
+Nome: CHOCOLATE BRANCO C/ MORANGO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate branco c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/b0cc47b82e255515e333ff3ced47e9bf_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 178
+Nome: CHOCOLATE BRANCO C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate branco c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/7aea9dd2b1a0d2d22f975d379acf722b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 169
+Nome: CHOCOLATE C/ ABACAXI
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate c/ abacaxi, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/44099b2cfe084dfd33c956c6cb9b5386_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 170
+Nome: CHOCOLATE C/ BANANA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate c/ banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/25ff75b98805ea0a18a7e424feefd9ac_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 173
+Nome: CHOCOLATE C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/6a58989a909c5e6b68f9213f3b0b3e14_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 167
+Nome: CHOCOLATE C/ KIT KET
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate c/ kit ket, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/f9e912644352e1a6636263d6fba300ca_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 171
+Nome: CHOCOLATE C/ LEITE NINHO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate c/ leite ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/5738d23a2d93ac6e54aec5a4e92a67c5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 172
+Nome: CHOCOLATE C/ MM'S
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate c/ mm's, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/b4ae436e5d117874818aabbfc59e5baf_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 168
+Nome: CHOCOLATE C/ MORANGO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, chocolate c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/8d71e673261f1a98157c0deaeda08d98_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 183
+Nome: CREME DE AVELÃ
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, creme de avelã, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/08cd99b296b72caa597f34dbadf86e90_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 187
+Nome: CREME DE AVELÃ C/ BANANA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, creme de avelã c/ banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/5903cdc8fbc6275f99d850e5fe780f58_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 184
+Nome: CREME DE AVELÃ C/ KIT KAT
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, creme de avelã c/ kit kat, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/be50784d1d0ea2881528387fadd205d7_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 186
+Nome: CREME DE AVELÃ C/ LEITE NINHO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, creme de avelã c/ leite ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0a25405bfdfd65ee089203591fc53283_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 188
+Nome: CREME DE AVELÃ C/ MM'S
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, creme de avelã c/ mm's, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/f20fc5aa89837a4b55570b7e4cfdaa87_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 185
+Nome: CREME DE AVELÃ C/ MORANGO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, creme de avelã c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/c70fc9e7da2e977e14206180cc83a311_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 179
+Nome: DOCE DE LEITE
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, doce de leite, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0367c225a4e4cf8b8e5e71f94d1f69fb_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 180
+Nome: DOCE DE LEITE C/ MORANGO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, doce de leite c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/e0df845aa0a2d09ed4382e317d9bb44f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 181
+Nome: DOCE DE LEITE C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, doce de leite c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/7db182109da8b1a02c11245f31f704f8_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 182
+Nome: DOCE DE LEITE C/PAÇOCA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, doce de leite c/paçoca, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/791377751e391629268fa8abeb298cb1_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 190
+Nome: PRESTÍGIO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, prestígio, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0685a7fa218a08cb4a5f86113fae174f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 192
+Nome: QUEIJO FRESCO C/ GOIABADA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, queijo fresco c/ goiabada, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/c37d253d020a9ce9fea791df47c6647d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 191
+Nome: QUINDER OVO
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, quinder ovo, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2c934483c77abe0f98db4972a7429fab_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 189
+Nome: ROMEU E JULIETA
+Prompt: Professional food photography: esfiha árabe doce com cobertura, formato triangular, em prato branco, romeu e julieta, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/e2c44ac77849de7ac6dcc88a875847c3_20251106_094826.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+ESFIHAS ESPECIAIS
+================================================================================
+
+ID: 203
+Nome: CARNE SECA C/ CATUPIRY, BRÓCOLIS E BACON
+Prompt: Professional food photography: esfiha especial gourmet com recheio premium, formato triangular, em prato branco, carne seca c/ catupiry, brócolis e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/25f987b78ed6109172baf3f680f62200_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 204
+Nome: CARNE SECA C/ MUSSARELA, BACON E OVO
+Prompt: Professional food photography: esfiha especial gourmet com recheio premium, formato triangular, em prato branco, carne seca c/ mussarela, bacon e ovo, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/db366e44690e8a3597e18e85347f0b41_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 202
+Nome: CARNE SECA C/ MUSSARELA, BRÓCOLIS E BACON
+Prompt: Professional food photography: esfiha especial gourmet com recheio premium, formato triangular, em prato branco, carne seca c/ mussarela, brócolis e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/38c4a4c5349c3f84fed8d3e3fa8b12f1_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 201
+Nome: FILÉ MIGNON C/ GORGONZOLA
+Prompt: Professional food photography: esfiha especial gourmet com recheio premium, formato triangular, em prato branco, filé mignon c/ gorgonzola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/6ab61521421bec70a52abb12153e0c37_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 200
+Nome: MODA DA CASA (Mussarela, catupiry, presunto e bacon)
+Prompt: Professional food photography: esfiha especial gourmet com recheio premium, formato triangular, em prato branco, moda da casa (mussarela, catupiry, presunto e bacon), high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/7815fc85129738826d75d1d4684ed7bf_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 205
+Nome: QUATRO QUEIJOS C/ BACON
+Prompt: Professional food photography: esfiha especial gourmet com recheio premium, formato triangular, em prato branco, quatro queijos c/ bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0fb472c4ad10bd3f8f143af5b42130c7_20251106_094826.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+ESFIHAS SALGADAS
+================================================================================
+
+ID: 74
+Nome: ALHO C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, alho c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/485b3483cf8eae2dac9e607bce426cee_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 73
+Nome: ALHO C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, alho c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/53e08dcdbedf02035eb5ac926f363115_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 76
+Nome: ALICHE C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, aliche c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/10bd8059a611978c396dc69e3143d112_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 75
+Nome: ALICHE C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, aliche c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/773811a2ccd1026323d5e28c919f0349_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 77
+Nome: ATUM
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, atum, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/6dd65ac6f0c207517f7e1bf675a78312_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 79
+Nome: ATUM C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, atum c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/300ed360d5b8ad79d5577c1086cbf4bc_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 80
+Nome: ATUM C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, atum c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d65cb1996c5fe28500c3b94017098762_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 78
+Nome: ATUM C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, atum c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/6aca80654beeabd638a4b9104ef7e81e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 81
+Nome: ATUM C/ QUEIJO FRESCO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, atum c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d2c1ff30a9917f18c706e7d27c47bf57_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 85
+Nome: BACON C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, bacon c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/e1e3b18fc00c182050ff3cf87feabb37_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 86
+Nome: BACON C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, bacon c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/852e879676714e7a331eafd47b503a90_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 84
+Nome: BACON C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, bacon c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/efb2ec853045a85503d638bc1663f9ab_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 82
+Nome: BAIANA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, baiana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/9939e4de0fb75b65c5271c9023c4f5a1_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 83
+Nome: BAURU
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, bauru, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/66a4f79c2130d5ea3ebb35d973768971_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 88
+Nome: BERINJELA C/ CATUPIRY E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, berinjela c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/41c8946b8d8dea14b919f427de99bcad_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 87
+Nome: BERINJELA C/ MUSSARELA E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, berinjela c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/e2117dddbd0058c7bb696ee210a9af4c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 89
+Nome: BERINJELA C/ MUSSARELA, CATUPIRY E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, berinjela c/ mussarela, catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/4cf3c4da2b46d011c77ed16d9e7eb4d5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 92
+Nome: BRÓCOLIS C/ BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, brócolis c/ bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3d7ff59014b7e81d06df9583f0c33a9b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 91
+Nome: BRÓCOLIS C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, brócolis c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/82cea1202029200106d4ca4c2137f503_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 94
+Nome: BRÓCOLIS C/ CATUPIRY E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, brócolis c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/622e905ecccb67d2bd80e312e7ccb918_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 90
+Nome: BRÓCOLIS C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, brócolis c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/677da02728e0242ba1eee43d923eb461_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 93
+Nome: BRÓCOLIS C/ MUSSARELA E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, brócolis c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/fc2bf8a9ac3b8e5d564b0ac391f9b9d9_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 101
+Nome: CALABRESA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, calabresa, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/fcc9879679122ba18546a572d5310bb2_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 103
+Nome: CALABRESA C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, calabresa c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/5046af3a52f02339f3eb2ca00788b404_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 104
+Nome: CALABRESA C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, calabresa c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/27e333a596caf5e1d2ffc8b97909ba11_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 102
+Nome: CALABRESA C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, calabresa c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3733cf0659c9f988caf4d16daeed418f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 105
+Nome: CALABRESA C/ PROVOLONE
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, calabresa c/ provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/6dde24a7930f40d8b4a1cda7f3007f10_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 95
+Nome: CARNE
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/377419df0cbdeb0f2acce73d3b38ca43_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 97
+Nome: CARNE C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ed63532a122e30670a922636d65d7019_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 100
+Nome: CARNE C/ CATUPIRY E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/f98889e211a62cb3f2243e5176496bc0_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 98
+Nome: CARNE C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/babc50f4b226d24f2b58ba66e65bf882_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 96
+Nome: CARNE C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3251fc4f1bdead4ae73fd17400949d8c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 99
+Nome: CARNE C/ MUSSARELA E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/cd016862a417030a4ce8a7b50fcecdf8_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 108
+Nome: CARNE SECA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne seca, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2dba1647d2263e4d652e8827eaf2ce40_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 110
+Nome: CARNE SECA C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne seca c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/7f6db7f1828140351b8d15f0a5e794f7_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 111
+Nome: CARNE SECA C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne seca c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/9a296a2554bf752e7104254b3976868c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 109
+Nome: CARNE SECA C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, carne seca c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/7a51d51e34754c273d8a7d985ae9189c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 107
+Nome: CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/22566c6b0b539bea8117574b845ca392_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 106
+Nome: CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d0043596a443ea51287aecc7c308cd25_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 114
+Nome: CINCO QUEIJOS
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, cinco queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/75ffb5354115dd6d1c1727d1565c10c5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 112
+Nome: DOIS QUEIJOS
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, dois queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/557c5f554a72f28eb18bf445658990a4_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 113
+Nome: ESCAROLA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, escarola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/052f169439dbe58d00e036ef2e3a46dd_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 121
+Nome: ESCAROLA C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, escarola c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/9964420f6a87d011987c845f23f1c96f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 125
+Nome: ESCAROLA C/ CATUPIRY E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, escarola c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/f995737758bbd34b9ff79d08195fefd5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 122
+Nome: ESCAROLA C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, escarola c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d53d1922bb47f07450b63161d549dc89_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 120
+Nome: ESCAROLA C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, escarola c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/83a2deb8e1662ceec39bb0db6facdb12_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 124
+Nome: ESCAROLA C/ MUSSARELA E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, escarola c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3dded4c4a322dba0826f18b4fd24b23b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 123
+Nome: ESCAROLA C/ QUEIJO FRESCO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, escarola c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/bdc73e9e9e10083177a1f1a2d499b908_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 135
+Nome: FILÉ MIGNON C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, filé mignon c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3f702b60066b3602963d7403475f9a6f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 136
+Nome: FILÉ MIGNON C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, filé mignon c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/a83e84255a5d1059f59e5eaa8065c1a9_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 134
+Nome: FILÉ MIGNON C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, filé mignon c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/26f91166bd27864a39b0febddfaf17f5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 126
+Nome: FRANGO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/bfb996e975cca7d51d81d1fd2875c1e4_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 128
+Nome: FRANGO C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/69d9609c57d112ca0f7304ba18817c32_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 133
+Nome: FRANGO C/ CATUPIRY E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/720ae3591746d5488147ccabc29afe86_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 131
+Nome: FRANGO C/ CATUPIRY E MILHO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango c/ catupiry e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/003af50576c34375c9b4e083bf0abf8d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 129
+Nome: FRANGO C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/07df871e87f35cc51c6750ce2e3212e3_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 127
+Nome: FRANGO C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1c50aab430d9714031ed6b52ebb2c965_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 132
+Nome: FRANGO C/ MUSSARELA E BACON
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d8c71b3f29f9e9a0cbb4875ec35d291d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 130
+Nome: FRANGO C/ MUSSARELA E MILHO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, frango c/ mussarela e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3f50fc3b231efb91ac1b9d6dc38d73fd_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 137
+Nome: GORGONZOLA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, gorgonzola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/eb3efaa60be48a148f98016af8428b36_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 139
+Nome: LOMBO C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, lombo c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/b81e0b74500faef14a8b332be5ab1870_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 140
+Nome: LOMBO C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, lombo c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1af341c7c1d7001dab04aab6efb9147a_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 138
+Nome: LOMBO C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, lombo c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2f82a060bcc04b8b63d613ac86cdd1f8_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 141
+Nome: LOMBO C/ QUEIJO FRESCO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, lombo c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3427a9701642d67cc185260e1f2f5ab6_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 146
+Nome: MARGUERITA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, marguerita, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ab72cf6c3ff1344bf06a6c9518b87f04_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 145
+Nome: MILHO C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, milho c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/73763c3de63fee0e158ee811a917b6ca_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 143
+Nome: MILHO C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, milho c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/87e7ae35a07aceb9e966f6e19111879d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 142
+Nome: MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/bd8108a788aba7bfe50737b1c3a97a3e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 144
+Nome: MUSSARELA C/ TOMATE SECO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, mussarela c/ tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/41df53e579786d21a87dfb6cff2a1b7a_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 147
+Nome: NAPOLITANA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, napolitana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/385b67d40a4543adfd1ec7337c236a02_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 153
+Nome: PALMITO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, palmito, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/5d6e40837fda09a1417a49aa09cfe4a0_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 155
+Nome: PALMITO C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, palmito c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/94be04ef6f466cfc1fbade2c86b6c62d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 156
+Nome: PALMITO C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, palmito c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/38bae2d02e47004b7fe89fda4c0776f0_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 154
+Nome: PALMITO C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, palmito c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2cf1d7c50bc8d3e1d123ea00bf7f3d48_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 161
+Nome: PEITO DE PERU C/ CATUPIR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, peito de peru c/ catupir, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3114d44b8ec2ba367eb2d0c066781163_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 162
+Nome: PEITO DE PERU C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, peito de peru c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/73fd0e33dfca538471868a6477a1ad17_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 160
+Nome: PEITO DE PERU C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, peito de peru c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/de9cd7d43ee71dee47446eae68b0903a_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 163
+Nome: PEITO DE PERU C/ QUEIJO FRESCO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, peito de peru c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/183b7197d85a332fe0650ea8ce839edf_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 150
+Nome: PEPPERONI C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, pepperoni c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/5f78fdee93f65a5560c760944778b5d1_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 151
+Nome: PEPPERONI C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, pepperoni c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ad085e8b14b245aafba8153761357395_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 149
+Nome: PEPPERONI C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, pepperoni c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0142a2653b6591dc86f8dc2073471000_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 152
+Nome: PIZZA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, pizza, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/fae606588680b677dc0112dab3f1bf9c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 148
+Nome: PORTUGUESA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, portuguesa, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/02860e7493239e0badfb69ad044d4964_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 157
+Nome: PROVOLONE
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/716b5688f8a09339776cf71729848400_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 159
+Nome: QUATRO QUEIJOS
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, quatro queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1238c35bd1eda07bdfb91c8958e45bc1_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 158
+Nome: QUEIJO FRESCO
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/8e9391ecee4774c71272d771038441c4_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 116
+Nome: SALAME C/ CATUPIRY
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, salame c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2daa1579c6026d18927f09e9c79bca4b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 117
+Nome: SALAME C/ CHEDDAR
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, salame c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/bad79c0798223eb1acafdd5938f5f0a7_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 115
+Nome: SALAME C/ MUSSARELA
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, salame c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/09d33ce58dc2779a02cf344e903a2d9f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 118
+Nome: SALAME C/ PROVOLONE
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, salame c/ provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d2223db1cca737cfe79d78b137ae0469_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 119
+Nome: TRÊS QUEIJOS
+Prompt: Professional food photography: esfiha árabe aberta salgada com recheio visível, formato triangular, em prato branco, três queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/e59294dcef1213dc73df58145f580346_20251106_094826.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+ESFIHAS VEGETARIANAS
+================================================================================
+
+ID: 194
+Nome: BRÓCOLIS C/ QUEIJO BRANCO
+Prompt: Professional food photography: esfiha vegetariana com legumes frescos, formato triangular, em prato branco, brócolis c/ queijo branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ccf3af84aa21e2a5ef7df2796f25956a_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 199
+Nome: CHAMPGNON C/ QUEIJO BRANCO E TOMATE
+Prompt: Professional food photography: esfiha vegetariana com legumes frescos, formato triangular, em prato branco, champgnon c/ queijo branco e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1e5c3fdbdb10f3577d5ad61d5cf38d59_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 198
+Nome: CHAMPIGNON C/ PALMITO E MILHO
+Prompt: Professional food photography: esfiha vegetariana com legumes frescos, formato triangular, em prato branco, champignon c/ palmito e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/96cde9fa12b70385030e2ccf80ddeb46_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 197
+Nome: ESCAROLA C/ TOMATE SECO
+Prompt: Professional food photography: esfiha vegetariana com legumes frescos, formato triangular, em prato branco, escarola c/ tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2838a05d69e33964c27e702d5559c422_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 196
+Nome: PALMITO C/ MILHO
+Prompt: Professional food photography: esfiha vegetariana com legumes frescos, formato triangular, em prato branco, palmito c/ milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/643557812bfe2f30dfe1f27ee387062f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 193
+Nome: PALMITO C/ QUEIJO BRANCO
+Prompt: Professional food photography: esfiha vegetariana com legumes frescos, formato triangular, em prato branco, palmito c/ queijo branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/694ab4b333bb3c2cac190ac33628a7b2_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 195
+Nome: PALMITO E TOMATE SECO
+Prompt: Professional food photography: esfiha vegetariana com legumes frescos, formato triangular, em prato branco, palmito e tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1aed7b7177b22ce896cd9229d80ba5ae_20251106_094826.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+FOGAZZES DOCES
+================================================================================
+
+ID: 425
+Nome: BANANA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, banana, with fogazza de banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/425_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 426
+Nome: BRIGADEIRO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, brigadeiro, with fogazza de brigadeiro, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/426_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 427
+Nome: CHOCOLATE
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate, with fogazza de chocolate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/427_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 435
+Nome: CHOCOLATE BRANCO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate branco, with fogazza de chocolate branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/435_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 437
+Nome: CHOCOLATE BRANCO C/ ABACAXI
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate branco c/ abacaxi, with fogazza de chocolate branco c/ abacaxi, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/437_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 438
+Nome: CHOCOLATE BRANCO C/ MM’S
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate branco c/ mm’s, with fogazza de chocolate branco c/ mm’s, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/438_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 436
+Nome: CHOCOLATE BRANCO C/ MORANGO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate branco c/ morango, with fogazza de chocolate branco c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/436_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 439
+Nome: CHOCOLATE BRANCO C/ MUSSARELA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate branco c/ mussarela, with fogazza de chocolate branco c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/439_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 430
+Nome: CHOCOLATE C/ ABACAXI
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate c/ abacaxi, with fogazza de chocolate c/ abacaxi, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/430_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 431
+Nome: CHOCOLATE C/ BANANA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate c/ banana, with fogazza de chocolate c/ banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/431_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 434
+Nome: CHOCOLATE C/ CATUPIRY
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate c/ catupiry, with fogazza de chocolate c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/434_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 428
+Nome: CHOCOLATE C/ KIT KAT
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate c/ kit kat, with fogazza de chocolate c/ kit kat, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/428_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 432
+Nome: CHOCOLATE C/ LEITE NINHO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate c/ leite ninho, with fogazza de chocolate c/ leite ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/432_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 433
+Nome: CHOCOLATE C/ MM’S
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate c/ mm’s, with fogazza de chocolate c/ mm’s, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/433_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 429
+Nome: CHOCOLATE C/ MORANGO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, chocolate c/ morango, with fogazza de chocolate c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/429_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 444
+Nome: CREME DE AVELÃ
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, creme de avelã, with fogazza de creme de avelã, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/444_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 448
+Nome: CREME DE AVELÃ C/ BANANA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, creme de avelã c/ banana, with fogazza de creme de avelã c/ banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/448_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 445
+Nome: CREME DE AVELÃ C/ KIT KAT
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, creme de avelã c/ kit kat, with fogazza de creme de avelã c/ kit kat, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/445_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 449
+Nome: CREME DE AVELÃ C/ MM’S
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, creme de avelã c/ mm’s, with fogazza de creme de avelã c/ mm’s, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/449_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 446
+Nome: CREME DE AVELÃ C/ MORANGO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, creme de avelã c/ morango, with fogazza de creme de avelã c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/446_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 447
+Nome: CREME DE AVELÃ C/ NINHO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, creme de avelã c/ ninho, with fogazza de creme de avelã c/ ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/447_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 440
+Nome: DOCE DE LEITE
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, doce de leite, with fogazza de doce de leite, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/440_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 441
+Nome: DOCE DE LEITE C/ MORANGO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, doce de leite c/ morango, with fogazza de doce de leite c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/441_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 442
+Nome: DOCE DE LEITE C/ MUSSARELA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, doce de leite c/ mussarela, with fogazza de doce de leite c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/442_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 443
+Nome: DOCE DE LEITE C/ PAÇOCA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, doce de leite c/ paçoca, with fogazza de doce de leite c/ paçoca, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/443_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 452
+Nome: KINDER OVO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, kinder ovo, with fogazza de kinder ovo, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/452_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 451
+Nome: PRESTÍGIO
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, prestígio, with fogazza de prestígio, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/451_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 453
+Nome: QUEIJO FRESCO C/ GOIABADA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, queijo fresco c/ goiabada, with fogazza de queijo fresco c/ goiabada, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/453_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 450
+Nome: ROMEU E JULIETA
+Prompt: Professional food photography: fogazza doce com cobertura, cortada, em prato branco, romeu e julieta, with fogazza de romeu e julieta, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/450_20251106_101016.webp
+--------------------------------------------------------------------------------
+
+================================================================================
+FOGAZZES ESPECIAIS
+================================================================================
+
+ID: 464
+Nome: CARNE SECA C/ CATUPIRY, BRÓCOLIS E BACON
+Prompt: Professional food photography: fogazza especial gourmet, cortada mostrando recheio, em prato branco, carne seca c/ catupiry, brócolis e bacon, with fogazza de carne seca c/ catupiry, brócolis e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/464_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 465
+Nome: CARNE SECA C/ MUSSARELA, BACON E OVO
+Prompt: Professional food photography: fogazza especial gourmet, cortada mostrando recheio, em prato branco, carne seca c/ mussarela, bacon e ovo, with fogazza de carne seca c/ mussarela, bacon e ovo, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/465_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 463
+Nome: CARNE SECA C/ MUSSARELA, BRÓCOLIS E BACON
+Prompt: Professional food photography: fogazza especial gourmet, cortada mostrando recheio, em prato branco, carne seca c/ mussarela, brócolis e bacon, with fogazza de carne seca c/ mussarela, brócolis e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/463_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 462
+Nome: FILÉ MIGNON C/ GORGONZOLA
+Prompt: Professional food photography: fogazza especial gourmet, cortada mostrando recheio, em prato branco, filé mignon c/ gorgonzola, with fogazza de filé mignon c/ gorgonzola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/462_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 461
+Nome: MODA DA CASA
+Prompt: Professional food photography: fogazza especial gourmet, cortada mostrando recheio, em prato branco, moda da casa, with fogazza de moda da casa, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/461_20251106_101016.webp
+--------------------------------------------------------------------------------
+ID: 466
+Nome: QUATRO QUEIJOS C/ BACON
+Prompt: Professional food photography: fogazza especial gourmet, cortada mostrando recheio, em prato branco, quatro queijos c/ bacon, with fogazza de quatro queijos c/ bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/466_20251106_101016.webp
+--------------------------------------------------------------------------------
+
+================================================================================
+FOGAZZES SALGADAS
+================================================================================
+
+ID: 340
+Nome: ALHO C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, alho c/ catupiry, with fogazza de alho c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/340_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 339
+Nome: ALHO C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, alho c/ mussarela, with fogazza de alho c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/339_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 342
+Nome: ALICHE C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, aliche c/ catupiry, with fogazza de aliche c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/342_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 341
+Nome: ALICHE C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, aliche c/ mussarela, with fogazza de aliche c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/341_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 343
+Nome: ATUM
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, atum, with fogazza de atum, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/343_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 345
+Nome: ATUM C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, atum c/ catupiry, with fogazza de atum c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/345_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 346
+Nome: ATUM C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, atum c/ cheddar, with fogazza de atum c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/346_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 344
+Nome: ATUM C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, atum c/ mussarela, with fogazza de atum c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/344_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 347
+Nome: ATUM C/ QUEIJO FRESCO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, atum c/ queijo fresco, with fogazza de atum c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/347_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 351
+Nome: BACON C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, bacon c/ catupiry, with fogazza de bacon c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/351_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 352
+Nome: BACON C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, bacon c/ cheddar, with fogazza de bacon c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/352_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 350
+Nome: BACON C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, bacon c/ mussarela, with fogazza de bacon c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/350_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 348
+Nome: BAIANA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, baiana, with fogazza de baiana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/348_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 349
+Nome: BAURU
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, bauru, with fogazza de bauru, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/349_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 354
+Nome: BERINJELA C/ CATUPIRY E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, berinjela c/ catupiry e bacon, with fogazza de berinjela c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/354_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 353
+Nome: BERINJELA C/ MUSSARELA E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, berinjela c/ mussarela e bacon, with fogazza de berinjela c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/353_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 355
+Nome: BERINJELA C/ MUSSARELA, CATUPIRY E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, berinjela c/ mussarela, catupiry e bacon, with fogazza de berinjela c/ mussarela, catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/355_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 358
+Nome: BRÓCOLIS C/ BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, brócolis c/ bacon, with fogazza de brócolis c/ bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/358_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 357
+Nome: BRÓCOLIS C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, brócolis c/ catupiry, with fogazza de brócolis c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/357_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 360
+Nome: BRÓCOLIS C/ CATUPIRY E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, brócolis c/ catupiry e bacon, with fogazza de brócolis c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/360_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 356
+Nome: BRÓCOLIS C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, brócolis c/ mussarela, with fogazza de brócolis c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/356_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 359
+Nome: BRÓCOLIS C/ MUSSARELA E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, brócolis c/ mussarela e bacon, with fogazza de brócolis c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/359_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 367
+Nome: CALABRESA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, calabresa, with fogazza de calabresa, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/367_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 369
+Nome: CALABRESA C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, calabresa c/ catupiry, with fogazza de calabresa c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/369_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 370
+Nome: CALABRESA C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, calabresa c/ cheddar, with fogazza de calabresa c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/370_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 368
+Nome: CALABRESA C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, calabresa c/ mussarela, with fogazza de calabresa c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/368_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 371
+Nome: CALABRESA C/ PROVOLONE
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, calabresa c/ provolone, with fogazza de calabresa c/ provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/371_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 361
+Nome: CARNE
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne, with fogazza de carne, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/361_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 363
+Nome: CARNE C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne c/ catupiry, with fogazza de carne c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/363_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 366
+Nome: CARNE C/ CATUPIRY E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne c/ catupiry e bacon, with fogazza de carne c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/366_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 364
+Nome: CARNE C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne c/ cheddar, with fogazza de carne c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/364_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 362
+Nome: CARNE C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne c/ mussarela, with fogazza de carne c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/362_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 365
+Nome: CARNE C/ MUSSARELA E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne c/ mussarela e bacon, with fogazza de carne c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/365_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 374
+Nome: CARNE SECA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne seca, with fogazza de carne seca, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/374_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 376
+Nome: CARNE SECA C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne seca c/ catupiry, with fogazza de carne seca c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/376_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 336
+Nome: CARNE SECA C/ CATUPIRY, BRÓCOLIS E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne seca c/ catupiry, brócolis e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/336_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 377
+Nome: CARNE SECA C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne seca c/ cheddar, with fogazza de carne seca c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/377_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 375
+Nome: CARNE SECA C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne seca c/ mussarela, with fogazza de carne seca c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/375_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 337
+Nome: CARNE SECA C/ MUSSARELA, BACON E OVO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne seca c/ mussarela, bacon e ovo, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/337_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 335
+Nome: CARNE SECA C/ MUSSARELA, BRÓCOLIS E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, carne seca c/ mussarela, brócolis e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/335_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 373
+Nome: CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, catupiry, with fogazza de catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/373_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 372
+Nome: CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, cheddar, with fogazza de cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/372_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 379
+Nome: CINCO QUEIJOS
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, cinco queijos, with fogazza de cinco queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/379_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 378
+Nome: DOIS QUEIJOS
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, dois queijos, with fogazza de dois queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/378_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 380
+Nome: ESCAROLA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, escarola, with fogazza de escarola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/380_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 382
+Nome: ESCAROLA C/ CATUPIRY E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, escarola c/ catupiry e bacon, with fogazza de escarola c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/382_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 381
+Nome: ESCAROLA C/ MUSSARELA E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, escarola c/ mussarela e bacon, with fogazza de escarola c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/381_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 392
+Nome: FILÉ MIGNON C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, filé mignon c/ catupiry, with fogazza de filé mignon c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/392_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 393
+Nome: FILÉ MIGNON C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, filé mignon c/ cheddar, with fogazza de filé mignon c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/393_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 334
+Nome: FILÉ MIGNON C/ GORGONZOLA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, filé mignon c/ gorgonzola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/334_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 391
+Nome: FILÉ MIGNON C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, filé mignon c/ mussarela, with fogazza de filé mignon c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/391_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 383
+Nome: FRANGO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango, with fogazza de frango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/383_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 385
+Nome: FRANGO C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango c/ catupiry, with fogazza de frango c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/385_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 390
+Nome: FRANGO C/ CATUPIRY E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango c/ catupiry e bacon, with fogazza de frango c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/390_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 388
+Nome: FRANGO C/ CATUPIRY E MILHO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango c/ catupiry e milho, with fogazza de frango c/ catupiry e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/388_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 386
+Nome: FRANGO C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango c/ cheddar, with fogazza de frango c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/386_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 384
+Nome: FRANGO C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango c/ mussarela, with fogazza de frango c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/384_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 389
+Nome: FRANGO C/ MUSSARELA E BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango c/ mussarela e bacon, with fogazza de frango c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/389_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 387
+Nome: FRANGO C/ MUSSARELA E MILHO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, frango c/ mussarela e milho, with fogazza de frango c/ mussarela e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/387_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 394
+Nome: GORGONZOLA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, gorgonzola, with fogazza de gorgonzola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/394_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 396
+Nome: LOMBO C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, lombo c/ catupiry, with fogazza de lombo c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/396_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 397
+Nome: LOMBO C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, lombo c/ cheddar, with fogazza de lombo c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/397_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 395
+Nome: LOMBO C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, lombo c/ mussarela, with fogazza de lombo c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/395_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 398
+Nome: LOMBO C/ QUEIJO FRESCO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, lombo c/ queijo fresco, with fogazza de lombo c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/398_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 403
+Nome: MARGUERITA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, marguerita, with fogazza de marguerita, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/403_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 401
+Nome: MILHO C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, milho c/ catupiry, with fogazza de milho c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/401_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 400
+Nome: MILHO C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, milho c/ mussarela, with fogazza de milho c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/400_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 399
+Nome: MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, mussarela, with fogazza de mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/399_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 402
+Nome: MUSSARELA C/ TOMATE SECO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, mussarela c/ tomate seco, with fogazza de mussarela c/ tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/402_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 404
+Nome: NAPOLITANA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, napolitana, with fogazza de napolitana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/404_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 410
+Nome: PALMITO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, palmito, with fogazza de palmito, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/410_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 412
+Nome: PALMITO C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, palmito c/ catupiry, with fogazza de palmito c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/412_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 413
+Nome: PALMITO C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, palmito c/ cheddar, with fogazza de palmito c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/413_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 411
+Nome: PALMITO C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, palmito c/ mussarela, with fogazza de palmito c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/411_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 418
+Nome: PEITO DE PERU C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, peito de peru c/ catupiry, with fogazza de peito de peru c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/418_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 419
+Nome: PEITO DE PERU C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, peito de peru c/ cheddar, with fogazza de peito de peru c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/419_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 417
+Nome: PEITO DE PERU C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, peito de peru c/ mussarela, with fogazza de peito de peru c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/417_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 420
+Nome: PEITO DE PERU C/ QUEIJO FRESCO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, peito de peru c/ queijo fresco, with fogazza de peito de peru c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/420_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 407
+Nome: PEPPERONI C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, pepperoni c/ catupiry, with fogazza de pepperoni c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/407_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 408
+Nome: PEPPERONI C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, pepperoni c/ cheddar, with fogazza de pepperoni c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/408_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 406
+Nome: PEPPERONI C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, pepperoni c/ mussarela, with fogazza de pepperoni c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/406_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 409
+Nome: PIZZA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, pizza, with fogazza de pizza, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/409_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 405
+Nome: PORTUGUESA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, portuguesa, with fogazza de portuguesa, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/405_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 414
+Nome: PROVOLONE
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, provolone, with fogazza de provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/414_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 416
+Nome: QUATRO QUEIJOS
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, quatro queijos, with fogazza de quatro queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/416_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 338
+Nome: QUATRO QUEIJOS C/ BACON
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, quatro queijos c/ bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/338_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 415
+Nome: QUEIJO FRESCO
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, queijo fresco, with fogazza de queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/415_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 422
+Nome: SALAME C/ CATUPIRY
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, salame c/ catupiry, with fogazza de salame c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/422_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 423
+Nome: SALAME C/ CHEDDAR
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, salame c/ cheddar, with fogazza de salame c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/423_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 421
+Nome: SALAME C/ MUSSARELA
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, salame c/ mussarela, with fogazza de salame c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/421_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 424
+Nome: SALAME C/ PROVOLONE
+Prompt: Professional food photography: fogazza italiana recheada salgada, cortada mostrando recheio, em prato branco, salame c/ provolone, with fogazza de salame c/ provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/424_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+FOGAZZES VEGETARIANAS
+================================================================================
+
+ID: 455
+Nome: BRÓCOLIS C/ QUEIJO BRANCO
+Prompt: Professional food photography: fogazza vegetariana com legumes, cortada, em prato branco, brócolis c/ queijo branco, with fogazza de brócolis c/ queijo branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/455_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 459
+Nome: CHAMPIGNON C/ PALMITO E MILHO
+Prompt: Professional food photography: fogazza vegetariana com legumes, cortada, em prato branco, champignon c/ palmito e milho, with fogazza de champignon c/ palmito e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/459_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 460
+Nome: CHAMPIGNON C/ QUEIJO BRANCO E TOMATE
+Prompt: Professional food photography: fogazza vegetariana com legumes, cortada, em prato branco, champignon c/ queijo branco e tomate, with fogazza de champignon c/ queijo branco e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/460_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 458
+Nome: ESCAROLA C/ TOMATE SECO
+Prompt: Professional food photography: fogazza vegetariana com legumes, cortada, em prato branco, escarola c/ tomate seco, with fogazza de escarola c/ tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/458_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 457
+Nome: PALMITO C/ MILHO
+Prompt: Professional food photography: fogazza vegetariana com legumes, cortada, em prato branco, palmito c/ milho, with fogazza de palmito c/ milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/457_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 454
+Nome: PALMITO C/ QUEIJO BRANCO
+Prompt: Professional food photography: fogazza vegetariana com legumes, cortada, em prato branco, palmito c/ queijo branco, with fogazza de palmito c/ queijo branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/454_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 456
+Nome: PALMITO E TOMATE SECO
+Prompt: Professional food photography: fogazza vegetariana com legumes, cortada, em prato branco, palmito e tomate seco, with fogazza de palmito e tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/456_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+PASTÉIS DOCES
+================================================================================
+
+ID: 297
+Nome: BANANA
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/297_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 298
+Nome: BRIGADEIRO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, brigadeiro, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/298_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 299
+Nome: CHOCOLATE
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/299_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 307
+Nome: CHOCOLATE BRANCO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/307_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 309
+Nome: CHOCOLATE BRANCO C/ ABACAXI
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate branco c/ abacaxi, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/309_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 310
+Nome: CHOCOLATE BRANCO C/ MM'S
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate branco c/ mm's, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/310_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 308
+Nome: CHOCOLATE BRANCO C/ MORANGO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate branco c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/308_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 311
+Nome: CHOCOLATE BRANCO C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate branco c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/311_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 302
+Nome: CHOCOLATE C/ ABACAXI
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate c/ abacaxi, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/302_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 303
+Nome: CHOCOLATE C/ BANANA
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate c/ banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/303_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 306
+Nome: CHOCOLATE C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/306_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 300
+Nome: CHOCOLATE C/ KIT KET
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate c/ kit ket, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/300_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 304
+Nome: CHOCOLATE C/ LEITE NINHO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate c/ leite ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/304_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 305
+Nome: CHOCOLATE C/ MM'S
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate c/ mm's, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/305_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 301
+Nome: CHOCOLATE C/ MORANGO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, chocolate c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/301_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 316
+Nome: CREME DE AVELÃ
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, creme de avelã, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/316_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 320
+Nome: CREME DE AVELÃ C/ BANANA
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, creme de avelã c/ banana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/320_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 317
+Nome: CREME DE AVELÃ C/ KIT KAT
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, creme de avelã c/ kit kat, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/317_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 319
+Nome: CREME DE AVELÃ C/ LEITE NINHO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, creme de avelã c/ leite ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/319_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 318
+Nome: CREME DE AVELÃ C/ MORANGO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, creme de avelã c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/318_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 312
+Nome: DOCE DE LEITE
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, doce de leite, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/312_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 313
+Nome: DOCE DE LEITE C/ MORANGO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, doce de leite c/ morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/313_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 314
+Nome: DOCE DE LEITE C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, doce de leite c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/314_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 315
+Nome: DOCE DE LEITE C/PAÇOCA
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, doce de leite c/paçoca, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/315_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 294
+Nome: PEITO DE PERU C/ CATUPIR
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, peito de peru c/ catupir, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/294_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 295
+Nome: PEITO DE PERU C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, peito de peru c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/295_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 293
+Nome: PEITO DE PERU C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, peito de peru c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/293_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 296
+Nome: PEITO DE PERU C/ QUEIJO FRESCO
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, peito de peru c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/296_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 292
+Nome: QUATRO QUEIJOS
+Prompt: Professional food photography: pastel brasileiro frito dourado doce com açúcar, em prato branco, quatro queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/292_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+PASTÉIS ESPECIAIS
+================================================================================
+
+ID: 332
+Nome: CHAMPGNON C/ QUEIJO BRANCO E TOMATE
+Prompt: Professional food photography: pastel especial gourmet, dourado, em prato branco, champgnon c/ queijo branco e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/332_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 331
+Nome: CHAMPIGNON C/ PALMITO E MILHO
+Prompt: Professional food photography: pastel especial gourmet, dourado, em prato branco, champignon c/ palmito e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/331_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 330
+Nome: ESCAROLA C/ TOMATE SECO
+Prompt: Professional food photography: pastel especial gourmet, dourado, em prato branco, escarola c/ tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/330_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 333
+Nome: MODA DA CASA (Mussarela, catupiry, presunto e bacon)
+Prompt: Professional food photography: pastel especial gourmet, dourado, em prato branco, moda da casa (mussarela, catupiry, presunto e bacon), high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/333_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 329
+Nome: PALMITO C/ MILHO
+Prompt: Professional food photography: pastel especial gourmet, dourado, em prato branco, palmito c/ milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/329_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 328
+Nome: PALMITO E TOMATE SECO
+Prompt: Professional food photography: pastel especial gourmet, dourado, em prato branco, palmito e tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/328_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+PASTÉIS SALGADOS
+================================================================================
+
+ID: 207
+Nome: ALHO C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, alho c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/207_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 206
+Nome: ALHO C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, alho c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/206_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 209
+Nome: ALICHE C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, aliche c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/209_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 208
+Nome: ALICHE C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, aliche c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/208_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 210
+Nome: ATUM
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, atum, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/210_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 212
+Nome: ATUM C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, atum c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/212_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 213
+Nome: ATUM C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, atum c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/213_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 211
+Nome: ATUM C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, atum c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/211_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 214
+Nome: ATUM C/ QUEIJO FRESCO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, atum c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/214_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 218
+Nome: BACON C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, bacon c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/218_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 219
+Nome: BACON C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, bacon c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/219_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 217
+Nome: BACON C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, bacon c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/217_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 215
+Nome: BAIANA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, baiana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/215_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 216
+Nome: BAURU
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, bauru, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/216_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 221
+Nome: BERINJELA C/ CATUPIRY E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, berinjela c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/221_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 220
+Nome: BERINJELA C/ MUSSARELA E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, berinjela c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/220_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 222
+Nome: BERINJELA C/ MUSSARELA, CATUPIRY E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, berinjela c/ mussarela, catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/222_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 225
+Nome: BRÓCOLIS C/ BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, brócolis c/ bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/225_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 224
+Nome: BRÓCOLIS C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, brócolis c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/224_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 227
+Nome: BRÓCOLIS C/ CATUPIRY E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, brócolis c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/227_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 223
+Nome: BRÓCOLIS C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, brócolis c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/223_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 226
+Nome: BRÓCOLIS C/ MUSSARELA E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, brócolis c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/226_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 234
+Nome: CALABRESA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, calabresa, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/234_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 236
+Nome: CALABRESA C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, calabresa c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/236_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 237
+Nome: CALABRESA C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, calabresa c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/237_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 235
+Nome: CALABRESA C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, calabresa c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/235_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 238
+Nome: CALABRESA C/ PROVOLONE
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, calabresa c/ provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/238_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 228
+Nome: CARNE
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/228_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 230
+Nome: CARNE C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/230_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 233
+Nome: CARNE C/ CATUPIRY E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/233_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 231
+Nome: CARNE C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/231_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 229
+Nome: CARNE C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/229_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 232
+Nome: CARNE C/ MUSSARELA E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/232_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 241
+Nome: CARNE SECA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne seca, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/241_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 243
+Nome: CARNE SECA C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne seca c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/243_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 244
+Nome: CARNE SECA C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne seca c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/244_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 242
+Nome: CARNE SECA C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, carne seca c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/242_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 240
+Nome: CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/240_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 239
+Nome: CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/239_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 247
+Nome: CINCO QUEIJOS
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, cinco queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/247_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 245
+Nome: DOIS QUEIJOS
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, dois queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/245_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 246
+Nome: ESCAROLA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, escarola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/246_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 254
+Nome: ESCAROLA C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, escarola c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/254_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 258
+Nome: ESCAROLA C/ CATUPIRY E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, escarola c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/258_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 255
+Nome: ESCAROLA C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, escarola c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/255_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 253
+Nome: ESCAROLA C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, escarola c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/253_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 257
+Nome: ESCAROLA C/ MUSSARELA E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, escarola c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/257_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 256
+Nome: ESCAROLA C/ QUEIJO FRESCO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, escarola c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/256_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 268
+Nome: FILÉ MIGNON C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, filé mignon c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/268_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 269
+Nome: FILÉ MIGNON C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, filé mignon c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/269_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 267
+Nome: FILÉ MIGNON C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, filé mignon c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/267_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 259
+Nome: FRANGO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/259_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 261
+Nome: FRANGO C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/261_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 266
+Nome: FRANGO C/ CATUPIRY E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango c/ catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/266_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 264
+Nome: FRANGO C/ CATUPIRY E MILHO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango c/ catupiry e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/264_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 262
+Nome: FRANGO C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/262_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 260
+Nome: FRANGO C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/260_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 265
+Nome: FRANGO C/ MUSSARELA E BACON
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango c/ mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/265_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 263
+Nome: FRANGO C/ MUSSARELA E MILHO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, frango c/ mussarela e milho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/263_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 270
+Nome: GORGONZOLA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, gorgonzola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/270_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 272
+Nome: LOMBO C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, lombo c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/272_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 273
+Nome: LOMBO C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, lombo c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/273_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 271
+Nome: LOMBO C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, lombo c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/271_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 274
+Nome: LOMBO C/ QUEIJO FRESCO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, lombo c/ queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/274_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 279
+Nome: MARGUERITA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, marguerita, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/279_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 278
+Nome: MILHO C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, milho c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/278_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 276
+Nome: MILHO C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, milho c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/276_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 275
+Nome: MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/275_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 277
+Nome: MUSSARELA C/ TOMATE SECO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, mussarela c/ tomate seco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/277_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 280
+Nome: NAPOLITANA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, napolitana, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/280_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 286
+Nome: PALMITO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, palmito, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/286_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 288
+Nome: PALMITO C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, palmito c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/288_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 289
+Nome: PALMITO C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, palmito c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/289_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 287
+Nome: PALMITO C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, palmito c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/287_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 283
+Nome: PEPPERONI C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, pepperoni c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/283_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 284
+Nome: PEPPERONI C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, pepperoni c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/284_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 282
+Nome: PEPPERONI C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, pepperoni c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/282_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 285
+Nome: PIZZA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, pizza, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/285_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 281
+Nome: PORTUGUESA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, portuguesa, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/281_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 290
+Nome: PROVOLONE
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/290_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 291
+Nome: QUEIJO FRESCO
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, queijo fresco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/291_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 249
+Nome: SALAME C/ CATUPIRY
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, salame c/ catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/249_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 250
+Nome: SALAME C/ CHEDDAR
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, salame c/ cheddar, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/250_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 248
+Nome: SALAME C/ MUSSARELA
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, salame c/ mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/248_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 251
+Nome: SALAME C/ PROVOLONE
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, salame c/ provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/251_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 252
+Nome: TRÊS QUEIJOS
+Prompt: Professional food photography: pastel brasileiro frito dourado salgado, em prato branco, fundo limpo, três queijos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/252_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+PASTÉIS VEGETARIANOS
+================================================================================
+
+ID: 327
+Nome: BRÓCOLIS C/ QUEIJO BRANCO
+Prompt: Professional food photography: pastel vegetariano com legumes, dourado, em prato branco, brócolis c/ queijo branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/327_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 321
+Nome: CREME DE AVELÃ C/ MM'S
+Prompt: Professional food photography: pastel vegetariano com legumes, dourado, em prato branco, creme de avelã c/ mm's, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/321_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 326
+Nome: PALMITO C/ QUEIJO BRANCO
+Prompt: Professional food photography: pastel vegetariano com legumes, dourado, em prato branco, palmito c/ queijo branco, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/326_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 323
+Nome: PRESTÍGIO
+Prompt: Professional food photography: pastel vegetariano com legumes, dourado, em prato branco, prestígio, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/323_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 325
+Nome: QUEIJO FRESCO C/ GOIABADA
+Prompt: Professional food photography: pastel vegetariano com legumes, dourado, em prato branco, queijo fresco c/ goiabada, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/325_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 324
+Nome: QUINDER OVO
+Prompt: Professional food photography: pastel vegetariano com legumes, dourado, em prato branco, quinder ovo, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/324_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 322
+Nome: ROMEU E JULIETA
+Prompt: Professional food photography: pastel vegetariano com legumes, dourado, em prato branco, romeu e julieta, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/322_20251106_101016.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+PIZZAS DOCES
+================================================================================
+
+ID: 467
+Nome: BANANA
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, banana, with banana, leite condensado e canela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1b45b4ede2983262366436c7296b5619_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 475
+Nome: BRIGADEIRO
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, brigadeiro, with chocolate com granulado, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d5fbefae659015eebfadb7c6e7f01aec_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 485
+Nome: CALIFÓRNIA
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, califórnia, with chocolate preto com banana, canela e leite condensado, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/e4a246f8510fe7f5f35130e42ca155ee_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 480
+Nome: CAVALEIROS
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, cavaleiros, with creme de avelã com leite ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/2b8e76d450d5170a061d5a7f1396245f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 479
+Nome: DAMAS
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, damas, with creme de avelã com morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ff9ba4079a5f462b451958068b330c19_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 484
+Nome: JAMAL
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, jamal, with chocolate com morango, kit kat e ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/7bb8c4af9bf9894f3500e7717ebc313b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 477
+Nome: KINDER OVO
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, kinder ovo, with chocolate branco e chocolate preto, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/13740f057938bfc78798b1647ea2ddfb_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 481
+Nome: LOVE'S
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, love's, with creme de avelã com ninho e morango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/38913262841916ae8849986aee86e715_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 478
+Nome: M&M'S
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, m&m's, with chocolate preto com m&m's, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/8dd87c85e0e057cf321ed47497551d8f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 476
+Nome: MINEIRA
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, mineira, with doce de leite com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/b0513eef0abe4ac3484a6ff8fc72617e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 473
+Nome: NEGA
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, nega, with chocolate com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/dee62c565098ace91a8fef43e438a8ce_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 468
+Nome: NEVADA
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, nevada, with chocolate branco e abacaxi, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/49f97280781c084f9d9cfbba44d84972_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 474
+Nome: PRESTÍGIO
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, prestígio, with chocolate com coco ralado, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/89b4b8f91031a10993cb71f84d87866b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 471
+Nome: ROMEU E JULIETA
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, romeu e julieta, with mussarela e goiabada, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/947830fb4e48d69523b048df7ed7f0c1_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 472
+Nome: ROMEU E JULIETA II
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, romeu e julieta ii, with queijo branco com goiabada, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/8ee4a610721fa921cd473cf26bb12fd8_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 469
+Nome: SENSAÇÃO
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, sensação, with chocolate, morango e leite condensado, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/76e591b1f1cfb31105549b7f303ad411_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 470
+Nome: SENSAÇÃO II
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, sensação ii, with chocolate ao leite, morango e leite ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/21a1b194a3c0ce384fc075b4ab4beb8c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 483
+Nome: SOLO
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, solo, with creme de avelã, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0f3b04c992c753a5ba3f5c09ff2ff872_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 482
+Nome: TPM
+Prompt: Professional food photography: pizza doce brasileira redonda com cobertura, vista de cima, fundo branco limpo, tpm, with chocolate, m&m's, kit kat e ninho, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/08fe120b70e24b6d7ee4435da8b53cd2_20251106_094826.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+PIZZAS SALGADAS
+================================================================================
+
+ID: 38
+Nome: 3 QUEIJOS
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, 3 queijos, with mussarela, provolone e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/33cdc24882d5bb9fe2fed824d643800c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 39
+Nome: 4 QUEIJOS
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, 4 queijos, with mussarela, provolone, catupiry e gorgonzola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/14f103416e4d8410c686417bfd0b3d5d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 40
+Nome: 5 QUEJOS
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, 5 quejos, with mussarela, provolone, catupiry, gorgonzola e parmesão, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/4eba0212f1626ab3ed8f270a6e247e7c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 1
+Nome: ALHO I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, alho i, with alho frito, tomate e mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/d0454c72013a8304c63682a00f2f879c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 2
+Nome: ALHO II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, alho ii, with alho frito, tomate e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/36078e21afa080cf58b7124aeece1a18_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 3
+Nome: ALICHE I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, aliche i, with aliche coberto com mussarela e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/e90fbbf23de97c76394f7f4dc9d51f1a_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 4
+Nome: ALICHE II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, aliche ii, with aliche coberto com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/261f357833219b1c70668804e36b9f92_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 5
+Nome: AMERICANA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, americana, with presunto, mussarela, ovos, palmito e cebola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1caa9a72c62bcd195266b837b39ede25_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 6
+Nome: ATUM
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, atum, with atum ralado com tomate e cebola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/36d80ddc23304b7b620eb70dc04b5bc4_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 7
+Nome: BACON I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, bacon i, with mussarela, bacon e ovos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/4aaeb8f5e5d8556c15a1228b94ff6e8b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 8
+Nome: BACON II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, bacon ii, with catupiry, bacon e ovos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/91f74e6b5e24d28847993fc743c8a57e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 9
+Nome: BAIACATU
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, baiacatu, with calabresa moída e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0fb837b60fe61eec27c9116b40105ef7_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 14
+Nome: BELA DONNA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, bela donna, with presunto, palmito, catupiry e cebola, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/c8c5ece28c5a635e319db666e0130866_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 46
+Nome: BERINGELA I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, beringela i, with beringela coberta com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/015dbe3022d094f61718fbbb9b0d99b5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 47
+Nome: BERINGELA II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, beringela ii, with beringela coberta com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1a00f285d8685dcfdf92060c33195055_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 10
+Nome: CATUM
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, catum, with atum, tomate, coberto com cebola e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/970f0ccdc64bfcab31a430c44eb6993e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 11
+Nome: CATUPIRY
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, catupiry, with catupiry com batata palha, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/9be304d002a3b9e37d122fe3f0efa153_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 12
+Nome: CITY
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, city, with mussarela, presunto, palmito, ervilha, coberto com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/dae8e4933c51eac6b3b806760150e008_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 13
+Nome: CZARIANA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, czariana, with lombo canadense coberto com mussraela e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ff5ff40a7b34f8074017dc3b676d3732_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 16
+Nome: ESCAROLA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, escarola, with escarola, mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/37d06a6dac1172d09e8d7c9b548b7ad5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 15
+Nome: FAFA II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, fafa ii, with frango, catupiry, bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/22e4547a92505da46ae9e25161d989e5_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 17
+Nome: FAFÁ
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, fafá, with frango, mussarela e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/f7e1a77ea033d2f12b042c21be6a416b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 18
+Nome: FRANCESA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, francesa, with filé mignon, mussarela e champignon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/bffa25bcf7f6d508b9aa18efac5a5c4f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 19
+Nome: FRANGAÇO
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, frangaço, with frango desfiado com champignon e salpicado com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/b4a2b6fd9cb178d661e4a69999663f12_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 20
+Nome: FRANGO COM CATUPIRY
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, frango com catupiry, with frango desfiado coberto com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/b42240255829304a89f3e7788202e469_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 21
+Nome: IPIRANGA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, ipiranga, with palmito, champignon, milho, bacon, cebola coberto com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/812779ddfdeb13d88ec9c908dc22475e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 22
+Nome: LOMBO I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, lombo i, with lombo canadense, cebola e mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/a3fdb655242395003b27de8b3ce73850_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 23
+Nome: LOMBO II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, lombo ii, with lombo canadense, cebola e catupity, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ad6b4ffacdf6eef54cff495fafac6dad_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 24
+Nome: MARGUERITA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, marguerita, with mussarela, rodelas de tomate e manjericão, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/50085e32bf443ae3df44ed2ae56489c6_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 25
+Nome: MICHELLE
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, michelle, with calabresa, ervilha e ovos cobertos com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/957edaf5e243ffa06bcf498abb82a770_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 26
+Nome: MILANO
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, milano, with salame fatiado coberto com mussarela, salpicado com parmesão e alho frito, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/0a921c3b70df8bb95f65955284c30580_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 27
+Nome: MILHO I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, milho i, with milho coberto com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/7b9216dbee43538d5084c06bfd44cc9b_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 28
+Nome: MILHO II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, milho ii, with milho coberto com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/cac1ef1e58c4073e9654ea61ec04393f_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 29
+Nome: MODA DA CASA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, moda da casa, with presunto, mussarela, catupiry e bacon, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/162dad2b3ce60dac78fd57fd209edc80_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 30
+Nome: MUSSARELA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, mussarela, with mussarela e tomate, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/649642f6f50fb4f66d51f6d1625ec9f1_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 32
+Nome: NAMORADOS
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, namorados, with mussarela, palmito, e catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/219d5d3de6957c51292f2f2ce094a268_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 31
+Nome: NAPOLITANA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, napolitana, with mussarela, rodela de tomate e parmesão, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3176e3d26d4881fc6a1d33e7e7816cf9_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 33
+Nome: PALMITO
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, palmito, with palmito e cebola cobertos com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1ca7c963729eca122d6ffa308e73371d_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 34
+Nome: PEPPERONI I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, pepperoni i, with pepperoni coberto com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/1288c95ad635da57a2fa278f21412cda_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 35
+Nome: PEPPERONI II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, pepperoni ii, with pepperoni com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3f08765a322c1707f3231d20ad74eb2e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 36
+Nome: PERUANA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, peruana, with atum, cebola e ovos cobertos com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/c138f768077cdc5ff437f9e65bc38439_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 37
+Nome: PORTUGUESA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, portuguesa, with presunto, mussarela, ervilha, cebola e ovos, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ab7a6d8732b66d1c6afa4d6855215e47_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 41
+Nome: PROVOLONE CROCANTE
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, provolone crocante, with catupiry coberto com parmesão e provolone, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/245564683446e8de69266602d6b79685_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 42
+Nome: SICILIANA
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, siciliana, with champignon, tomate, bacon, coberto com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/3b096f98e0438c87fcb49afc51f0790e_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 43
+Nome: TOSCANA I
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, toscana i, with calabresa moída coberta com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/567a4c60c76796378a4edc3b6a8de1cf_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 44
+Nome: TOSCANA II
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, toscana ii, with calabresa moída coberta com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/c012cf9d17c2388bea9a1813e605518c_20251106_094826.jpg
+--------------------------------------------------------------------------------
+ID: 45
+Nome: VEGAS
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, vegas, with peito de peru, palmito, coberto com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/ec8eb99b08bbd396bcb925f1657e5ce6_20251106_094826.jpg
+--------------------------------------------------------------------------------
+
+================================================================================
+SALGADOS
+================================================================================
+
+ID: 68
+Nome: BOLINHO DE CARNE SECA COM MUSSARELA
+Prompt: Professional food photography: salgados brasileiros fritos variados, coxinha, bolinho, em prato branco, bolinho de carne seca com mussarela, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/68_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 69
+Nome: COXINHA DE FRANGO
+Prompt: Professional food photography: salgados brasileiros fritos variados, coxinha, bolinho, em prato branco, coxinha de frango, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/69_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 70
+Nome: COXINHA DE FRANGO COM CATUPIRY
+Prompt: Professional food photography: salgados brasileiros fritos variados, coxinha, bolinho, em prato branco, coxinha de frango com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/70_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 71
+Nome: KIBE
+Prompt: Professional food photography: salgados brasileiros fritos variados, coxinha, bolinho, em prato branco, kibe, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/71_20251106_101016.jpg
+--------------------------------------------------------------------------------
+ID: 72
+Nome: KIBE COM CATUPIRY
+Prompt: Professional food photography: salgados brasileiros fritos variados, coxinha, bolinho, em prato branco, kibe com catupiry, high quality, appetizing, well lit, restaurant style
+Imagem atual: /static/uploads/72_20251106_101016.jpg
+--------------------------------------------------------------------------------
