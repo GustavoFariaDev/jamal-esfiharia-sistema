@@ -54,11 +54,20 @@ def importar_produtos(json_path):
         
         for produto in produtos:
             try:
+                # Calcular preço principal (obrigatório)
+                # Usa preco_broto, se não tiver usa preco_media, se não tiver usa preco_grande, se não tiver usa 0
+                preco_principal = (
+                    produto.get('preco_broto') or 
+                    produto.get('preco_media') or 
+                    produto.get('preco_grande') or 
+                    0
+                )
+                
                 # Criar novo produto
                 novo_produto = Esfiha(
                     nome=produto['nome'],
                     descricao=produto.get('descricao', ''),
-                    preco=produto.get('preco_broto', produto.get('preco_media', produto.get('preco_grande', 0))),
+                    preco=preco_principal,
                     preco_broto=produto.get('preco_broto'),
                     preco_media=produto.get('preco_media'),
                     preco_grande=produto.get('preco_grande'),
