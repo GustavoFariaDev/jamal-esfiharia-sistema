@@ -1,9 +1,13 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from datetime import timedelta
+import jwt
+import os
+from datetime import datetime, timedelta, timezone
 from src.models.user import User
 
 auth_bp = Blueprint("auth", __name__)
+
+# Chave secreta para JWT
+JWT_SECRET = os.getenv('JWT_SECRET', 'dev-secret-key-change-in-production')
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
@@ -28,17 +32,16 @@ def login():
                 "message": "Credenciais inválidas"
             }), 401
         
-        # Criar token JWT usando flask-jwt-extended
-        additional_claims = {
+        # Criar token JWT
+        payload = {
+            'sub': str(user.id),  # 'sub' deve ser string segundo JWT spec
+            'user_id': user.id,
             'username': user.username,
-            'is_admin': user.is_admin
+            'is_admin': user.is_admin,
+            'exp': datetime.now(timezone.utc) + timedelta(hours=24)
         }
         
-        access_token = create_access_token(
-            identity=user.id,
-            additional_claims=additional_claims,
-            expires_delta=timedelta(hours=24)
-        )
+        access_token = jwt.encode(payload, JWT_SECRET, algorithm='HS256')
         
         return jsonify({
             "status": "success",
@@ -58,15 +61,21 @@ def login():
         }), 500
 
 @auth_bp.route("/verify", methods=["GET"])
-@jwt_required()
 def verify_token():
     """Verifica se o token é válido."""
     try:
-        # Obter ID do usuário do token
-        user_id = get_jwt_identity()
+        auth_header = request.headers.get('Authorization')
+        if not auth_header or not auth_header.startswith('Bearer '):
+            return jsonify({
+                "status": "error",
+                "message": "Token não fornecido"
+            }), 401
+        
+        token = auth_header.split(' ')[1]
+        payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
         
         # Buscar usuário no banco para verificar se ainda existe e está ativo
-        user = User.query.get(user_id)
+        user = User.query.get(payload['user_id'])
         if not user:
             return jsonify({
                 "status": "error",
@@ -83,8 +92,19 @@ def verify_token():
             }
         }), 200
         
+    except jwt.ExpiredSignatureError:
+        return jsonify({
+            "status": "error",
+            "message": "Token expirado"
+        }), 401
+    except jwt.InvalidTokenError:
+        return jsonify({
+            "status": "error",
+            "message": "Token inválido"
+        }), 401
     except Exception as e:
         return jsonify({
             "status": "error",
             "message": f"Erro interno: {str(e)}"
         }), 500
+
