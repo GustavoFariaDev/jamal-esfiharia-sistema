@@ -98,7 +98,9 @@ def create_app():
     # Rota para servir arquivos estáticos (imagens de upload)
     @app.route('/static/uploads/<filename>')
     def static_uploaded_file(filename):
-        static_uploads_path = os.path.join(os.getcwd(), 'static', 'uploads')
+        # Usar caminho absoluto baseado no diretório do app.py
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        static_uploads_path = os.path.join(basedir, 'static', 'uploads')
         return send_from_directory(static_uploads_path, filename)
     
     # Servir frontend React
