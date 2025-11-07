@@ -23,7 +23,7 @@ const RestaurantStatusControl = () => {
       setError(null);
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/configuracao/status/admin`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/configuracao/status/admin`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -50,7 +50,7 @@ const RestaurantStatusControl = () => {
       setSuccess(null);
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/configuracao/status/toggle`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/configuracao/status/toggle`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ const RestaurantStatusControl = () => {
       setSuccess(null);
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/configuracao/status/update`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/configuracao/status/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ const RestaurantStatusControl = () => {
       setSuccess(null);
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/configuracao/status/pausar-temporario`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/configuracao/status/pausar-temporario`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ const RestaurantStatusControl = () => {
       setSuccess(null);
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/configuracao/status/cancelar-pausa`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/configuracao/status/cancelar-pausa`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
