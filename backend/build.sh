@@ -52,6 +52,27 @@ with app.app_context():
         print('✅ Usuário admin já existe - senha preservada')
         print('   Username: admin')
         print('   Email: {}'.format(admin.email))
+    
+    # Inicializar status do restaurante
+    from src.models.configuracao import StatusRestaurante
+    status = StatusRestaurante.query.first()
+    if not status:
+        print('📝 Criando registro padrão de status do restaurante...')
+        novo_status = StatusRestaurante(
+            aberto=True,
+            mensagem_fechamento='Estamos fechados no momento. Volte em breve!',
+            horario_abertura='18:00',
+            horario_fechamento='23:00',
+            dias_funcionamento='["ter", "qua", "qui", "sex", "sab", "dom"]',
+            aceita_pedidos=True,
+            modo_manutencao=False,
+            pausa_temporaria=False
+        )
+        db.session.add(novo_status)
+        db.session.commit()
+        print('✅ Status do restaurante criado!')
+    else:
+        print('✅ Status do restaurante já existe')
 EOF
 
 echo "✅ Build concluído com sucesso!"
