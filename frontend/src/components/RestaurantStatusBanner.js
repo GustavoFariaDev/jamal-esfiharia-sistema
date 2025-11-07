@@ -12,7 +12,7 @@ const RestaurantStatusBanner = () => {
   // Carregar status público
   const loadStatus = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/configuracao/status`);
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/configuracao/status`);
       
       if (response.ok) {
         const data = await response.json();

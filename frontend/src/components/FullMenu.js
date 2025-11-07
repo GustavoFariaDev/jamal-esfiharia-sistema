@@ -46,14 +46,38 @@ const FullMenu = () => {
   });
   const [customerHistory, setCustomerHistory] = useState(null);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+  
+  // ✅ NOVO: Estado para status da loja
+  const [restaurantStatus, setRestaurantStatus] = useState(null);
+  const [loadingStatus, setLoadingStatus] = useState(true);
 
   // Sistema de notificações
   const { success, error, warning, info } = useToastContext();
 
-  // Buscar produtos e categorias da API
+  // ✅ NOVO: Carregar status do restaurante
+  const fetchRestaurantStatus = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/configuracao/status`);
+      if (response.ok) {
+        const data = await response.json();
+        setRestaurantStatus(data);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar status do restaurante:', err);
+    } finally {
+      setLoadingStatus(false);
+    }
+  };
+
+  // Buscar produtos, categorias e status da API
   useEffect(() => {
     fetchProducts();
     fetchCategories();
+    fetchRestaurantStatus();
+    
+    // Atualizar status a cada 1 minuto
+    const interval = setInterval(fetchRestaurantStatus, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchProducts = async () => {
@@ -462,6 +486,75 @@ const FullMenu = () => {
   const handleImageError = (e) => {
     e.target.src = 'https://via.placeholder.com/400x300?text=Sem+Imagem';
   };
+
+  // ✅ NOVO: Se a loja estiver fechada, mostrar mensagem e bloquear acesso
+  if (loadingStatus) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+          <p className="mt-4 text-gray-600">Carregando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (restaurantStatus && !restaurantStatus.aberto) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-2xl mx-auto mt-20">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center border-4 border-red-500">
+              <div className="text-6xl mb-6">🚪</div>
+              <h1 className="text-3xl md:text-4xl font-bold text-red-600 mb-4">
+                Restaurante Fechado
+              </h1>
+              <p className="text-gray-700 text-lg mb-6">
+                {restaurantStatus.mensagem || 'Estamos fechados no momento. Volte em breve!'}
+              </p>
+              {restaurantStatus.horario_abertura && restaurantStatus.horario_fechamento && (
+                <div className="bg-gray-50 rounded-lg p-6 mb-6">
+                  <h3 className="font-semibold text-gray-800 mb-3">Horário de Funcionamento</h3>
+                  <p className="text-gray-600">
+                    <span className="font-mono text-lg">{restaurantStatus.horario_abertura}</span>
+                    {' às '}
+                    <span className="font-mono text-lg">{restaurantStatus.horario_fechamento}</span>
+                  </p>
+                  {restaurantStatus.dias_funcionamento && restaurantStatus.dias_funcionamento.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-sm text-gray-500 mb-2">Dias de funcionamento:</p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {restaurantStatus.dias_funcionamento.map(dia => {
+                          const diasMap = {
+                            'seg': 'Segunda',
+                            'ter': 'Terça',
+                            'qua': 'Quarta',
+                            'qui': 'Quinta',
+                            'sex': 'Sexta',
+                            'sáb': 'Sábado',
+                            'sab': 'Sábado',
+                            'dom': 'Domingo'
+                          };
+                          return (
+                            <span key={dia} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                              {diasMap[dia] || dia}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+              <p className="text-gray-500 text-sm">
+                Aguardamos sua visita! 😊
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
