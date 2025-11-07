@@ -62,6 +62,7 @@ def create_app():
     from src.routes.acrescimos import acrescimos_bp
     from src.routes.cliente import cliente_bp
     from src.routes.status_pedido import status_pedido_bp
+    from src.routes.setup import setup_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(user_bp, url_prefix='/api/users')
@@ -76,6 +77,7 @@ def create_app():
     app.register_blueprint(acrescimos_bp, url_prefix='/api')
     app.register_blueprint(cliente_bp, url_prefix='/api/clientes')
     app.register_blueprint(status_pedido_bp, url_prefix='/api/pedidos')
+    app.register_blueprint(setup_bp, url_prefix='/api/setup')
     
     # Rota para servir o painel administrativo
     @app.route('/admin')
