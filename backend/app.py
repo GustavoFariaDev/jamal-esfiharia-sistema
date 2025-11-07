@@ -7,7 +7,7 @@ import os
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 from src.models.user import db
-from src.models.configuracao_model import Configuracao # Importar o novo modelo
+from src.models.configuracao_status_model import ConfiguracaoStatus # Importar o novo modelo de status
 
 def create_app():
     """Factory function para criar a aplicação Flask"""
@@ -59,7 +59,7 @@ def create_app():
     from src.routes.print import print_bp
     from src.routes.delivery import delivery_bp
     from src.routes.pedido_simples import pedido_simples_bp
-    from src.routes.configuracao import configuracao_bp
+    from src.routes.configuracao_status import configuracao_status_bp # Importar a nova rota de status
     from src.routes.acrescimos import acrescimos_bp
     from src.routes.cliente import cliente_bp
     from src.routes.status_pedido import status_pedido_bp
@@ -74,7 +74,7 @@ def create_app():
     app.register_blueprint(print_bp, url_prefix='/api/print')
     app.register_blueprint(delivery_bp, url_prefix='/api/delivery')
     app.register_blueprint(pedido_simples_bp, url_prefix='/api/pedidos-simples')
-    app.register_blueprint(configuracao_bp, url_prefix='/api/configuracao')
+    app.register_blueprint(configuracao_status_bp, url_prefix='/api/configuracao')
     app.register_blueprint(acrescimos_bp, url_prefix='/api')
     app.register_blueprint(cliente_bp, url_prefix='/api/clientes')
     app.register_blueprint(status_pedido_bp, url_prefix='/api/pedidos')
