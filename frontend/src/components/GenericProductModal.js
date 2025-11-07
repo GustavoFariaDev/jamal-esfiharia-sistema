@@ -24,20 +24,27 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
       let tipo = '';
       
       // Determinar tipo de acréscimo baseado na categoria
-      if (category.includes('pastel') || category.includes('pastéis')) {
-        tipo = 'pastel';
-      } else if (category.includes('fogazz')) {
-        tipo = 'fogazz';
+      // Esfihas, Pastéis e Fogazzas usam o mesmo tipo de acréscimo
+      if (category.includes('esfiha') || category.includes('pastel') || category.includes('pastéis') || category.includes('fogazz')) {
+        tipo = 'esfiha';
+      } else if (category.includes('pizza')) {
+        // Pizzas não têm acréscimos genéricos (usam modal específico)
+        tipo = '';
       } else {
-        // Para outros produtos, tentar usar a categoria como tipo
-        tipo = category;
+        // Outros produtos (bebidas, salgados, etc) não têm acréscimos
+        tipo = '';
       }
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=${tipo}`);
-      const result = await response.json();
-      
-      if (result.status === 'success') {
-        setAvailableExtras(result.data || []);
+      // Só buscar se tiver tipo definido
+      if (tipo) {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=${tipo}`);
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+          setAvailableExtras(result.data || []);
+        }
+      } else {
+        setAvailableExtras([]);
       }
     } catch (error) {
       console.error('Erro ao buscar acréscimos:', error);
