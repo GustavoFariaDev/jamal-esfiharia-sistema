@@ -4,7 +4,7 @@ Rotas para gerenciar configurações e status do restaurante
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from src.models.user import db, User
-from src.models.configuracao_status_model import ConfiguracaoStatus, StatusRestaurante
+from src.models.configuracao import Configuracao, StatusRestaurante
 import json
 
 configuracao_status_bp = Blueprint("configuracao_status", __name__)
@@ -237,7 +237,7 @@ def get_configuracoes():
         if not user or not user.is_admin:
             return jsonify({'error': 'Acesso negado'}), 403
         
-        configs = ConfiguracaoStatus.query.all()
+        configs = Configuracao.query.all()
         return jsonify([config.to_dict() for config in configs]), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -246,7 +246,7 @@ def get_configuracoes():
 def get_configuracao(chave):
     """Retorna uma configuração específica"""
     try:
-        config = ConfiguracaoStatus.query.filter_by(chave=chave).first()
+        config = Configuracao.query.filter_by(chave=chave).first()
         
         if not config:
             return jsonify({'error': 'Configuração não encontrada'}), 404
@@ -277,7 +277,7 @@ def criar_configuracao():
             return jsonify({'error': 'Campos "chave" e "valor" são obrigatórios'}), 400
         
         # Verificar se já existe
-        config = ConfiguracaoStatus.query.filter_by(chave=chave).first()
+        config = Configuracao.query.filter_by(chave=chave).first()
         
         if config:
             # Atualizar
@@ -287,7 +287,7 @@ def criar_configuracao():
                 config.descricao = descricao
         else:
             # Criar nova
-            config = ConfiguracaoStatus(
+            config = Configuracao(
                 chave=chave,
                 valor=str(valor),
                 tipo=tipo,
@@ -317,7 +317,7 @@ def deletar_configuracao(config_id):
         if not user or not user.is_admin:
             return jsonify({'error': 'Acesso negado'}), 403
         
-        config = ConfiguracaoStatus.query.get(config_id)
+        config = Configuracao.query.get(config_id)
         
         if not config:
             return jsonify({'error': 'Configuração não encontrada'}), 404

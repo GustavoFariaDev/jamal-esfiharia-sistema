@@ -7,7 +7,6 @@ import os
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 from src.models.user import db
-from src.models.configuracao_status_model import ConfiguracaoStatus # Importar o novo modelo de status
 
 def create_app():
     """Factory function para criar a aplicação Flask"""
@@ -80,11 +79,6 @@ def create_app():
     app.register_blueprint(status_pedido_bp, url_prefix='/api/pedidos')
     app.register_blueprint(setup_bp, url_prefix='/api/setup')
     
-    # Rota para servir o painel administrativo
-    @app.route('/admin')
-    @app.route('/admin_panel.html')
-    def admin_panel():
-        return send_from_directory('.', 'admin_panel.html')
     
     # Rota para servir arquivos de upload
     @app.route('/uploads/<filename>')
