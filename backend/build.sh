@@ -3,10 +3,22 @@
 
 set -o errexit
 
-# Instalar dependências
+echo "📦 Instalando dependências do backend..."
 pip install -r requirements.txt
 
-# Criar diretórios necessários
+echo "📦 Instalando dependências do frontend..."
+cd ../frontend
+npm install || yarn install
+
+echo "🏗️ Compilando frontend React..."
+npm run build || yarn build
+
+echo "📂 Copiando build do frontend para o backend..."
+cd ../backend
+rm -rf static
+cp -r ../frontend/build static
+
+echo "📁 Criando diretórios necessários..."
 mkdir -p instance
 mkdir -p uploads
 mkdir -p static/uploads
@@ -30,10 +42,10 @@ with app.app_context():
             email='admin@jamal.com',
             is_admin=True
         )
-        novo_admin.set_password('SOA$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
+        novo_admin.set_password('SOA\$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
         db.session.add(novo_admin)
         db.session.commit()
-        print('✅ Usuário admin criado: admin / SOA$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
+        print('✅ Usuário admin criado: admin / SOA\$k4N_,f}xj*X?RZ3ZVO^LripwE*Ck')
     else:
         print('✅ Usuário admin já existe')
 EOF
