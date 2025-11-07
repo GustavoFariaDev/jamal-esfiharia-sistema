@@ -1,11 +1,7 @@
 from functools import wraps
-from flask import request, jsonify
-import jwt
-import os
+from flask import jsonify
+from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
 from src.models.user import User
-
-# Chave secreta para JWT (deve ser a mesma usada na autenticação)
-JWT_SECRET = os.getenv('JWT_SECRET', 'dev-secret-key-change-in-production')
 
 def admin_required(f):
     """
@@ -15,19 +11,11 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
-            # Obter token do header Authorization
-            auth_header = request.headers.get('Authorization')
-            if not auth_header or not auth_header.startswith('Bearer '):
-                return jsonify({
-                    'status': 'error',
-                    'message': 'Token de acesso não fornecido'
-                }), 401
+            # Verificar JWT usando flask-jwt-extended
+            verify_jwt_in_request()
             
-            token = auth_header.split(' ')[1]
-            
-            # Decodificar o token JWT
-            payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
-            user_id = payload.get('user_id')
+            # Obter ID do usuário do token
+            user_id = get_jwt_identity()
             
             # Buscar o usuário no banco de dados
             user = User.query.get(user_id)
@@ -45,22 +33,9 @@ def admin_required(f):
                     'message': 'Acesso negado. Apenas administradores podem acessar este recurso.'
                 }), 403
             
-            # Adicionar usuário ao contexto da requisição
-            request.current_user = user
-            
             # Se passou por todas as verificações, executa a função
             return f(*args, **kwargs)
             
-        except jwt.ExpiredSignatureError:
-            return jsonify({
-                'status': 'error',
-                'message': 'Token expirado'
-            }), 401
-        except jwt.InvalidTokenError:
-            return jsonify({
-                'status': 'error',
-                'message': 'Token inválido'
-            }), 401
         except Exception as e:
             return jsonify({
                 'status': 'error',
@@ -76,14 +51,8 @@ def get_current_user():
     Retorna None se não houver usuário autenticado.
     """
     try:
-        auth_header = request.headers.get('Authorization')
-        if not auth_header or not auth_header.startswith('Bearer '):
-            return None
-        
-        token = auth_header.split(' ')[1]
-        payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
-        user_id = payload.get('user_id')
-        
+        verify_jwt_in_request()
+        user_id = get_jwt_identity()
         return User.query.get(user_id)
     except:
         return None
