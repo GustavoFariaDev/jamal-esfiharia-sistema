@@ -36,7 +36,7 @@ const WelcomeSection = () => {
           {/* Call to Action */}
           <div className="mt-12">
             <a
-              href="#cardapio"
+              href="https://jamal-esfiharia.onrender.com/cardapio"
               className="inline-block bg-jamal-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               CONHEÇA NOSSO CARDÁPIO
