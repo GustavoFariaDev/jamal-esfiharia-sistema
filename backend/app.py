@@ -7,6 +7,7 @@ import os
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 from src.models.user import db
+from src.models.configuracao_model import Configuracao # Importar o novo modelo
 
 def create_app():
     """Factory function para criar a aplicação Flask"""

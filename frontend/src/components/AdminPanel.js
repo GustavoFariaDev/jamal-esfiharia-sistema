@@ -5,7 +5,7 @@ import apiService from '../services/apiService';
 import authService from '../services/authService';
 import { useToastContext } from '../contexts/ToastContext';
 import ConfirmModal from './ConfirmModal';
-import RestaurantStatusControl from './RestaurantStatusControl';
+import RestaurantStatusControl from '../pages/admin/RestaurantStatusControl';
 import OrderManagement from './OrderManagement';
 
 const AdminPanel = () => {
