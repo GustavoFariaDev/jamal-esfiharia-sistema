@@ -7,6 +7,7 @@ from src.models.esfiha import Esfiha
 from src.middleware.auth import admin_required
 from src.services.delivery_fee import DeliveryFeeCalculator
 from src.services.google_maps import GoogleMapsService
+from src.services.notificacao_service import NotificacaoService
 from datetime import datetime, timezone
 
 pedido_bp = Blueprint("pedido", __name__)
@@ -411,10 +412,19 @@ def atualizar_status_admin(pedido_id):
     
     try:
         db.session.commit()
+        
+        # Criar notificação para o cliente se o status for notificável
+        notificacao = NotificacaoService.criar_notificacao(pedido, novo_status)
+        
+        response_data = pedido.to_dict()
+        if notificacao:
+            response_data['notificacao_criada'] = True
+            response_data['notificacao'] = notificacao.to_dict()
+        
         return jsonify({
             "status": "success",
             "message": "Status do pedido atualizado com sucesso.",
-            "data": pedido.to_dict()
+            "data": response_data
         }), 200
     except Exception as e:
         db.session.rollback()
