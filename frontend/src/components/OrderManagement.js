@@ -75,10 +75,10 @@ const OrderManagement = () => {
   const getStatusLabel = (status) => {
     const statusMap = {
       'pendente': 'Pendente',
-      'confirmado': 'Confirmado',
-      'em_preparo': 'Em Preparo',
-      'pronto': 'Pronto',
-      'saiu_para_entrega': 'Saiu para Entrega',
+      'aprovado': 'Confirmado',
+      'em_preparacao': 'Em Preparo',
+      'pronto_retirada': 'Pronto',
+      'a_caminho': 'Saiu para Entrega',
       'entregue': 'Entregue',
       'cancelado': 'Cancelado'
     };
@@ -88,10 +88,10 @@ const OrderManagement = () => {
   const getStatusColor = (status) => {
     const colorMap = {
       'pendente': 'bg-yellow-100 text-yellow-800',
-      'confirmado': 'bg-blue-100 text-blue-800',
-      'em_preparo': 'bg-purple-100 text-purple-800',
-      'pronto': 'bg-green-100 text-green-800',
-      'saiu_para_entrega': 'bg-indigo-100 text-indigo-800',
+      'aprovado': 'bg-blue-100 text-blue-800',
+      'em_preparacao': 'bg-purple-100 text-purple-800',
+      'pronto_retirada': 'bg-green-100 text-green-800',
+      'a_caminho': 'bg-indigo-100 text-indigo-800',
       'entregue': 'bg-green-200 text-green-900',
       'cancelado': 'bg-red-100 text-red-800'
     };
@@ -101,10 +101,10 @@ const OrderManagement = () => {
   const getStatusIcon = (status) => {
     const iconMap = {
       'pendente': <Clock className="w-4 h-4" />,
-      'confirmado': <CheckCircle className="w-4 h-4" />,
-      'em_preparo': <Package className="w-4 h-4" />,
-      'pronto': <CheckCircle className="w-4 h-4" />,
-      'saiu_para_entrega': <Truck className="w-4 h-4" />,
+      'aprovado': <CheckCircle className="w-4 h-4" />,
+      'em_preparacao': <Package className="w-4 h-4" />,
+      'pronto_retirada': <CheckCircle className="w-4 h-4" />,
+      'a_caminho': <Truck className="w-4 h-4" />,
       'entregue': <CheckCircle className="w-4 h-4" />,
       'cancelado': <XCircle className="w-4 h-4" />
     };
@@ -195,24 +195,24 @@ const OrderManagement = () => {
           Pendentes ({orders.filter(o => o.status === 'pendente').length})
         </button>
         <button
-          onClick={() => setFilterStatus('em_preparo')}
+          onClick={() => setFilterStatus('em_preparacao')}
           className={`px-4 py-2 rounded-lg ${
-            filterStatus === 'em_preparo'
+            filterStatus === 'em_preparacao'
               ? 'bg-purple-600 text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >
-          Em Preparo ({orders.filter(o => o.status === 'em_preparo').length})
+          Em Preparo ({orders.filter(o => o.status === 'em_preparacao').length})
         </button>
         <button
-          onClick={() => setFilterStatus('pronto')}
+          onClick={() => setFilterStatus('pronto_retirada')}
           className={`px-4 py-2 rounded-lg ${
-            filterStatus === 'pronto'
+            filterStatus === 'pronto_retirada'
               ? 'bg-green-600 text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >
-          Prontos ({orders.filter(o => o.status === 'pronto').length})
+          Prontos ({orders.filter(o => o.status === 'pronto_retirada').length})
         </button>
       </div>
 
@@ -290,7 +290,7 @@ const OrderManagement = () => {
                 {order.status === 'pendente' && (
                   <>
                     <button
-                      onClick={() => updateOrderStatus(order.id, 'confirmado')}
+                      onClick={() => updateOrderStatus(order.id, 'aprovado')}
                       className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
                     >
                       Confirmar
@@ -304,34 +304,34 @@ const OrderManagement = () => {
                   </>
                 )}
 
-                {order.status === 'confirmado' && (
+                {order.status === 'aprovado' && (
                   <button
-                    onClick={() => updateOrderStatus(order.id, 'em_preparo')}
+                    onClick={() => updateOrderStatus(order.id, 'em_preparacao')}
                     className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm"
                   >
                     Iniciar Preparo
                   </button>
                 )}
 
-                {order.status === 'em_preparo' && (
+                {order.status === 'em_preparacao' && (
                   <button
-                    onClick={() => updateOrderStatus(order.id, 'pronto')}
+                    onClick={() => updateOrderStatus(order.id, 'pronto_retirada')}
                     className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
                   >
                     Marcar como Pronto
                   </button>
                 )}
 
-                {order.status === 'pronto' && (
+                {order.status === 'pronto_retirada' && (
                   <button
-                    onClick={() => updateOrderStatus(order.id, 'saiu_para_entrega')}
+                    onClick={() => updateOrderStatus(order.id, 'a_caminho')}
                     className="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm"
                   >
                     Saiu para Entrega
                   </button>
                 )}
 
-                {order.status === 'saiu_para_entrega' && (
+                {order.status === 'a_caminho' && (
                   <button
                     onClick={() => updateOrderStatus(order.id, 'entregue')}
                     className="px-3 py-1 bg-green-700 text-white rounded hover:bg-green-800 text-sm"
