@@ -72,10 +72,14 @@ class ApiService {
   }
 
   async updateProduct(id, productData) {
-    return this.request(`/esfihas/${id}/`, {
+    console.log(`[API] updateProduct - ID: ${id}`);
+    console.log('[API] productData:', productData);
+    const result = await this.request(`/esfihas/${id}/`, {
       method: 'PUT',
       body: JSON.stringify(productData),
     });
+    console.log('[API] updateProduct result:', result);
+    return result;
   }
 
   async deleteProduct(id) {

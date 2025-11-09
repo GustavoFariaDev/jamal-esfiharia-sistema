@@ -230,18 +230,25 @@ const AdminPanel = () => {
   };
 
   const openProductModal = (product = null) => {
+    console.log('=== openProductModal chamado ===');
+    console.log('product recebido:', product);
+    
     if (product) {
+      console.log('Modo: EDIÇÃO');
       setEditingProduct(product);
-      setProductForm({
+      const formData = {
         nome: product.nome,
         descricao: product.descricao,
         preco: product.preco,
         categoria: product.categoria,
         disponivel: product.disponivel,
         imagem_url: product.imagem_url || ''
-      });
+      };
+      console.log('formData setado:', formData);
+      setProductForm(formData);
       setImagePreview(product.imagem_url || null);
     } else {
+      console.log('Modo: CRIAÇÃO');
       setEditingProduct(null);
       setProductForm({
         nome: '',
@@ -334,7 +341,12 @@ const AdminPanel = () => {
   };
 
   const handleSaveProduct = async () => {
+    console.log('=== INÍCIO handleSaveProduct ===');
+    console.log('editingProduct:', editingProduct);
+    console.log('productForm:', productForm);
+    
     if (!productForm.nome || !productForm.preco || !productForm.categoria) {
+      console.warn('Validação falhou: campos obrigatórios vazios');
       warning('Preencha todos os campos obrigatórios');
       return;
     }
@@ -346,19 +358,26 @@ const AdminPanel = () => {
         ...productForm,
         preco: parseFloat(productForm.preco)
       };
+      
+      console.log('productData preparado:', productData);
 
       let result;
       if (editingProduct) {
+        console.log('Modo: EDICAO - ID:', editingProduct.id);
         result = await apiService.updateProduct(editingProduct.id, productData);
       } else {
+        console.log('Modo: CRIACAO');
         result = await apiService.createProduct(productData);
       }
+      
+      console.log('Resultado da API:', result);
 
       if (result.success) {
         success(editingProduct ? 'Produto atualizado com sucesso!' : 'Produto criado com sucesso!');
         closeProductModal();
         fetchProducts();
       } else {
+        console.error('Erro retornado pela API:', result.error);
         error(result.error || 'Erro ao salvar produto');
       }
     } catch (err) {
@@ -366,6 +385,7 @@ const AdminPanel = () => {
       error('Erro de conexão ao salvar produto');
     } finally {
       setLoading(false);
+      console.log('=== FIM handleSaveProduct ===');
     }
   };
 

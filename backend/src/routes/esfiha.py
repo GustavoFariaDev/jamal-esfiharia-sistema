@@ -149,15 +149,20 @@ def add_esfiha():
 @admin_required
 def update_esfiha(esfiha_id):
     """Atualiza uma esfiha existente (Admin)."""
+    print(f"\n=== UPDATE ESFIHA ID: {esfiha_id} ===")
+    
     esfiha = Esfiha.query.get(esfiha_id)
     
     if not esfiha:
+        print(f"ERRO: Esfiha {esfiha_id} não encontrada")
         return jsonify({
             "status": "error",
             "message": "Esfiha não encontrada."
         }), 404
     
     data = request.json
+    print(f"Dados recebidos: {data}")
+    print(f"Esfiha atual: nome={esfiha.nome}, preco={esfiha.preco}, categoria={esfiha.categoria}")
 
     # Atualizar nome se fornecido
     if "nome" in data and data["nome"] != esfiha.nome:
@@ -204,13 +209,18 @@ def update_esfiha(esfiha_id):
 
     try:
         db.session.commit()
+        print(f"SUCESSO: Esfiha {esfiha_id} atualizada")
+        print(f"Esfiha atualizada: nome={esfiha.nome}, preco={esfiha.preco}, categoria={esfiha.categoria}")
+        result = esfiha.to_dict()
+        print(f"Retornando: {result}")
         return jsonify({
             "status": "success",
             "message": "Esfiha atualizada com sucesso.",
-            "data": esfiha.to_dict()
+            "data": result
         }), 200
     except Exception as e:
         db.session.rollback()
+        print(f"ERRO ao commitar: {str(e)}")
         return jsonify({
             "status": "error",
             "message": f"Erro ao atualizar esfiha: {str(e)}"
