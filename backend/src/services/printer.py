@@ -115,15 +115,29 @@ class ThermalPrinter:
         if fone:
             lines.append(f"Fone: {fone}")
         
-        # Endereço do cliente
-        endereco = order_data.get('endereco', '')
-        if endereco:
-            lines.append(f"Endereco: {endereco[:35]}")
-        
         # Tipo entrega
         tipo_entrega = order_data.get('tipo_entrega', 'retirada')
         tipo_label = 'Delivery' if tipo_entrega == 'delivery' else 'Retirada'
         lines.append(f"Entrega: {tipo_label}")
+        
+        # Informações de endereço completas (apenas para delivery)
+        if tipo_entrega == 'delivery':
+            cep = order_data.get('cep_entrega', '')
+            endereco = order_data.get('endereco_entrega', '') or order_data.get('endereco', '')
+            complemento = order_data.get('complemento', '')
+            
+            if cep:
+                lines.append(f"CEP: {cep}")
+            if endereco:
+                # Quebrar endereço em múltiplas linhas se necessário
+                if len(endereco) > 35:
+                    lines.append(f"End: {endereco[:35]}")
+                    if len(endereco) > 35:
+                        lines.append(f"     {endereco[35:70]}")
+                else:
+                    lines.append(f"End: {endereco}")
+            if complemento:
+                lines.append(f"Compl: {complemento[:33]}")
         
         lines.append(self._line("-"))
         
@@ -385,9 +399,20 @@ class PDFPrinter:
             info_text += f"Cliente: {cliente}<br/>"
             if fone:
                 info_text += f"Fone: {fone}<br/>"
-            endereco = order_data.get('endereco', '')
-            if endereco:
-                info_text += f"Endereço: {endereco}<br/>"
+            
+            # Informações de endereço completas (CEP, endereço, complemento)
+            if order_data.get('tipo_entrega') == 'delivery':
+                cep = order_data.get('cep_entrega', '')
+                endereco = order_data.get('endereco_entrega', '') or order_data.get('endereco', '')
+                complemento = order_data.get('complemento', '')
+                
+                if cep:
+                    info_text += f"CEP: {cep}<br/>"
+                if endereco:
+                    info_text += f"Endereço: {endereco}<br/>"
+                if complemento:
+                    info_text += f"Complemento: {complemento}<br/>"
+            
             info_text += f"Entrega: {tipo_entrega}"
             
             elements.append(Paragraph(info_text, compact_style))
@@ -504,17 +529,12 @@ class PDFPrinter:
             
             elements.append(Paragraph(info_adicional, compact_style))
             
-            # Endereço delivery
+            # Distância (se delivery)
             if order_data.get('tipo_entrega') == 'delivery':
-                elements.append(Spacer(1, 5))
-                endereco = order_data.get('endereco_entrega', '')
                 distancia = order_data.get('distancia_km')
-                
-                end_text = f"<b>Endereço:</b> {endereco}"
                 if distancia:
-                    end_text += f" | {distancia:.1f} km"
-                
-                elements.append(Paragraph(end_text, compact_style))
+                    elements.append(Spacer(1, 5))
+                    elements.append(Paragraph(f"<b>Distância:</b> {distancia:.1f} km", compact_style))
             
             # Observações
             obs = order_data.get('observacoes', '').strip()
