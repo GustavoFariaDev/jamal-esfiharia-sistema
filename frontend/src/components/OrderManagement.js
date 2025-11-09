@@ -10,6 +10,7 @@ const OrderManagement = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showOrderDetails, setShowOrderDetails] = useState(false);
   const [filterStatus, setFilterStatus] = useState('all');
+  const [showPrintMenu, setShowPrintMenu] = useState(null); // ID do pedido com menu aberto
   const { success, error } = useToastContext();
 
   useEffect(() => {
@@ -18,6 +19,20 @@ const OrderManagement = () => {
     const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
   }, []);
+
+  // Fechar menu de impressão ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showPrintMenu && !event.target.closest('.relative')) {
+        setShowPrintMenu(null);
+      }
+    };
+    
+    if (showPrintMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [showPrintMenu]);
 
   const fetchOrders = async () => {
     try {
@@ -289,15 +304,53 @@ const OrderManagement = () => {
                   Detalhes
                 </button>
 
-                <button
-                  onClick={() => handlePrintOrder(order.id, 'pdf')}
-                  disabled={loading}
-                  className="flex items-center gap-1 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm disabled:opacity-50"
-                  title="Imprimir Pedido (PDF)"
-                >
-                  <Printer className="w-4 h-4" />
-                  Imprimir
-                </button>
+                <div className="relative">
+                  <button
+                    onClick={() => setShowPrintMenu(showPrintMenu === order.id ? null : order.id)}
+                    disabled={loading}
+                    className="flex items-center gap-1 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm disabled:opacity-50"
+                    title="Opções de Impressão"
+                  >
+                    <Printer className="w-4 h-4" />
+                    Imprimir
+                    <span className="ml-1">▼</span>
+                  </button>
+                  
+                  {showPrintMenu === order.id && (
+                    <div className="absolute left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+                      <button
+                        onClick={() => {
+                          handlePrintOrder(order.id, 'pdf');
+                          setShowPrintMenu(null);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2 text-sm"
+                      >
+                        <Printer className="w-4 h-4" />
+                        Imprimir PDF
+                      </button>
+                      <button
+                        onClick={() => {
+                          handlePrintOrder(order.id, 'thermal');
+                          setShowPrintMenu(null);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2 text-sm border-t"
+                      >
+                        <Printer className="w-4 h-4" />
+                        Impressora Térmica
+                      </button>
+                      <button
+                        onClick={() => {
+                          handlePrintOrder(order.id, 'both');
+                          setShowPrintMenu(null);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2 text-sm border-t rounded-b-lg"
+                      >
+                        <Printer className="w-4 h-4" />
+                        PDF + Térmica
+                      </button>
+                    </div>
+                  )}
+                </div>
 
                 {order.status === 'pendente' && (
                   <>
@@ -427,14 +480,61 @@ const OrderManagement = () => {
               </div>
 
               <div className="mt-6 flex justify-end gap-3">
-                <button
-                  onClick={() => handlePrintOrder(selectedOrder.id, 'pdf')}
-                  disabled={loading}
-                  className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
-                >
-                  <Printer className="w-5 h-5" />
-                  Imprimir Pedido
-                </button>
+                <div className="relative">
+                  <button
+                    onClick={() => setShowPrintMenu(showPrintMenu === 'modal' ? null : 'modal')}
+                    disabled={loading}
+                    className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+                  >
+                    <Printer className="w-5 h-5" />
+                    Imprimir Pedido
+                    <span className="ml-1">▼</span>
+                  </button>
+                  
+                  {showPrintMenu === 'modal' && (
+                    <div className="absolute right-0 bottom-full mb-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
+                      <button
+                        onClick={() => {
+                          handlePrintOrder(selectedOrder.id, 'pdf');
+                          setShowPrintMenu(null);
+                        }}
+                        className="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-2 text-sm rounded-t-lg"
+                      >
+                        <Printer className="w-4 h-4" />
+                        <div>
+                          <div className="font-medium">Imprimir PDF</div>
+                          <div className="text-xs text-gray-500">Abre em nova aba</div>
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => {
+                          handlePrintOrder(selectedOrder.id, 'thermal');
+                          setShowPrintMenu(null);
+                        }}
+                        className="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-2 text-sm border-t"
+                      >
+                        <Printer className="w-4 h-4" />
+                        <div>
+                          <div className="font-medium">Impressora Térmica</div>
+                          <div className="text-xs text-gray-500">Imprime direto</div>
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => {
+                          handlePrintOrder(selectedOrder.id, 'both');
+                          setShowPrintMenu(null);
+                        }}
+                        className="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-2 text-sm border-t rounded-b-lg"
+                      >
+                        <Printer className="w-4 h-4" />
+                        <div>
+                          <div className="font-medium">PDF + Térmica</div>
+                          <div className="text-xs text-gray-500">Ambos os formatos</div>
+                        </div>
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <button
                   onClick={() => setShowOrderDetails(false)}
                   className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
