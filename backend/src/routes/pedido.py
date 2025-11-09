@@ -8,6 +8,7 @@ from src.middleware.auth import admin_required
 from src.services.delivery_fee import DeliveryFeeCalculator
 from src.services.google_maps import GoogleMapsService
 from src.services.notificacao_service import NotificacaoService
+from src.services.whatsapp_service import WhatsAppService
 from datetime import datetime, timezone
 
 pedido_bp = Blueprint("pedido", __name__)
@@ -259,11 +260,20 @@ def criar_pedido():
 
     try:
         db.session.commit()
+        
+        # Gerar link do WhatsApp para enviar pedido à gestão
+        pedido_dict = novo_pedido.to_dict()
+        resultado_whatsapp = WhatsAppService.enviar_pedido_para_gestao(pedido_dict)
+        
+        # Adicionar link do WhatsApp na resposta
+        if resultado_whatsapp["sucesso"]:
+            pedido_dict["whatsapp_link"] = resultado_whatsapp["link"]
 
         return jsonify({
             "status": "success",
             "message": "Pedido criado com sucesso! Pagamento na entrega.",
-            "data": novo_pedido.to_dict()
+            "data": pedido_dict,
+            "whatsapp_link": resultado_whatsapp.get("link")
         }), 201
 
     except Exception as e:

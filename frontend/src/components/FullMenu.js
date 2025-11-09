@@ -502,6 +502,13 @@ const FullMenu = () => {
           'Pedido realizado com sucesso! Acesse /status para acompanhar o status do seu pedido.'
         );
         
+        // Abrir WhatsApp automaticamente se o link estiver disponível
+        if (result.whatsapp_link) {
+          setTimeout(() => {
+            window.open(result.whatsapp_link, '_blank');
+          }, 1000);
+        }
+        
         clearCart();
         setShowConfirmModal(false);
         setIsCartOpen(false);

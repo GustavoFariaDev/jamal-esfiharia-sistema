@@ -8,6 +8,7 @@ from src.models.user import db
 from src.models.pedido import Pedido, ItemPedido, ItemPedidoAcrescimo, StatusPedido
 from src.models.esfiha import Esfiha
 from src.models.acrescimo import Acrescimo
+from src.services.whatsapp_service import WhatsAppService
 from datetime import datetime, timezone
 
 pedido_simples_bp = Blueprint("pedido_simples", __name__)
@@ -192,11 +193,20 @@ def criar_pedido():
                         db.session.add(item_acrescimo)
 
         db.session.commit()
+        
+        # Gerar link do WhatsApp para enviar pedido à gestão
+        pedido_dict = novo_pedido.to_dict()
+        resultado_whatsapp = WhatsAppService.enviar_pedido_para_gestao(pedido_dict)
+        
+        # Adicionar link do WhatsApp na resposta
+        if resultado_whatsapp["sucesso"]:
+            pedido_dict["whatsapp_link"] = resultado_whatsapp["link"]
 
         return jsonify({
             "status": "success",
             "message": "Pedido criado com sucesso!",
-            "data": novo_pedido.to_dict()
+            "data": pedido_dict,
+            "whatsapp_link": resultado_whatsapp.get("link")
         }), 201
 
     except Exception as e:
