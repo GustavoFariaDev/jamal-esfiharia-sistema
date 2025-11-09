@@ -1,10 +1,16 @@
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, jsonify
+import cloudinary
+import cloudinary.uploader
 import os
-from werkzeug.utils import secure_filename
-import uuid
-from datetime import datetime
 
 upload_bp = Blueprint('upload', __name__)
+
+# Configurar Cloudinary
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'image'),
+    api_key=os.getenv('CLOUDINARY_API_KEY', '439968778124911'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET', '4xYcYzn1DZDAHQ__l1_w6mpOzk4')
+)
 
 # Configurações de upload
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
@@ -16,8 +22,7 @@ def allowed_file(filename):
 @upload_bp.route('/image', methods=['POST'])
 def upload_image():
     """
-    Rota para upload de imagens
-    Salva a imagem na pasta static/uploads e retorna a URL
+    Rota para upload de imagens no Cloudinary
     """
     try:
         # Verificar se há arquivo na requisição
@@ -54,31 +59,36 @@ def upload_image():
                 'message': 'Arquivo muito grande. Tamanho máximo: 5MB'
             }), 400
         
-        # Gerar nome único para o arquivo
-        file_extension = file.filename.rsplit('.', 1)[1].lower()
-        unique_filename = f"{uuid.uuid4().hex}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.{file_extension}"
+        # Fazer upload para o Cloudinary
+        upload_result = cloudinary.uploader.upload(
+            file,
+            folder='jamal-esfiharia',  # Pasta no Cloudinary
+            resource_type='image',
+            format='webp',  # Converter para webp para otimização
+            transformation=[
+                {'width': 800, 'height': 800, 'crop': 'limit'},  # Limitar tamanho
+                {'quality': 'auto'},  # Qualidade automática
+                {'fetch_format': 'auto'}  # Formato automático
+            ]
+        )
         
-        # Criar diretório de uploads se não existir
-        upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
-        os.makedirs(upload_folder, exist_ok=True)
+        # Obter URL da imagem
+        image_url = upload_result['secure_url']
+        public_id = upload_result['public_id']
         
-        # Salvar arquivo
-        file_path = os.path.join(upload_folder, unique_filename)
-        file.save(file_path)
-        
-        # Gerar URL da imagem
-        image_url = f"/static/uploads/{unique_filename}"
+        print(f"Upload realizado com sucesso: {image_url}")
         
         return jsonify({
             'status': 'success',
             'message': 'Imagem enviada com sucesso',
             'data': {
                 'url': image_url,
-                'filename': unique_filename
+                'public_id': public_id
             }
         }), 200
         
     except Exception as e:
+        print(f"Erro ao fazer upload: {str(e)}")
         return jsonify({
             'status': 'error',
             'message': f'Erro ao fazer upload: {str(e)}'
@@ -87,29 +97,22 @@ def upload_image():
 @upload_bp.route('/delete', methods=['POST'])
 def delete_image():
     """
-    Rota para deletar imagens do servidor
+    Rota para deletar imagens do Cloudinary
     """
     try:
         data = request.get_json()
-        filename = data.get('filename')
+        public_id = data.get('public_id')
         
-        if not filename:
+        if not public_id:
             return jsonify({
                 'status': 'error',
-                'message': 'Nome do arquivo não fornecido'
+                'message': 'ID da imagem não fornecido'
             }), 400
         
-        # Remover apenas o nome do arquivo da URL se vier completa
-        if '/' in filename:
-            filename = filename.split('/')[-1]
+        # Deletar do Cloudinary
+        result = cloudinary.uploader.destroy(public_id)
         
-        # Caminho do arquivo
-        upload_folder = os.path.join(current_app.root_path, '..', 'static', 'uploads')
-        file_path = os.path.join(upload_folder, filename)
-        
-        # Verificar se arquivo existe e deletar
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        if result.get('result') == 'ok':
             return jsonify({
                 'status': 'success',
                 'message': 'Imagem deletada com sucesso'
@@ -117,10 +120,11 @@ def delete_image():
         else:
             return jsonify({
                 'status': 'error',
-                'message': 'Arquivo não encontrado'
-            }), 404
+                'message': 'Erro ao deletar imagem'
+            }), 500
             
     except Exception as e:
+        print(f"Erro ao deletar imagem: {str(e)}")
         return jsonify({
             'status': 'error',
             'message': f'Erro ao deletar imagem: {str(e)}'
