@@ -161,8 +161,9 @@ def update_esfiha(esfiha_id):
 
     # Atualizar nome se fornecido
     if "nome" in data and data["nome"] != esfiha.nome:
-        # Verificar se já existe outra esfiha com o mesmo nome
-        if Esfiha.query.filter_by(nome=data["nome"]).first():
+        # Verificar se já existe outra esfiha com o mesmo nome (excluindo a própria)
+        existing = Esfiha.query.filter_by(nome=data["nome"]).first()
+        if existing and existing.id != esfiha.id:
             return jsonify({
                 "status": "error",
                 "message": "Já existe uma esfiha com este nome."
