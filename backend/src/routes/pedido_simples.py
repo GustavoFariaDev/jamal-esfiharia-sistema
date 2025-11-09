@@ -9,7 +9,8 @@ from src.models.pedido import Pedido, ItemPedido, ItemPedidoAcrescimo, StatusPed
 from src.models.esfiha import Esfiha
 from src.models.acrescimo import Acrescimo
 from src.services.whatsapp_service import WhatsAppService
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 pedido_simples_bp = Blueprint("pedido_simples", __name__)
 
@@ -157,7 +158,7 @@ def criar_pedido():
             observacoes=dados.get("observacoes", ""),
             forma_pagamento=dados.get("forma_pagamento", "dinheiro"),
             troco_para=dados.get("troco_para"),
-                data_criacao=datetime.now(timezone.utc)
+                data_criacao=datetime.now(ZoneInfo('America/Sao_Paulo'))
         )
         
         db.session.add(novo_pedido)

@@ -8,6 +8,7 @@ import platform
 import subprocess
 import tempfile
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from typing import Dict, List, Optional
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
@@ -110,7 +111,7 @@ class ThermalPrinter:
         
         # Informações do pedido
         lines.append(f"PEDIDO: #{order_data.get('id', 'N/A')}")
-        lines.append(f"DATA: {datetime.now().strftime('%d/%m/%Y %H:%M')}")
+        lines.append(f"DATA: {datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%d/%m/%Y %H:%M')}")
         lines.append(f"CLIENTE: {order_data.get('cliente_nome', 'N/A')}")
         if order_data.get('cliente_telefone'):
             lines.append(f"FONE: {order_data['cliente_telefone']}")
@@ -350,7 +351,7 @@ class PDFPrinter:
             # Informações do pedido
             info_data = [
                 ['Pedido:', f"#{order_data.get('id', 'N/A')}"],
-                ['Data:', datetime.now().strftime('%d/%m/%Y %H:%M')],
+                ['Data:', datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%d/%m/%Y %H:%M')],
                 ['Cliente:', order_data.get('cliente_nome', 'N/A')],
                 ['Telefone:', order_data.get('cliente_telefone', 'N/A')],
             ]
@@ -535,7 +536,7 @@ class PrinterService:
         
         if print_type in ["pdf", "both"]:
             # Cria PDF
-            pdf_filename = f"pedido_{order_data.get('id', 'temp')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            pdf_filename = f"pedido_{order_data.get('id', 'temp')}_{datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%Y%m%d_%H%M%S')}.pdf"
             pdf_path = os.path.join("uploads", "pdfs", pdf_filename)
             
             # Garante que o diretório existe

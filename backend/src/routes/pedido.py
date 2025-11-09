@@ -9,7 +9,8 @@ from src.services.delivery_fee import DeliveryFeeCalculator
 from src.services.google_maps import GoogleMapsService
 from src.services.notificacao_service import NotificacaoService
 from src.services.whatsapp_service import WhatsAppService
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 pedido_bp = Blueprint("pedido", __name__)
 
@@ -96,7 +97,7 @@ def cancelar_meu_pedido(id):
 
     # Cancelar pedido (sem integração de pagamento online)
     pedido.status = StatusPedido.CANCELADO
-    pedido.data_atualizacao = datetime.now(timezone.utc)
+    pedido.data_atualizacao = datetime.now(ZoneInfo('America/Sao_Paulo'))
     
     try:
         db.session.commit()
@@ -418,7 +419,7 @@ def atualizar_status_admin(pedido_id):
         }), 400
 
     pedido.status = novo_status
-    pedido.data_atualizacao = datetime.now(timezone.utc)
+    pedido.data_atualizacao = datetime.now(ZoneInfo('America/Sao_Paulo'))
     
     try:
         db.session.commit()

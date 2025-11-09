@@ -8,6 +8,7 @@ import platform
 import subprocess
 import tempfile
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from typing import Dict, List, Optional
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
@@ -111,7 +112,7 @@ class ThermalPrinter:
         
         # Info pedido (linha única)
         pedido_id = order_data.get('id', 'N/A')
-        data = datetime.now().strftime('%d/%m/%y %H:%M')
+        data = datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%d/%m/%y %H:%M')
         lines.append(f"PEDIDO #{pedido_id} | {data}")
         
         # Cliente
@@ -406,7 +407,7 @@ class PDFPrinter:
             
             # Info pedido
             pedido_id = order_data.get('id', 'N/A')
-            data = datetime.now().strftime('%d/%m/%Y %H:%M')
+            data = datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%d/%m/%Y %H:%M')
             cliente = order_data.get('cliente_nome', 'N/A')
             fone = order_data.get('cliente_telefone', '')
             tipo_entrega_raw = order_data.get('tipo_entrega', 'retirada')
@@ -611,7 +612,7 @@ class PrinterService:
         
         if print_type in ["pdf", "both"]:
             # Cria PDF com caminho absoluto
-            pdf_filename = f"pedido_{order_data.get('id', 'temp')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            pdf_filename = f"pedido_{order_data.get('id', 'temp')}_{datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%Y%m%d_%H%M%S')}.pdf"
             
             # Obter diretório do backend (2 níveis acima de services)
             basedir = os.path.abspath(os.path.dirname(__file__))

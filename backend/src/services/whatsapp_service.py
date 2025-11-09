@@ -4,6 +4,7 @@ Envia notificações de pedidos para a gestão
 """
 import urllib.parse
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 
 class WhatsAppService:
@@ -93,8 +94,8 @@ class WhatsAppService:
         if observacoes:
             mensagem += f"\n\n📝 *Observações:*\n{observacoes}"
         
-        # Data/hora
-        data_hora = datetime.now().strftime('%d/%m/%Y às %H:%M')
+        # Data/hora (horário de Brasília)
+        data_hora = datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%d/%m/%Y às %H:%M')
         mensagem += f"\n\n🕐 {data_hora}"
         
         return mensagem
