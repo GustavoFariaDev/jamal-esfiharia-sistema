@@ -44,6 +44,8 @@ def imprimir_pedido(pedido_id):
             'observacoes': pedido.observacoes,
             'tipo_entrega': pedido.forma_entrega,
             'endereco_entrega': pedido.endereco,
+            'complemento': pedido.complemento,
+            'cep_entrega': pedido.cep_entrega,
             'distancia_km': float(pedido.distancia_km) if pedido.distancia_km else None,
             'taxa_entrega': float(pedido.taxa_entrega),
             'forma_pagamento': pedido.forma_pagamento,
@@ -171,6 +173,14 @@ def imprimir_teste():
             'cliente_telefone': '(11) 99999-9999',
             'status': 'Teste',
             'observacoes': 'Este é um pedido de teste para verificar a impressão.\nSem cebola, por favor.',
+            'tipo_entrega': 'delivery',
+            'endereco_entrega': 'Rua Teste, 123 - Bairro Teste',
+            'complemento': 'Apto 42',
+            'cep_entrega': '01234-567',
+            'taxa_entrega': 5.00,
+            'forma_pagamento': 'dinheiro',
+            'troco_para': 50.00,
+            'valor_total': 45.50,
             'itens': [
                 {
                     'esfiha_nome': 'Esfiha de Carne',
