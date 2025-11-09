@@ -9,6 +9,7 @@ import HalfAndHalfSelector from './HalfAndHalfSelector';
 import PizzaModal from './PizzaModal';
 import EsfihaModal from './EsfihaModal'; // ✅ NOVO: Importar EsfihaModal
 import GenericProductModal from './GenericProductModal'; // ✅ NOVO: Importar GenericProductModal
+import BeiruteModal from './BeiruteModal'; // ✅ NOVO: Importar BeiruteModal
 import apiService from '../services/apiService';
 import { useToastContext } from '../contexts/ToastContext';
 
@@ -36,6 +37,10 @@ const FullMenu = () => {
   // ✅ NOVO: Estados para GenericProductModal
   const [showGenericModal, setShowGenericModal] = useState(false);
   const [selectedGenericProduct, setSelectedGenericProduct] = useState(null);
+  
+  // ✅ NOVO: Estados para BeiruteModal
+  const [showBeiruteModal, setShowBeiruteModal] = useState(false);
+  const [selectedBeirute, setSelectedBeirute] = useState(null);
   
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
@@ -676,6 +681,9 @@ const FullMenu = () => {
                     if (isPizza) {
                       setSelectedPizza(product);
                       setShowPizzaModal(true);
+                    } else if (category.includes('beirute')) {
+                      setSelectedBeirute(product);
+                      setShowBeiruteModal(true);
                     } else if (category.includes('esfiha')) {
                       setSelectedEsfiha(product);
                       setShowEsfihaModal(true);
@@ -999,6 +1007,16 @@ const FullMenu = () => {
             isOpen={showGenericModal}
             onClose={() => setShowGenericModal(false)}
             product={selectedGenericProduct}
+            onAddToCart={addToCart}
+          />
+        )}
+
+        {/* ✅ NOVO: Beirute Modal */}
+        {showBeiruteModal && (
+          <BeiruteModal
+            isOpen={showBeiruteModal}
+            onClose={() => setShowBeiruteModal(false)}
+            beirute={selectedBeirute}
             onAddToCart={addToCart}
           />
         )}
