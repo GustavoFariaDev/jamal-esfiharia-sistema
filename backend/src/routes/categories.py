@@ -10,7 +10,7 @@ categories_bp = Blueprint("categories", __name__)
 def get_categories():
     if request.method == 'OPTIONS':
         return '', 200
-    """Retorna todas as categorias únicas dos produtos."""
+    """Retorna todas as categorias únicas dos produtos em ordem lógica."""
     try:
         # Buscar todas as categorias distintas que não são nulas
         categories = db.session.query(distinct(Esfiha.categoria)).filter(
@@ -18,8 +18,48 @@ def get_categories():
             Esfiha.categoria != ''
         ).all()
         
-        # Converter para lista de objetos com id e name
-        # O id é a versão lowercase para facilitar filtros
+        # Extrair nomes das categorias
+        category_names = {cat[0] for cat in categories if cat[0]}
+        
+        # Definir ordem lógica das categorias
+        # Ordem: Esfihas → Pizzas → Fogazzes → Pastéis → Beirutes → Acompanhamentos → Bebidas
+        # Dentro de cada grupo: Salgados → Especiais → Vegetarianos → Doces
+        category_order = [
+            # ESFIHAS (produto principal)
+            "ESFIHAS SALGADAS",
+            "ESFIHAS ESPECIAIS",
+            "ESFIHAS VEGETARIANAS",
+            "ESFIHAS DOCES",
+            
+            # PIZZAS
+            "PIZZAS SALGADAS",
+            "PIZZAS DOCES",
+            
+            # FOGAZZES
+            "FOGAZZES SALGADAS",
+            "FOGAZZES ESPECIAIS",
+            "FOGAZZES VEGETARIANAS",
+            "FOGAZZES DOCES",
+            
+            # PASTÉIS
+            "PASTÉIS SALGADOS",
+            "PASTÉIS ESPECIAIS",
+            "PASTÉIS VEGETARIANOS",
+            "PASTÉIS DOCES",
+            
+            # BEIRUTES
+            "BEIRUTES",
+            
+            # ACOMPANHAMENTOS
+            "BATATA SIMPLES",
+            "BATATA RECHEADA",
+            "SALGADOS",
+            
+            # BEBIDAS (sempre por último)
+            "BEBIDAS"
+        ]
+        
+        # Criar lista ordenada de categorias
         category_list = []
         
         # Adicionar opção "Todos" primeiro
@@ -28,12 +68,20 @@ def get_categories():
             "name": "Todas as Categorias"
         })
         
-        # Adicionar categorias do banco
-        for cat in categories:
-            if cat[0]:
+        # Adicionar categorias na ordem definida (apenas as que existem no banco)
+        for cat_name in category_order:
+            if cat_name in category_names:
                 category_list.append({
-                    "id": cat[0].lower(),  # ID em lowercase para filtros
-                    "name": cat[0]         # Nome original com capitalização
+                    "id": cat_name.lower(),  # ID em lowercase para filtros
+                    "name": cat_name         # Nome original com capitalização
+                })
+        
+        # Adicionar categorias que não estão na ordem definida (caso existam novas)
+        for cat_name in sorted(category_names):
+            if cat_name not in category_order:
+                category_list.append({
+                    "id": cat_name.lower(),
+                    "name": cat_name
                 })
         
         return jsonify({
@@ -46,4 +94,3 @@ def get_categories():
             "status": "error",
             "message": f"Erro ao buscar categorias: {str(e)}"
         }), 500
-
