@@ -61,7 +61,7 @@ class ApiService {
   }
 
   async getProduct(id) {
-    return this.request(`/esfihas/${id}/`);
+    return this.request(`/esfihas/${id}`);
   }
 
   async createProduct(productData) {
@@ -74,7 +74,7 @@ class ApiService {
   async updateProduct(id, productData) {
     console.log(`[API] updateProduct - ID: ${id}`);
     console.log('[API] productData:', productData);
-    const result = await this.request(`/esfihas/${id}/`, {
+    const result = await this.request(`/esfihas/${id}`, {
       method: 'PUT',
       body: JSON.stringify(productData),
     });
@@ -83,7 +83,7 @@ class ApiService {
   }
 
   async deleteProduct(id) {
-    return this.request(`/esfihas/${id}/`, {
+    return this.request(`/esfihas/${id}`, {
       method: 'DELETE',
     });
   }
