@@ -106,11 +106,7 @@ const AdminLogin = ({ onLogin }) => {
             </button>
           </div>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              Credenciais padrão: <strong>admin</strong> / <strong>admin123</strong>
-            </p>
-          </div>
+
         </form>
       </div>
     </div>

@@ -2314,8 +2314,8 @@ Prompt: Professional food photography: pizza salgada brasileira redonda com bord
 Imagem atual: /static/uploads/14f103416e4d8410c686417bfd0b3d5d_20251106_094826.jpg
 --------------------------------------------------------------------------------
 ID: 40
-Nome: 5 QUEJOS
-Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, 5 quejos, with mussarela, provolone, catupiry, gorgonzola e parmesão, high quality, appetizing, well lit, restaurant style
+Nome: 5 QUEIJOS
+Prompt: Professional food photography: pizza salgada brasileira redonda com borda, vista de cima, fundo branco limpo, 5 queijos, with mussarela, provolone, catupiry, gorgonzola e parmesão, high quality, appetizing, well lit, restaurant style
 Imagem atual: /static/uploads/4eba0212f1626ab3ed8f270a6e247e7c_20251106_094826.jpg
 --------------------------------------------------------------------------------
 ID: 1
