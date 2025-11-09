@@ -496,6 +496,10 @@ const FullMenu = () => {
       });
 
       const result = await response.json();
+      
+      // Debug: verificar resposta
+      console.log('Resposta do servidor:', result);
+      console.log('Link do WhatsApp:', result.whatsapp_link);
 
       if (response.ok && result.status === 'success') {
         success(
@@ -504,9 +508,12 @@ const FullMenu = () => {
         
         // Abrir WhatsApp automaticamente se o link estiver disponível
         if (result.whatsapp_link) {
+          console.log('Abrindo WhatsApp com link:', result.whatsapp_link);
           setTimeout(() => {
             window.open(result.whatsapp_link, '_blank');
           }, 1000);
+        } else {
+          console.warn('Link do WhatsApp não encontrado na resposta');
         }
         
         clearCart();
