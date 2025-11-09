@@ -230,7 +230,7 @@ class ThermalPrinter:
         
         # Tipo de entrega
         tipo_entrega = order_data.get('tipo_entrega', 'retirada')
-        if tipo_entrega == 'delivery':
+        if tipo_entrega in ['delivery', 'entrega']:
             lines.append("TIPO: DELIVERY")
             if order_data.get('endereco_entrega'):
                 endereco = order_data['endereco_entrega']
@@ -471,7 +471,7 @@ class PDFPrinter:
             elements.append(Paragraph(f"<b>Status:</b> {status.upper()}", styles['Normal']))
             
             tipo_entrega = order_data.get('tipo_entrega', 'retirada')
-            if tipo_entrega == 'delivery':
+            if tipo_entrega in ['delivery', 'entrega']:
                 elements.append(Paragraph("<b>Tipo:</b> DELIVERY", styles['Normal']))
                 if order_data.get('endereco_entrega'):
                     elements.append(Paragraph(f"<b>Endereço:</b> {order_data['endereco_entrega']}", styles['Normal']))

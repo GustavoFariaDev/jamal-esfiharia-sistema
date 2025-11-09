@@ -124,11 +124,11 @@ class ThermalPrinter:
         
         # Tipo entrega
         tipo_entrega = order_data.get('tipo_entrega', 'retirada')
-        tipo_label = 'Delivery' if tipo_entrega == 'delivery' else 'Retirada'
+        tipo_label = 'Delivery' if tipo_entrega in ['delivery', 'entrega'] else 'Retirada'
         lines.append(f"Entrega: {tipo_label}")
         
         # Informações de endereço do cliente (se delivery)
-        if tipo_entrega == 'delivery':
+        if tipo_entrega in ['delivery', 'entrega']:
             cep = order_data.get('cep_entrega', '')
             endereco = order_data.get('endereco_entrega', '')
             complemento = order_data.get('complemento', '')
@@ -293,7 +293,7 @@ class ThermalPrinter:
         lines.append(self._line("-"))
         
         # Endereço (se delivery)
-        if tipo_entrega == 'delivery' and order_data.get('endereco_entrega'):
+        if tipo_entrega in ['delivery', 'entrega'] and order_data.get('endereco_entrega'):
             endereco = order_data['endereco_entrega']
             lines.append(f"End: {endereco[:35]}")
             
@@ -316,7 +316,7 @@ class ThermalPrinter:
                 lines.append(obs_resto[:self.width])
                 obs_resto = obs_resto[self.width:]
         
-        if tipo_entrega == 'delivery' or obs:
+        if tipo_entrega in ['delivery', 'entrega'] or obs:
             lines.append(self._line("-"))
         
         # Rodapé
@@ -409,7 +409,8 @@ class PDFPrinter:
             data = datetime.now().strftime('%d/%m/%Y %H:%M')
             cliente = order_data.get('cliente_nome', 'N/A')
             fone = order_data.get('cliente_telefone', '')
-            tipo_entrega = 'Delivery' if order_data.get('tipo_entrega') == 'delivery' else 'Retirada'
+            tipo_entrega_raw = order_data.get('tipo_entrega', 'retirada')
+            tipo_entrega = 'Delivery' if tipo_entrega_raw in ['delivery', 'entrega'] else 'Retirada'
             
             info_text = f"<b>PEDIDO #{pedido_id}</b> | {data}<br/>"
             info_text += f"Cliente: {cliente}<br/>"
@@ -418,7 +419,7 @@ class PDFPrinter:
             info_text += f"Entrega: {tipo_entrega}<br/>"
             
             # Informações de endereço do cliente
-            if order_data.get('tipo_entrega') == 'delivery':
+            if tipo_entrega_raw in ['delivery', 'entrega']:
                 cep = order_data.get('cep_entrega', '')
                 endereco = order_data.get('endereco_entrega', '')
                 complemento = order_data.get('complemento', '')
@@ -550,7 +551,7 @@ class PDFPrinter:
             elements.append(Paragraph(info_adicional, compact_style))
             
             # Distância (se houver)
-            if order_data.get('tipo_entrega') == 'delivery':
+            if order_data.get('tipo_entrega') in ['delivery', 'entrega']:
                 distancia = order_data.get('distancia_km')
                 if distancia:
                     elements.append(Spacer(1, 5))
