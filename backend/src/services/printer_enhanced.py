@@ -603,6 +603,10 @@ class PrinterService:
             
             if not thermal_success:
                 result["message"] += "Impressora térmica não disponível. "
+                # Se pediu apenas térmica e falhou, gera PDF como fallback
+                if print_type == "thermal":
+                    result["message"] += "Gerando PDF como alternativa... "
+                    print_type = "pdf"  # Muda para PDF
         
         if print_type in ["pdf", "both"]:
             # Cria PDF com caminho absoluto
@@ -638,7 +642,11 @@ class PrinterService:
             if result["pdf_success"] and result["thermal_success"]:
                 result["message"] = "Impressão térmica e PDF gerados com sucesso!"
             elif result["pdf_success"]:
-                result["message"] = "PDF gerado com sucesso!"
+                # Verifica se foi fallback de térmica
+                if "Gerando PDF como alternativa" in result["message"]:
+                    result["message"] = "Impressora térmica não disponível. PDF gerado como alternativa!"
+                else:
+                    result["message"] = "PDF gerado com sucesso!"
             elif result["thermal_success"]:
                 result["message"] = "Impressão térmica realizada com sucesso!"
         elif not result["message"]:
