@@ -107,8 +107,6 @@ class ThermalPrinter:
         # Cabeçalho
         lines.append(self._line("="))
         lines.append(self._center("ESFIHARIA JAMAL"))
-        lines.append(self._center("Rua das Esfihas, 123"))
-        lines.append(self._center("Tel: (11) 99999-9999"))
         lines.append(self._line("="))
         
         # Info pedido (linha única)
@@ -128,6 +126,31 @@ class ThermalPrinter:
         tipo_entrega = order_data.get('tipo_entrega', 'retirada')
         tipo_label = 'Delivery' if tipo_entrega == 'delivery' else 'Retirada'
         lines.append(f"Entrega: {tipo_label}")
+        
+        # Informações de endereço do cliente (se delivery)
+        if tipo_entrega == 'delivery':
+            cep = order_data.get('cep_entrega', '')
+            endereco = order_data.get('endereco_entrega', '')
+            complemento = order_data.get('complemento', '')
+            
+            if cep:
+                lines.append(f"CEP: {cep}")
+            if endereco:
+                # Quebrar endereço em linhas se for muito longo
+                if len(endereco) > self.width:
+                    lines.append(f"End: {endereco[:self.width]}")
+                    lines.append(f"     {endereco[self.width:self.width*2]}")
+                else:
+                    lines.append(f"End: {endereco}")
+            if complemento:
+                lines.append(f"Compl: {complemento[:self.width-7]}")
+        
+        # Observações
+        obs = order_data.get('observacoes', '').strip()
+        if obs:
+            lines.append(f"OBS: {obs[:self.width-5]}")
+            if len(obs) > self.width-5:
+                lines.append(f"     {obs[self.width-5:self.width*2-5]}")
         
         lines.append(self._line("-"))
         
@@ -379,7 +402,6 @@ class PDFPrinter:
             
             # Cabeçalho
             elements.append(Paragraph("ESFIHARIA JAMAL", title_style))
-            elements.append(Paragraph("Rua das Esfihas, 123 - Tel: (11) 99999-9999", compact_style))
             elements.append(Spacer(1, 10))
             
             # Info pedido
@@ -393,7 +415,25 @@ class PDFPrinter:
             info_text += f"Cliente: {cliente}<br/>"
             if fone:
                 info_text += f"Fone: {fone}<br/>"
-            info_text += f"Entrega: {tipo_entrega}"
+            info_text += f"Entrega: {tipo_entrega}<br/>"
+            
+            # Informações de endereço do cliente
+            if order_data.get('tipo_entrega') == 'delivery':
+                cep = order_data.get('cep_entrega', '')
+                endereco = order_data.get('endereco_entrega', '')
+                complemento = order_data.get('complemento', '')
+                
+                if cep:
+                    info_text += f"CEP: {cep}<br/>"
+                if endereco:
+                    info_text += f"Endereço: {endereco}<br/>"
+                if complemento:
+                    info_text += f"Complemento: {complemento}<br/>"
+            
+            # Observações do cliente
+            obs = order_data.get('observacoes', '').strip()
+            if obs:
+                info_text += f"<b>Observações:</b> {obs}"
             
             elements.append(Paragraph(info_text, compact_style))
             elements.append(Spacer(1, 10))
@@ -509,23 +549,12 @@ class PDFPrinter:
             
             elements.append(Paragraph(info_adicional, compact_style))
             
-            # Endereço delivery
+            # Distância (se houver)
             if order_data.get('tipo_entrega') == 'delivery':
-                elements.append(Spacer(1, 5))
-                endereco = order_data.get('endereco_entrega', '')
                 distancia = order_data.get('distancia_km')
-                
-                end_text = f"<b>Endereço:</b> {endereco}"
                 if distancia:
-                    end_text += f" | {distancia:.1f} km"
-                
-                elements.append(Paragraph(end_text, compact_style))
-            
-            # Observações
-            obs = order_data.get('observacoes', '').strip()
-            if obs:
-                elements.append(Spacer(1, 5))
-                elements.append(Paragraph(f"<b>Obs:</b> {obs}", compact_style))
+                    elements.append(Spacer(1, 5))
+                    elements.append(Paragraph(f"<b>Distância:</b> {distancia:.1f} km", compact_style))
             
             elements.append(Spacer(1, 15))
             elements.append(Paragraph("<i>Obrigado pela preferência!</i>", 
