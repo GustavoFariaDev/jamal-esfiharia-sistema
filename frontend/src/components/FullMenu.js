@@ -42,6 +42,9 @@ const FullMenu = () => {
     phone: '',
     address: '',
     complement: '',
+    cep: '',
+    observations: '',
+    changeFor: null,
     paymentMethod: 'dinheiro'
   });
   const [customerHistory, setCustomerHistory] = useState(null);
@@ -300,6 +303,9 @@ const FullMenu = () => {
       phone: '',
       address: '',
       complement: '',
+      cep: '',
+      observations: '',
+      changeFor: null,
       paymentMethod: 'dinheiro'
     });
     info('Carrinho limpo');
@@ -422,12 +428,14 @@ const FullMenu = () => {
           nome_cliente: customerInfo.name,
           telefone: customerInfo.phone,
           endereco: customerInfo.address || '',
+          complemento: customerInfo.complement || '',
+          cep_entrega: customerInfo.cep || '',
           forma_entrega: deliveryType,
           taxa_entrega: deliveryInfo?.fee || 0,
           distancia_km: deliveryInfo?.distance || null,
           forma_pagamento: customerInfo.paymentMethod || 'dinheiro',
           troco_para: customerInfo.changeFor || null,
-          observacoes: '',
+          observacoes: customerInfo.observations || '',
           itens: cart.map(item => {
             // Se for pizza meio a meio, usar os IDs das metades
             if (item.isHalfAndHalf) {
@@ -490,6 +498,9 @@ const FullMenu = () => {
           phone: '',
           address: '',
           complement: '',
+          cep: '',
+          observations: '',
+          changeFor: null,
           paymentMethod: 'dinheiro'
         });
         setDeliveryInfo(null);
@@ -829,6 +840,18 @@ const FullMenu = () => {
                   {/* Endereço - Apenas para entrega */}
                   {deliveryType === 'entrega' && (
                     <>
+                      {/* CEP */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">CEP</label>
+                        <input
+                          type="text"
+                          value={customerInfo.cep}
+                          onChange={(e) => setCustomerInfo({...customerInfo, cep: e.target.value})}
+                          placeholder="00000-000"
+                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
+                        />
+                      </div>
+
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-1">Endereço Completo *</label>
                         <input

@@ -95,6 +95,8 @@ class Pedido(db.Model):
     nome_cliente = db.Column(db.String(100), nullable=False)
     telefone = db.Column(db.String(20), nullable=False)
     endereco = db.Column(db.Text, nullable=True)
+    complemento = db.Column(db.String(200), nullable=True)  # Complemento do endereço
+    cep_entrega = db.Column(db.String(10), nullable=True)  # CEP do endereço de entrega
     forma_entrega = db.Column(db.String(20), nullable=False)  # retirada ou entrega
     distancia_km = db.Column(db.Float, nullable=True)  # Distância em km (apenas para entregas)
     taxa_entrega = db.Column(db.Float, default=0.0, nullable=False)  # Taxa de entrega calculada
@@ -120,6 +122,8 @@ class Pedido(db.Model):
             'nome_cliente': self.nome_cliente,
             'telefone': self.telefone,
             'endereco': self.endereco,
+            'complemento': self.complemento,
+            'cep_entrega': self.cep_entrega,
             'forma_entrega': self.forma_entrega,
             'distancia_km': self.distancia_km,
             'taxa_entrega': self.taxa_entrega,
