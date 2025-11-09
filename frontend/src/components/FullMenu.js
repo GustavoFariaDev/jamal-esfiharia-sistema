@@ -146,8 +146,30 @@ const FullMenu = () => {
 
   const addToCart = (item) => {
     setCart(prevCart => {
-      // Para pizzas meio a meio, nunca agrupar - sempre adicionar como novo item
+      // Para pizzas meio a meio, verificar se já existe item idêntico
       if (item.isHalfAndHalf) {
+        // Tentar encontrar item idêntico no carrinho
+        const existingItem = prevCart.find(cartItem => 
+          cartItem.isHalfAndHalf &&
+          cartItem.firstHalf?.id === item.firstHalf?.id &&
+          cartItem.secondHalf?.id === item.secondHalf?.id &&
+          cartItem.selectedSize === item.selectedSize &&
+          JSON.stringify(cartItem.firstHalfExtras || []) === JSON.stringify(item.firstHalfExtras || []) &&
+          JSON.stringify(cartItem.secondHalfExtras || []) === JSON.stringify(item.secondHalfExtras || []) &&
+          cartItem.selectedBorda?.id === item.selectedBorda?.id
+        );
+        
+        // Se encontrou item idêntico, incrementar quantidade
+        if (existingItem) {
+          success(`Quantidade de ${item.customName || item.name} aumentada!`);
+          return prevCart.map(cartItem =>
+            cartItem.cartId === existingItem.cartId
+              ? { ...cartItem, quantity: cartItem.quantity + (item.quantity || 1) }
+              : cartItem
+          );
+        }
+        
+        // Se não encontrou, adicionar como novo item
         const newItem = {
           ...item,
           quantity: item.quantity || 1,
