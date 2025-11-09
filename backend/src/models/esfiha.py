@@ -11,7 +11,7 @@ class Esfiha(db.Model):
     preco_broto = db.Column(db.Float, nullable=True)   # Para pizzas com tamanhos
     categoria = db.Column(db.String(50), nullable=True)
     disponivel = db.Column(db.Boolean, default=True)
-    imagem_url = db.Column(db.String(255), nullable=True)
+    imagem_url = db.Column(db.String(500), nullable=True)
     data_criacao = db.Column(db.DateTime, default=datetime.utcnow)
     data_atualizacao = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
