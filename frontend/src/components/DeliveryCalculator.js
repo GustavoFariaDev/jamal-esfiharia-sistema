@@ -186,18 +186,27 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       const rateInfo = getFeeByDistance(distance);
       const estimatedTime = calculateEstimatedTime(distance);
 
+      const fullAddress = `${data.logradouro || ''}, ${data.bairro || ''} - ${data.localidade || ''}/${data.uf || ''}`;
+      
       const info = {
-        address: `${data.logradouro || ''}, ${data.bairro || ''} - ${data.localidade || ''}/${data.uf || ''}`,
+        address: fullAddress,
         cep: cep,
         fee: rateInfo.fee,
         time: estimatedTime,
         distance: distance.toFixed(1),
-        zone: rateInfo.label
+        zone: rateInfo.label,
+        // Dados completos do endereço para preencher formulário
+        addressData: {
+          logradouro: data.logradouro || '',
+          bairro: data.bairro || '',
+          localidade: data.localidade || '',
+          uf: data.uf || ''
+        }
       };
 
       setDeliveryInfo(info);
       
-      // Notifica o componente pai sobre a taxa calculada
+      // Notifica o componente pai sobre a taxa calculada E o endereço completo
       if (onDeliveryFeeCalculated) {
         onDeliveryFeeCalculated(info);
       }

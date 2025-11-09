@@ -327,7 +327,15 @@ const FullMenu = () => {
 
   const handleDeliveryFeeCalculated = (info) => {
     setDeliveryInfo(info);
-    success('Taxa de entrega calculada!');
+    
+    // Atualiza o endereço e CEP no formulário do cliente
+    setCustomerInfo(prev => ({
+      ...prev,
+      address: info.address,
+      cep: info.cep
+    }));
+    
+    success('Taxa de entrega calculada! Endereço preenchido automaticamente.');
   };
 
   const handleCustomerInfoChange = (field, value) => {
@@ -789,7 +797,7 @@ const FullMenu = () => {
                 {/* Calculadora de Entrega - Apenas para entrega */}
                 {deliveryType === 'entrega' && (
                   <div className="mt-4">
-                    <DeliveryCalculator onFeeCalculated={handleDeliveryFeeCalculated} />
+                    <DeliveryCalculator onDeliveryFeeCalculated={handleDeliveryFeeCalculated} />
                   </div>
                 )}
               </div>
@@ -840,18 +848,6 @@ const FullMenu = () => {
                   {/* Endereço - Apenas para entrega */}
                   {deliveryType === 'entrega' && (
                     <>
-                      {/* CEP */}
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">CEP</label>
-                        <input
-                          type="text"
-                          value={customerInfo.cep}
-                          onChange={(e) => setCustomerInfo({...customerInfo, cep: e.target.value})}
-                          placeholder="00000-000"
-                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
-                        />
-                      </div>
-
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-1">Endereço Completo *</label>
                         <input
@@ -860,7 +856,9 @@ const FullMenu = () => {
                           onChange={(e) => setCustomerInfo({...customerInfo, address: e.target.value})}
                           placeholder="Rua, Número - Bairro"
                           className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
+                          readOnly
                         />
+                        <p className="text-xs text-gray-500 mt-1">* Preencha o CEP abaixo para buscar automaticamente</p>
                       </div>
 
                       {/* Complemento */}
