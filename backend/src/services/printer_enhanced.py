@@ -107,8 +107,10 @@ class ThermalPrinter:
         # Cabeçalho
         lines.append(self._line("="))
         lines.append(self._center("ESFIHARIA JAMAL"))
-        lines.append(self._center("Rua das Esfihas, 123"))
-        lines.append(self._center("Tel: (11) 99999-9999"))
+        lines.append(self._center("Av. Gago Coutinho, 310"))
+        lines.append(self._center("Santa Maria, Santo Andre - SP"))
+        lines.append(self._center("CEP: 09070-000"))
+        lines.append(self._center("Tel: (11) 93333-1106"))
         lines.append(self._line("="))
         
         # Info pedido (linha única)
@@ -123,6 +125,11 @@ class ThermalPrinter:
         fone = order_data.get('cliente_telefone', '')
         if fone:
             lines.append(f"Fone: {fone}")
+        
+        # Endereço do cliente
+        endereco = order_data.get('endereco', '')
+        if endereco:
+            lines.append(f"Endereco: {endereco[:35]}")
         
         # Tipo entrega
         tipo_entrega = order_data.get('tipo_entrega', 'retirada')
@@ -379,7 +386,8 @@ class PDFPrinter:
             
             # Cabeçalho
             elements.append(Paragraph("ESFIHARIA JAMAL", title_style))
-            elements.append(Paragraph("Rua das Esfihas, 123 - Tel: (11) 99999-9999", compact_style))
+            elements.append(Paragraph("Av. Gago Coutinho, 310 - Santa Maria, Santo André - SP", compact_style))
+            elements.append(Paragraph("CEP: 09070-000 - Tel: (11) 93333-1106", compact_style))
             elements.append(Spacer(1, 10))
             
             # Info pedido
@@ -393,6 +401,9 @@ class PDFPrinter:
             info_text += f"Cliente: {cliente}<br/>"
             if fone:
                 info_text += f"Fone: {fone}<br/>"
+            endereco = order_data.get('endereco', '')
+            if endereco:
+                info_text += f"Endereço: {endereco}<br/>"
             info_text += f"Entrega: {tipo_entrega}"
             
             elements.append(Paragraph(info_text, compact_style))

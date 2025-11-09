@@ -101,8 +101,10 @@ class ThermalPrinter:
         
         # Cabeçalho
         lines.append(self._center_text("ESFIHARIA JAMAL"))
-        lines.append(self._center_text("Rua das Esfihas, 123"))
-        lines.append(self._center_text("Tel: (11) 99999-9999"))
+        lines.append(self._center_text("Av. Gago Coutinho, 310"))
+        lines.append(self._center_text("Santa Maria, Santo Andre - SP"))
+        lines.append(self._center_text("CEP: 09070-000"))
+        lines.append(self._center_text("Tel: (11) 93333-1106"))
         lines.append(self._separator_line("="))
         lines.append("")
         
@@ -112,6 +114,8 @@ class ThermalPrinter:
         lines.append(f"CLIENTE: {order_data.get('cliente_nome', 'N/A')}")
         if order_data.get('cliente_telefone'):
             lines.append(f"FONE: {order_data['cliente_telefone']}")
+        if order_data.get('endereco'):
+            lines.append(f"ENDERECO: {order_data['endereco']}")
         lines.append(self._separator_line("-"))
         lines.append("")
         
@@ -339,7 +343,8 @@ class PDFPrinter:
             
             # Cabeçalho
             elements.append(Paragraph("ESFIHARIA JAMAL", title_style))
-            elements.append(Paragraph("Rua das Esfihas, 123 - Tel: (11) 99999-9999", styles['Normal']))
+            elements.append(Paragraph("Av. Gago Coutinho, 310 - Santa Maria, Santo André - SP", styles['Normal']))
+            elements.append(Paragraph("CEP: 09070-000 - Tel: (11) 93333-1106", styles['Normal']))
             elements.append(Spacer(1, 20))
             
             # Informações do pedido
@@ -349,6 +354,10 @@ class PDFPrinter:
                 ['Cliente:', order_data.get('cliente_nome', 'N/A')],
                 ['Telefone:', order_data.get('cliente_telefone', 'N/A')],
             ]
+            
+            # Adicionar endereço se existir
+            if order_data.get('endereco'):
+                info_data.append(['Endereço:', order_data.get('endereco')])
             
             info_table = Table(info_data, colWidths=[100, 300])
             info_table.setStyle(TableStyle([
