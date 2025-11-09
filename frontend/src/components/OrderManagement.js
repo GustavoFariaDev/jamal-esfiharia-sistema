@@ -62,6 +62,8 @@ const OrderManagement = () => {
 
       if (response.ok) {
         success(`Pedido atualizado para: ${getStatusLabel(newStatus)}`);
+        // Mudar filtro para 'all' para garantir que o pedido atualizado permaneça visível
+        setFilterStatus('all');
         fetchOrders();
       } else {
         throw new Error('Erro ao atualizar pedido');
@@ -193,6 +195,16 @@ const OrderManagement = () => {
           }`}
         >
           Pendentes ({orders.filter(o => o.status === 'pendente').length})
+        </button>
+        <button
+          onClick={() => setFilterStatus('aprovado')}
+          className={`px-4 py-2 rounded-lg ${
+            filterStatus === 'aprovado'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+        >
+          Aprovados ({orders.filter(o => o.status === 'aprovado').length})
         </button>
         <button
           onClick={() => setFilterStatus('em_preparacao')}
