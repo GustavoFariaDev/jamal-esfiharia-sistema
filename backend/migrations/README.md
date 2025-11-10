@@ -34,6 +34,12 @@ ALTER TABLE esfiha ALTER COLUMN imagem_url TYPE VARCHAR(500);
 - **Descrição:** Aumenta o tamanho do campo `imagem_url` de 255 para 500 caracteres
 - **Motivo:** Suportar URLs do Cloudinary que são mais longas
 
+### criar_tabela_notificacao.py
+- **Data:** 2025-11-10
+- **Descrição:** Cria a tabela de notificações de pedidos para clientes
+- **Motivo:** Permitir que clientes recebam notificações sobre mudanças de status dos pedidos
+- **Execução:** `python3 backend/migrations/criar_tabela_notificacao.py`
+
 ## Verificação
 
 Após executar a migração, você pode verificar se funcionou com:
