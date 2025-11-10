@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Package, Clock, CheckCircle, XCircle, Truck, Eye, RefreshCw, Printer, Search, Bell, History } from 'lucide-react';
+import { Package, Clock, CheckCircle, XCircle, Truck, Eye, RefreshCw, Printer } from 'lucide-react';
 import apiService from '../services/apiService';
 import authService from '../services/authService';
 import { useToastContext } from '../contexts/ToastContext';
-import ConfirmModal from './ConfirmModal';
 
 const OrderManagement = () => {
   const [orders, setOrders] = useState([]);
@@ -11,23 +10,13 @@ const OrderManagement = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showOrderDetails, setShowOrderDetails] = useState(false);
   const [filterStatus, setFilterStatus] = useState('all');
-  const [showPrintMenu, setShowPrintMenu] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // MELHORIA 2: Busca
-  const [showConfirmModal, setShowConfirmModal] = useState(false); // MELHORIA 1: Modal de confirmação
-  const [confirmAction, setConfirmAction] = useState(null); // MELHORIA 1: Ação a confirmar
-  const [orderHistory, setOrderHistory] = useState({}); // MELHORIA 3: Histórico de status
-  const [showHistoryModal, setShowHistoryModal] = useState(false); // MELHORIA 3: Modal de histórico
-  const [selectedOrderHistory, setSelectedOrderHistory] = useState(null); // MELHORIA 3: Pedido selecionado para histórico
-  const [newOrdersCount, setNewOrdersCount] = useState(0); // MELHORIA 4: Notificações
-  const [lastOrderCount, setLastOrderCount] = useState(0); // MELHORIA 4: Controle de novos pedidos
-  const { success, error, info } = useToastContext();
+  const [showPrintMenu, setShowPrintMenu] = useState(null); // ID do pedido com menu aberto
+  const { success, error } = useToastContext();
 
   useEffect(() => {
     fetchOrders();
-    // Atualizar pedidos a cada 30 segundos e verificar novos pedidos
-    const interval = setInterval(() => {
-      fetchOrders(true); // true = verificar novos pedidos
-    }, 30000);
+    // Atualizar pedidos a cada 30 segundos
+    const interval = setInterval(fetchOrders, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -45,30 +34,7 @@ const OrderManagement = () => {
     }
   }, [showPrintMenu]);
 
-  // MELHORIA 4: Notificação de novos pedidos
-  const checkForNewOrders = (currentOrders) => {
-    if (lastOrderCount > 0 && currentOrders.length > lastOrderCount) {
-      const newCount = currentOrders.length - lastOrderCount;
-      setNewOrdersCount(newCount);
-      
-      // Mostrar notificação
-      info(`🔔 ${newCount} novo${newCount > 1 ? 's' : ''} pedido${newCount > 1 ? 's' : ''}!`);
-      
-      // Tocar som de notificação (opcional)
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('Novo Pedido!', {
-          body: `Você tem ${newCount} novo${newCount > 1 ? 's' : ''} pedido${newCount > 1 ? 's' : ''}`,
-          icon: '/logo192.png'
-        });
-      }
-      
-      // Limpar contador após 5 segundos
-      setTimeout(() => setNewOrdersCount(0), 5000);
-    }
-    setLastOrderCount(currentOrders.length);
-  };
-
-  const fetchOrders = async (checkNew = false) => {
+  const fetchOrders = async () => {
     try {
       setLoading(true);
       const response = await fetch(
@@ -82,15 +48,8 @@ const OrderManagement = () => {
 
       if (response.ok) {
         const data = await response.json();
-        const ordersData = data.data || data.pedidos || [];
-        setOrders(ordersData);
-        
-        // MELHORIA 4: Verificar novos pedidos
-        if (checkNew) {
-          checkForNewOrders(ordersData);
-        } else {
-          setLastOrderCount(ordersData.length);
-        }
+        // A API retorna { status: 'success', data: [...] } ou { status: 'success', pedidos: [...] }
+        setOrders(data.data || data.pedidos || []);
       } else {
         throw new Error('Erro ao carregar pedidos');
       }
@@ -100,66 +59,6 @@ const OrderManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  // MELHORIA 3: Buscar histórico de status de um pedido
-  const fetchOrderHistory = async (orderId) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || '/api'}/pedidos/${orderId}/historico`,
-        {
-          headers: {
-            'Authorization': `Bearer ${authService.getToken()}`
-          }
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setOrderHistory(prev => ({
-          ...prev,
-          [orderId]: data.data || data.historico || []
-        }));
-        return data.data || data.historico || [];
-      }
-    } catch (err) {
-      console.error('Erro ao buscar histórico:', err);
-      return [];
-    }
-  };
-
-  // MELHORIA 3: Mostrar histórico de status
-  const viewOrderHistory = async (order) => {
-    const history = await fetchOrderHistory(order.id);
-    setSelectedOrderHistory({ order, history });
-    setShowHistoryModal(true);
-  };
-
-  // MELHORIA 1: Confirmar ação crítica
-  const confirmCriticalAction = (action, orderId, newStatus, actionLabel) => {
-    setConfirmAction({
-      action,
-      orderId,
-      newStatus,
-      actionLabel
-    });
-    setShowConfirmModal(true);
-  };
-
-  // MELHORIA 1: Executar ação após confirmação
-  const executeConfirmedAction = async () => {
-    if (!confirmAction) return;
-
-    const { action, orderId, newStatus } = confirmAction;
-
-    if (action === 'updateStatus') {
-      await updateOrderStatus(orderId, newStatus);
-    } else if (action === 'deleteOrder') {
-      await deleteOrder(orderId);
-    }
-
-    setShowConfirmModal(false);
-    setConfirmAction(null);
   };
 
   const updateOrderStatus = async (orderId, newStatus) => {
@@ -178,6 +77,7 @@ const OrderManagement = () => {
 
       if (response.ok) {
         success(`Pedido atualizado para: ${getStatusLabel(newStatus)}`);
+        // Mudar filtro para 'all' para garantir que o pedido atualizado permaneça visível
         setFilterStatus('all');
         fetchOrders();
       } else {
@@ -186,30 +86,6 @@ const OrderManagement = () => {
     } catch (err) {
       console.error('Erro ao atualizar status:', err);
       error('Erro ao atualizar status do pedido');
-    }
-  };
-
-  const deleteOrder = async (orderId) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || '/api'}/pedidos/admin/${orderId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${authService.getToken()}`
-          }
-        }
-      );
-
-      if (response.ok) {
-        success('Pedido excluído com sucesso');
-        fetchOrders();
-      } else {
-        throw new Error('Erro ao excluir pedido');
-      }
-    } catch (err) {
-      console.error('Erro ao excluir pedido:', err);
-      error('Erro ao excluir pedido');
     }
   };
 
@@ -249,26 +125,7 @@ const OrderManagement = () => {
       'entregue': <CheckCircle className="w-4 h-4" />,
       'cancelado': <XCircle className="w-4 h-4" />
     };
-    return iconMap[status] || <Package className="w-4 h-4" />;
-  };
-
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(value || 0);
-  };
-
-  const formatDate = (dateString) => {
-    if (!dateString) return '-';
-    const date = new Date(dateString);
-    return date.toLocaleString('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    return iconMap[status] || <Clock className="w-4 h-4" />;
   };
 
   const viewOrderDetails = (order) => {
@@ -276,98 +133,63 @@ const OrderManagement = () => {
     setShowOrderDetails(true);
   };
 
-  const handlePrintOrder = async (orderId, printType) => {
+  const handlePrintOrder = async (orderId, printType = 'pdf') => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || '/api'}/pedidos/${orderId}/imprimir?tipo=${printType}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${authService.getToken()}`
-          }
+      setLoading(true);
+      const result = await apiService.printOrder(orderId, printType);
+      
+      if (result.success) {
+        if (result.data?.pdf_url) {
+          // Abrir PDF em nova aba
+          const baseUrl = process.env.REACT_APP_API_BASE_URL || '/api';
+          const apiUrl = baseUrl.replace('/api', '');
+          const fullUrl = `${apiUrl}${result.data.pdf_url}`;
+          window.open(fullUrl, '_blank');
+          success('PDF gerado com sucesso!');
+        } else {
+          success('Pedido enviado para impressão!');
         }
-      );
-
-      if (response.ok) {
-        if (printType === 'pdf' || printType === 'both') {
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `pedido_${orderId}_${new Date().toISOString().slice(0,10).replace(/-/g,'')}_${new Date().toTimeString().slice(0,8).replace(/:/g,'')}.pdf`;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-        }
-        success('Pedido enviado para impressão');
       } else {
-        throw new Error('Erro ao imprimir pedido');
+        error(result.error || 'Erro ao imprimir pedido');
       }
     } catch (err) {
-      console.error('Erro ao imprimir:', err);
-      error('Erro ao imprimir pedido');
+      console.error('Erro ao imprimir pedido:', err);
+      error('Erro de conexão ao imprimir pedido');
+    } finally {
+      setLoading(false);
     }
   };
 
-  // MELHORIA 2: Filtrar pedidos por busca
-  const filteredOrders = orders.filter(order => {
-    // Filtro por status
-    const statusMatch = filterStatus === 'all' || order.status === filterStatus;
-    
-    // Filtro por busca (número do pedido, cliente ou telefone)
-    const searchMatch = searchTerm === '' || 
-      order.id.toString().includes(searchTerm) ||
-      (order.nome_cliente && order.nome_cliente.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (order.telefone && order.telefone.includes(searchTerm));
-    
-    return statusMatch && searchMatch;
-  });
+  const filteredOrders = filterStatus === 'all' 
+    ? orders 
+    : orders.filter(order => order.status === filterStatus);
 
-  // Solicitar permissão para notificações
-  useEffect(() => {
-    if ('Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission();
-    }
-  }, []);
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleString('pt-BR');
+  };
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">Gestão de Pedidos</h2>
-        <div className="flex items-center gap-4">
-          {/* MELHORIA 4: Indicador de novos pedidos */}
-          {newOrdersCount > 0 && (
-            <div className="flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-lg animate-pulse">
-              <Bell className="w-5 h-5" />
-              <span className="font-medium">{newOrdersCount} novo{newOrdersCount > 1 ? 's' : ''} pedido{newOrdersCount > 1 ? 's' : ''}!</span>
-            </div>
-          )}
-          <button
-            onClick={() => fetchOrders(true)}
-            disabled={loading}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
-          >
-            <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
-            Atualizar
-          </button>
-        </div>
+        <button
+          onClick={fetchOrders}
+          disabled={loading}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+        >
+          <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+          Atualizar
+        </button>
       </div>
 
-      {/* MELHORIA 2: Campo de busca */}
-      <div className="bg-white p-4 rounded-lg shadow">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Buscar por número do pedido, cliente ou telefone..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-      </div>
-
-      {/* Filtros de Status */}
+      {/* Filtros */}
       <div className="flex gap-2 flex-wrap">
         <button
           onClick={() => setFilterStatus('all')}
@@ -430,9 +252,7 @@ const OrderManagement = () => {
       ) : filteredOrders.length === 0 ? (
         <div className="text-center py-12 bg-gray-50 rounded-lg">
           <Package className="w-12 h-12 mx-auto text-gray-400" />
-          <p className="mt-2 text-gray-500">
-            {searchTerm ? 'Nenhum pedido encontrado com esse critério de busca' : 'Nenhum pedido encontrado'}
-          </p>
+          <p className="mt-2 text-gray-500">Nenhum pedido encontrado</p>
         </div>
       ) : (
         <div className="grid gap-4">
@@ -484,16 +304,6 @@ const OrderManagement = () => {
                   Detalhes
                 </button>
 
-                {/* MELHORIA 3: Botão de histórico */}
-                <button
-                  onClick={() => viewOrderHistory(order)}
-                  className="flex items-center gap-1 px-3 py-1 bg-indigo-100 text-indigo-700 rounded hover:bg-indigo-200 text-sm"
-                  title="Ver histórico de status"
-                >
-                  <History className="w-4 h-4" />
-                  Histórico
-                </button>
-
                 <div className="relative">
                   <button
                     onClick={() => setShowPrintMenu(showPrintMenu === order.id ? null : order.id)}
@@ -542,17 +352,16 @@ const OrderManagement = () => {
                   )}
                 </div>
 
-                {/* MELHORIA 1: Botões com confirmação */}
                 {order.status === 'pendente' && (
                   <>
                     <button
-                      onClick={() => confirmCriticalAction('updateStatus', order.id, 'aprovado', 'Confirmar Pedido')}
+                      onClick={() => updateOrderStatus(order.id, 'aprovado')}
                       className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
                     >
                       Confirmar
                     </button>
                     <button
-                      onClick={() => confirmCriticalAction('updateStatus', order.id, 'cancelado', 'Cancelar Pedido')}
+                      onClick={() => updateOrderStatus(order.id, 'cancelado')}
                       className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
                     >
                       Cancelar
@@ -590,7 +399,7 @@ const OrderManagement = () => {
                 {order.status === 'a_caminho' && (
                   <button
                     onClick={() => updateOrderStatus(order.id, 'entregue')}
-                    className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
+                    className="px-3 py-1 bg-green-700 text-white rounded hover:bg-green-800 text-sm"
                   >
                     Marcar como Entregue
                   </button>
@@ -598,74 +407,6 @@ const OrderManagement = () => {
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      {/* MELHORIA 1: Modal de Confirmação */}
-      {showConfirmModal && confirmAction && (
-        <ConfirmModal
-          isOpen={showConfirmModal}
-          onClose={() => {
-            setShowConfirmModal(false);
-            setConfirmAction(null);
-          }}
-          onConfirm={executeConfirmedAction}
-          title={`Confirmar ${confirmAction.actionLabel}`}
-          message={`Tem certeza que deseja ${confirmAction.actionLabel.toLowerCase()}? Esta ação não pode ser desfeita.`}
-          confirmText="Sim, confirmar"
-          cancelText="Cancelar"
-          type={confirmAction.newStatus === 'cancelado' ? 'danger' : 'warning'}
-        />
-      )}
-
-      {/* MELHORIA 3: Modal de Histórico */}
-      {showHistoryModal && selectedOrderHistory && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-              <h3 className="text-xl font-bold text-gray-800">
-                Histórico do Pedido #{selectedOrderHistory.order.id}
-              </h3>
-              <button
-                onClick={() => {
-                  setShowHistoryModal(false);
-                  setSelectedOrderHistory(null);
-                }}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            <div className="p-6">
-              {selectedOrderHistory.history && selectedOrderHistory.history.length > 0 ? (
-                <div className="space-y-4">
-                  {selectedOrderHistory.history.map((item, index) => (
-                    <div key={index} className="flex gap-4 items-start">
-                      <div className="flex-shrink-0">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${getStatusColor(item.status)}`}>
-                          {getStatusIcon(item.status)}
-                        </div>
-                      </div>
-                      <div className="flex-grow">
-                        <p className="font-medium text-gray-800">{getStatusLabel(item.status)}</p>
-                        <p className="text-sm text-gray-600">{formatDate(item.data_mudanca)}</p>
-                        {item.usuario && (
-                          <p className="text-xs text-gray-500">Por: {item.usuario}</p>
-                        )}
-                        {item.observacao && (
-                          <p className="text-sm text-gray-700 mt-1">{item.observacao}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center text-gray-500 py-8">
-                  Nenhum histórico disponível para este pedido.
-                </p>
-              )}
-            </div>
-          </div>
         </div>
       )}
 

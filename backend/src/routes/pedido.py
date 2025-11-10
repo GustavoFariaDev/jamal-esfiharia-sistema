@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from src.models.user import db, User
 from src.models.pedido import Pedido, ItemPedido, StatusPedido
+from src.models.pedido_historico import PedidoHistorico
 from src.models.esfiha import Esfiha
 from src.middleware.auth import admin_required
 from src.services.delivery_fee import DeliveryFeeCalculator
@@ -418,8 +419,23 @@ def atualizar_status_admin(pedido_id):
             "message": f"Status inválido. Status válidos: {', '.join(status_validos)}"
         }), 400
 
+    # Registrar histórico de mudança de status
+    status_anterior = pedido.status
     pedido.status = novo_status
     pedido.data_atualizacao = datetime.now(ZoneInfo('America/Sao_Paulo'))
+    
+    # Obter ID do usuário que está fazendo a mudança
+    current_user_id = get_jwt_identity()
+    
+    # Criar registro de histórico
+    historico = PedidoHistorico(
+        pedido_id=pedido.id,
+        status_anterior=status_anterior,
+        status_novo=novo_status,
+        usuario_id=current_user_id,
+        observacao=dados.get('observacao')
+    )
+    db.session.add(historico)
     
     try:
         db.session.commit()
@@ -503,4 +519,46 @@ def obter_estatisticas_admin():
         return jsonify({
             "status": "error",
             "message": f"Erro ao obter estatísticas: {str(e)}"
+        }), 500
+
+
+@pedido_bp.route("/<int:pedido_id>/historico", methods=["GET"])
+@admin_required
+def obter_historico_pedido(pedido_id):
+    """Retorna o histórico de mudanças de status de um pedido (Admin)."""
+    pedido = Pedido.query.get(pedido_id)
+    
+    if not pedido:
+        return jsonify({
+            "status": "error",
+            "message": "Pedido não encontrado."
+        }), 404
+    
+    try:
+        # Buscar histórico ordenado por data (mais recente primeiro)
+        historico = PedidoHistorico.query.filter_by(pedido_id=pedido_id).order_by(
+            PedidoHistorico.data_mudanca.desc()
+        ).all()
+        
+        historico_list = []
+        for h in historico:
+            item = {
+                'id': h.id,
+                'status': h.status_novo,
+                'status_anterior': h.status_anterior,
+                'data_mudanca': h.data_mudanca.isoformat() if h.data_mudanca else None,
+                'usuario': h.usuario.username if h.usuario else 'Sistema',
+                'observacao': h.observacao
+            }
+            historico_list.append(item)
+        
+        return jsonify({
+            "status": "success",
+            "data": historico_list,
+            "historico": historico_list
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Erro ao buscar histórico: {str(e)}"
         }), 500
