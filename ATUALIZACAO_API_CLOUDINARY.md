@@ -21,8 +21,8 @@ API Secret: 4xYcYzn1DZDAHQ__l1_w6mpOzk4
 
 ```
 Cloud Name: dbb7oidld
-API Key: 468221897619255
-API Secret: HTmVxJABYYsmtUBsrYP13NSW9CU
+API Key: 375431172614121
+API Secret: d3UGAqGBE2kfYRPvML0U70gnaKA
 Status: Active
 ```
 
@@ -38,8 +38,8 @@ Status: Active
 # Configurar Cloudinary
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dbb7oidi4'),
-    api_key=os.getenv('CLOUDINARY_API_KEY', '468221897619255'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'HTmVxJABYYsmtUBsrYP13NSW9CU')
+    api_key=os.getenv('CLOUDINARY_API_KEY', '375431172614121'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'd3UGAqGBE2kfYRPvML0U70gnaKA')
 )
 ```
 
@@ -51,8 +51,8 @@ cloudinary.config(
 # Configurações do Cloudinary (Upload de Imagens)
 # Obtenha suas credenciais em: https://cloudinary.com/console
 CLOUDINARY_CLOUD_NAME=dbb7oidld
-CLOUDINARY_API_KEY=468221897619255
-CLOUDINARY_API_SECRET=HTmVxJABYYsmtUBsrYP13NSW9CU
+CLOUDINARY_API_KEY=375431172614121
+CLOUDINARY_API_SECRET=d3UGAqGBE2kfYRPvML0U70gnaKA
 ```
 
 ---
@@ -75,8 +75,8 @@ CLOUDINARY_API_SECRET=HTmVxJABYYsmtUBsrYP13NSW9CU
 
    ```
    CLOUDINARY_CLOUD_NAME=dbb7oidld
-   CLOUDINARY_API_KEY=468221897619255
-   CLOUDINARY_API_SECRET=HTmVxJABYYsmtUBsrYP13NSW9CU
+   CLOUDINARY_API_KEY=375431172614121
+   CLOUDINARY_API_SECRET=d3UGAqGBE2kfYRPvML0U70gnaKA
    ```
 
 4. **Salvar e Redeploy:**
