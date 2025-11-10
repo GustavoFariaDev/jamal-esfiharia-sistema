@@ -350,6 +350,26 @@ const FullMenu = () => {
     }));
   };
 
+  const buscarNotificacoesCliente = async (telefone) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL || '/api'}/notificacoes/por-telefone/${telefone}?apenas_nao_lidas=true`
+      );
+      const data = await response.json();
+      
+      if (data.status === 'success' && data.nao_lidas > 0) {
+        // Mostrar notificações não lidas
+        data.data.forEach((notif, index) => {
+          setTimeout(() => {
+            info(notif.mensagem);
+          }, index * 2000); // Espaçar as notificações em 2 segundos
+        });
+      }
+    } catch (err) {
+      console.error('Erro ao buscar notificações:', err);
+    }
+  };
+
   const buscarHistoricoCliente = async (telefone) => {
     // Limpar telefone (remover caracteres especiais)
     const telefoneLimpo = telefone.replace(/\D/g, '');
@@ -376,6 +396,8 @@ const FullMenu = () => {
           address: data.data.endereco || prev.address
         }));
         info(`Cliente encontrado! ${data.data.total_pedidos} pedido(s) anterior(es).`);
+        // Buscar notificações não lidas
+        buscarNotificacoesCliente(telefoneLimpo);
       } else {
         setCustomerHistory(null);
       }
