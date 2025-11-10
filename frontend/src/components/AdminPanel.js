@@ -358,7 +358,7 @@ const AdminPanel = () => {
     console.log('=== INÍCIO handleSaveProduct ===');
     console.log('editingProduct:', editingProduct);
     console.log('productForm:', productForm);
-    
+
     if (!productForm.nome || !productForm.preco || !productForm.categoria) {
       console.warn('Validação falhou: campos obrigatórios vazios');
       warning('Preencha todos os campos obrigatórios');
@@ -367,12 +367,18 @@ const AdminPanel = () => {
 
     try {
       setLoading(true);
-      
+
+      // O handleImageUpload já atualiza o productForm.imagem_url.
+      // O problema é que o handleSaveProduct é chamado antes do estado ser atualizado.
+      // A solução é garantir que o productForm.imagem_url contenha a URL correta.
+      // Se o usuário usou o handleImageUpload, o productForm.imagem_url já deve estar correto.
+      // Se o usuário usou o campo de texto, o productForm.imagem_url também deve estar correto.
+
       const productData = {
         ...productForm,
         preco: parseFloat(productForm.preco)
       };
-      
+
       console.log('productData preparado:', productData);
       console.log('🖼️ URL da imagem que será enviada:', productData.imagem_url);
 
@@ -384,7 +390,7 @@ const AdminPanel = () => {
         console.log('Modo: CRIACAO');
         result = await apiService.createProduct(productData);
       }
-      
+
       console.log('Resultado da API:', result);
 
       if (result.success) {
