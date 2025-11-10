@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Package, Clock, CheckCircle, Truck, XCircle, Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import NotificacoesPedido from './NotificacoesPedido';
 
 const ConsultarStatus = () => {
   const navigate = useNavigate();
@@ -174,9 +173,6 @@ const ConsultarStatus = () => {
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold text-gray-900">📦 Consultar Status do Pedido</h1>
             <div className="flex items-center gap-3">
-              {telefone && telefone.length >= 14 && (
-                <NotificacoesPedido telefone={telefone.replace(/\D/g, '')} />
-              )}
               <button
                 onClick={() => navigate('/')}
                 className="text-red-600 hover:text-red-700 font-semibold"
