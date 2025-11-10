@@ -20,7 +20,7 @@ API Secret: 4xYcYzn1DZDAHQ__l1_w6mpOzk4
 ### Credenciais Novas (Ativas)
 
 ```
-Cloud Name: dbb7oidi4
+Cloud Name: dbb7oidld
 API Key: 468221897619255
 API Secret: HTmVxJABYYsmtUBsrYP13NSW9CU
 Status: Active
@@ -50,7 +50,7 @@ cloudinary.config(
 ```env
 # Configurações do Cloudinary (Upload de Imagens)
 # Obtenha suas credenciais em: https://cloudinary.com/console
-CLOUDINARY_CLOUD_NAME=dbb7oidi4
+CLOUDINARY_CLOUD_NAME=dbb7oidld
 CLOUDINARY_API_KEY=468221897619255
 CLOUDINARY_API_SECRET=HTmVxJABYYsmtUBsrYP13NSW9CU
 ```
@@ -74,7 +74,7 @@ CLOUDINARY_API_SECRET=HTmVxJABYYsmtUBsrYP13NSW9CU
    - Adicione ou atualize as seguintes variáveis:
 
    ```
-   CLOUDINARY_CLOUD_NAME=dbb7oidi4
+   CLOUDINARY_CLOUD_NAME=dbb7oidld
    CLOUDINARY_API_KEY=468221897619255
    CLOUDINARY_API_SECRET=HTmVxJABYYsmtUBsrYP13NSW9CU
    ```
@@ -96,7 +96,7 @@ Após a atualização, teste as seguintes funcionalidades:
 3. Faça upload de uma imagem
 4. Verifique se a URL gerada começa com:
    ```
-   https://res.cloudinary.com/dbb7oidi4/...
+   https://res.cloudinary.com/dbb7oidld/...
    ```
 
 ### 2. Edição de Produto com Imagem
@@ -121,7 +121,7 @@ Após a atualização, teste as seguintes funcionalidades:
 2. Aba **Logs**
 3. Procure por mensagens de upload:
    ```
-   Upload realizado com sucesso: https://res.cloudinary.com/dbb7oidi4/...
+   Upload realizado com sucesso: https://res.cloudinary.com/dbb7oidld/...
    ```
 
 ### Erros Comuns

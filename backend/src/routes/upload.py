@@ -7,7 +7,7 @@ upload_bp = Blueprint('upload', __name__)
 
 # Configurar Cloudinary
 cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dbb7oidi4'),
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dbb7oidld'),
     api_key=os.getenv('CLOUDINARY_API_KEY', '468221897619255'),
     api_secret=os.getenv('CLOUDINARY_API_SECRET', 'HTmVxJABYYsmtUBsrYP13NSW9CU')
 )
