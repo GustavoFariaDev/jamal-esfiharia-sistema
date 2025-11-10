@@ -350,26 +350,6 @@ const FullMenu = () => {
     }));
   };
 
-  const buscarNotificacoesCliente = async (telefone) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || '/api'}/notificacoes/por-telefone/${telefone}?apenas_nao_lidas=true`
-      );
-      const data = await response.json();
-      
-      if (data.status === 'success' && data.nao_lidas > 0) {
-        // Mostrar notificações não lidas
-        data.data.forEach((notif, index) => {
-          setTimeout(() => {
-            info(notif.mensagem);
-          }, index * 2000); // Espaçar as notificações em 2 segundos
-        });
-      }
-    } catch (err) {
-      console.error('Erro ao buscar notificações:', err);
-    }
-  };
-
   const buscarHistoricoCliente = async (telefone) => {
     // Limpar telefone (remover caracteres especiais)
     const telefoneLimpo = telefone.replace(/\D/g, '');
@@ -396,8 +376,6 @@ const FullMenu = () => {
           address: data.data.endereco || prev.address
         }));
         info(`Cliente encontrado! ${data.data.total_pedidos} pedido(s) anterior(es).`);
-        // Buscar notificações não lidas
-        buscarNotificacoesCliente(telefoneLimpo);
       } else {
         setCustomerHistory(null);
       }
@@ -652,26 +630,7 @@ const FullMenu = () => {
           }}>
             🍕 Cardápio Jamal Esfiharia
           </h1>
-          <p className="text-gray-600 text-lg mb-4">Escolha suas delícias favoritas e faça seu pedido!</p>
-          
-          {/* Campo de telefone para notificações */}
-          <div className="max-w-md mx-auto mt-6">
-            <div className="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl p-4">
-              <p className="text-sm text-gray-700 mb-2 font-semibold">🔔 Tem pedidos em andamento?</p>
-              <input
-                type="tel"
-                placeholder="Digite seu telefone: (11) 98765-4321"
-                onChange={(e) => {
-                  const telefone = e.target.value.replace(/\D/g, '');
-                  if (telefone.length >= 10) {
-                    buscarNotificacoesCliente(telefone);
-                  }
-                }}
-                className="w-full px-4 py-2 border-2 border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-center"
-              />
-              <p className="text-xs text-gray-500 mt-2 text-center">Veja atualizações dos seus pedidos</p>
-            </div>
-          </div>
+          <p className="text-gray-600 text-lg">Escolha suas delícias favoritas e faça seu pedido!</p>
         </div>
 
         {/* Filtros */}
