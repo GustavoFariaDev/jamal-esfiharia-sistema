@@ -302,7 +302,7 @@ const AdminPanel = () => {
     try {
       setUploadingImage(true);
       
-      // Criar preview local
+      // Criar preview local TEMPORÁRIO (apenas para mostrar que algo está sendo carregado)
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -326,6 +326,11 @@ const AdminPanel = () => {
 
       if (result.status === 'success') {
         console.log('✅ Upload bem-sucedido! URL:', result.data.url);
+        
+        // CORREÇÃO: Atualizar o imagePreview com a URL do Cloudinary
+        // ao invés de manter o base64 local
+        setImagePreview(result.data.url);
+        
         // Usar setState funcional para garantir que sempre use o estado mais recente
         setProductForm(prevForm => {
           console.log('Estado anterior:', prevForm);
