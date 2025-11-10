@@ -17,7 +17,7 @@ class PedidoHistorico(db.Model):
     observacao = db.Column(db.Text)
     
     # Relacionamentos
-    pedido = db.Relationship('Pedido', backref=db.backref('historico', lazy=True, order_by='PedidoHistorico.data_mudanca.desc()'))
+    pedido = db.relationship('Pedido', backref=db.backref('historico', lazy=True, order_by='PedidoHistorico.data_mudanca.desc()'))
     usuario = db.relationship('User', backref=db.backref('mudancas_pedido', lazy=True))
     
     def to_dict(self):
