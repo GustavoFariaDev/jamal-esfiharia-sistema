@@ -44,6 +44,7 @@ const AdminPanel = () => {
 
   const [uploadingImage, setUploadingImage] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
 
   const [clienteForm, setClienteForm] = useState({
     nome: '',
@@ -276,10 +277,11 @@ const AdminPanel = () => {
       imagem_url: ''
     });
     setImagePreview(null);
+    setSelectedImageFile(null);
     setUploadingImage(false);
   };
 
-  const handleImageUpload = async (e) => {
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -299,62 +301,23 @@ const AdminPanel = () => {
       return;
     }
 
-    try {
-      setUploadingImage(true);
-      
-      // Criar preview local TEMPORÁRIO (apenas para mostrar que algo está sendo carregado)
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    // Armazenar o arquivo selecionado para fazer upload no handleSaveProduct
+    setSelectedImageFile(file);
 
-      // Fazer upload para o servidor
-      const formData = new FormData();
-      formData.append('file', file);
+    // Criar preview local apenas para visualização
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
 
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || '/api'}/upload/image`,
-        {
-          method: 'POST',
-          body: formData
-        }
-      );
-
-      const result = await response.json();
-      console.log('Resposta do servidor:', result);
-
-      if (result.status === 'success') {
-        console.log('✅ Upload bem-sucedido! URL:', result.data.url);
-        
-        // CORREÇÃO: Atualizar o imagePreview com a URL do Cloudinary
-        // ao invés de manter o base64 local
-        setImagePreview(result.data.url);
-        
-        // Usar setState funcional para garantir que sempre use o estado mais recente
-        setProductForm(prevForm => {
-          console.log('Estado anterior:', prevForm);
-          const newForm = { ...prevForm, imagem_url: result.data.url };
-          console.log('Novo estado:', newForm);
-          return newForm;
-        });
-        success('Imagem enviada com sucesso!');
-      } else {
-        error(result.message || 'Erro ao fazer upload da imagem');
-        setImagePreview(null);
-      }
-    } catch (err) {
-      console.error('❌ Erro ao fazer upload:', err);
-      error('Erro de conexão ao fazer upload da imagem');
-      setImagePreview(null);
-    } finally {
-      setUploadingImage(false);
-      console.log('=== FIM handleImageUpload ===');
-    }
+    console.log('Arquivo armazenado para upload posterior');
+    console.log('=== FIM handleImageUpload ===');
   };
 
   const handleRemoveImage = () => {
     setImagePreview(null);
+    setSelectedImageFile(null);
     // Usar setState funcional para garantir que sempre use o estado mais recente
     setProductForm(prevForm => ({ ...prevForm, imagem_url: '' }));
   };
@@ -363,6 +326,7 @@ const AdminPanel = () => {
     console.log('=== INÍCIO handleSaveProduct ===');
     console.log('editingProduct:', editingProduct);
     console.log('productForm:', productForm);
+    console.log('selectedImageFile:', selectedImageFile);
 
     if (!productForm.nome || !productForm.preco || !productForm.categoria) {
       console.warn('Validação falhou: campos obrigatórios vazios');
@@ -373,35 +337,54 @@ const AdminPanel = () => {
     try {
       setLoading(true);
 
-      // A correção anterior no `handleImageUpload` (linhas 330-335) já resolveu o problema de closure.
-      // O problema é que o `handleSaveProduct` é chamado antes do estado `productForm` ser atualizado
-      // pelo `handleImageUpload` (que é assíncrono).
-      // A solução é refatorar o fluxo para que o upload seja feito DENTRO do `handleSaveProduct`
-      // se o usuário tiver selecionado um arquivo.
+      // SOLUÇÃO DEFINITIVA:
+      // Fazer o upload da imagem DENTRO do handleSaveProduct, antes de salvar o produto.
+      // Isso garante que a URL do Cloudinary seja usada, não o base64.
 
-      let finalProductForm = { ...productForm };
+      let finalImageUrl = productForm.imagem_url;
 
-      // Se o usuário selecionou um arquivo, o upload já deve ter ocorrido no `handleImageUpload`
-      // e o `productForm.imagem_url` deve estar atualizado.
-      // No entanto, para garantir a consistência, vamos usar o `imagePreview` que é atualizado
-      // de forma síncrona no `handleImageUpload` e representa a URL final.
-      // Se o `imagePreview` for diferente da URL original do produto, significa que houve uma alteração.
-      
-      // Se o `imagePreview` estiver definido, significa que o usuário fez upload ou inseriu uma URL.
-      // Vamos garantir que o `productForm.imagem_url` seja o valor do `imagePreview`
-      // antes de enviar para a API, pois o `imagePreview` é a fonte de verdade visual.
-      
-      if (imagePreview !== productForm.imagem_url) {
-          // Isso pode acontecer se o usuário usou o campo de URL ou se o estado do React
-          // ainda não atualizou o productForm após o upload.
-          // Como o `imagePreview` é a URL final (seja do upload ou da URL manual),
-          // vamos usá-lo.
-          finalProductForm.imagem_url = imagePreview || '';
+      // Se o usuário selecionou um novo arquivo, fazer upload agora
+      if (selectedImageFile) {
+        console.log('📤 Fazendo upload da imagem antes de salvar...');
+        setUploadingImage(true);
+
+        try {
+          const formData = new FormData();
+          formData.append('file', selectedImageFile);
+
+          const response = await fetch(
+            `${process.env.REACT_APP_API_BASE_URL || '/api'}/upload/image`,
+            {
+              method: 'POST',
+              body: formData
+            }
+          );
+
+          const result = await response.json();
+          console.log('Resposta do upload:', result);
+
+          if (result.status === 'success') {
+            finalImageUrl = result.data.url;
+            console.log('✅ Upload bem-sucedido! URL:', finalImageUrl);
+          } else {
+            throw new Error(result.message || 'Erro ao fazer upload da imagem');
+          }
+        } catch (uploadErr) {
+          console.error('❌ Erro ao fazer upload:', uploadErr);
+          error('Erro ao fazer upload da imagem: ' + uploadErr.message);
+          setUploadingImage(false);
+          setLoading(false);
+          return;
+        } finally {
+          setUploadingImage(false);
+        }
       }
 
+      // Preparar dados do produto com a URL final da imagem
       const productData = {
-        ...finalProductForm,
-        preco: parseFloat(finalProductForm.preco)
+        ...productForm,
+        imagem_url: finalImageUrl,
+        preco: parseFloat(productForm.preco)
       };
 
       console.log('productData preparado:', productData);
