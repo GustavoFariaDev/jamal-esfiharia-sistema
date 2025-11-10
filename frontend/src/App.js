@@ -6,6 +6,7 @@ import AdminPanel from "./components/AdminPanel";
 import AdminLogin from "./components/AdminLogin";
 import FullMenu from "./components/FullMenu";
 import ConsultarStatus from "./components/ConsultarStatus";
+import AcompanhamentoPedido from "./components/AcompanhamentoPedido";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -25,6 +26,8 @@ function App() {
               <Route path="/cardapio" element={<FullMenu />} />
               <Route path="/status" element={<ConsultarStatus />} />
               <Route path="/consultar-status" element={<ConsultarStatus />} />
+              <Route path="/acompanhar-pedido" element={<AcompanhamentoPedido />} />
+              <Route path="/meu-pedido" element={<AcompanhamentoPedido />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route
                 path="/admin"

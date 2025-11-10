@@ -562,3 +562,43 @@ def obter_historico_pedido(pedido_id):
             "status": "error",
             "message": f"Erro ao buscar histórico: {str(e)}"
         }), 500
+
+
+@pedido_bp.route("/<int:pedido_id>/historico-publico", methods=["GET"])
+def obter_historico_pedido_publico(pedido_id):
+    """Retorna o histórico de mudanças de status de um pedido (Público - sem autenticação)."""
+    pedido = Pedido.query.get(pedido_id)
+    
+    if not pedido:
+        return jsonify({
+            "status": "error",
+            "message": "Pedido não encontrado."
+        }), 404
+    
+    try:
+        # Buscar histórico ordenado por data (mais recente primeiro)
+        historico = PedidoHistorico.query.filter_by(pedido_id=pedido_id).order_by(
+            PedidoHistorico.data_mudanca.desc()
+        ).all()
+        
+        historico_list = []
+        for h in historico:
+            item = {
+                'id': h.id,
+                'status': h.status_novo,
+                'status_anterior': h.status_anterior,
+                'data_mudanca': h.data_mudanca.isoformat() if h.data_mudanca else None,
+                'observacao': h.observacao
+            }
+            historico_list.append(item)
+        
+        return jsonify({
+            "status": "success",
+            "data": historico_list,
+            "historico": historico_list
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Erro ao buscar histórico: {str(e)}"
+        }), 500
