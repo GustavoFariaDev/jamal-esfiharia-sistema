@@ -245,6 +245,7 @@ const AdminPanel = () => {
         imagem_url: product.imagem_url || ''
       };
       console.log('formData setado:', formData);
+      console.log('🖼️ Imagem atual do produto:', product.imagem_url);
       setProductForm(formData);
       setImagePreview(product.imagem_url || null);
     } else {
@@ -282,6 +283,9 @@ const AdminPanel = () => {
     const file = e.target.files[0];
     if (!file) return;
 
+    console.log('=== INÍCIO handleImageUpload ===');
+    console.log('Arquivo selecionado:', file.name, 'Tamanho:', file.size, 'Tipo:', file.type);
+
     // Validar tipo de arquivo
     const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
@@ -318,26 +322,36 @@ const AdminPanel = () => {
       );
 
       const result = await response.json();
+      console.log('Resposta do servidor:', result);
 
       if (result.status === 'success') {
-        setProductForm({ ...productForm, imagem_url: result.data.url });
+        console.log('✅ Upload bem-sucedido! URL:', result.data.url);
+        // Usar setState funcional para garantir que sempre use o estado mais recente
+        setProductForm(prevForm => {
+          console.log('Estado anterior:', prevForm);
+          const newForm = { ...prevForm, imagem_url: result.data.url };
+          console.log('Novo estado:', newForm);
+          return newForm;
+        });
         success('Imagem enviada com sucesso!');
       } else {
         error(result.message || 'Erro ao fazer upload da imagem');
         setImagePreview(null);
       }
     } catch (err) {
-      console.error('Erro ao fazer upload:', err);
+      console.error('❌ Erro ao fazer upload:', err);
       error('Erro de conexão ao fazer upload da imagem');
       setImagePreview(null);
     } finally {
       setUploadingImage(false);
+      console.log('=== FIM handleImageUpload ===');
     }
   };
 
   const handleRemoveImage = () => {
     setImagePreview(null);
-    setProductForm({ ...productForm, imagem_url: '' });
+    // Usar setState funcional para garantir que sempre use o estado mais recente
+    setProductForm(prevForm => ({ ...prevForm, imagem_url: '' }));
   };
 
   const handleSaveProduct = async () => {
@@ -360,6 +374,7 @@ const AdminPanel = () => {
       };
       
       console.log('productData preparado:', productData);
+      console.log('🖼️ URL da imagem que será enviada:', productData.imagem_url);
 
       let result;
       if (editingProduct) {

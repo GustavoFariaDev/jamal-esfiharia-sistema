@@ -163,6 +163,8 @@ def update_esfiha(esfiha_id):
     data = request.json
     print(f"Dados recebidos: {data}")
     print(f"Esfiha atual: nome={esfiha.nome}, preco={esfiha.preco}, categoria={esfiha.categoria}")
+    print(f"🖼️ Imagem atual: {esfiha.imagem_url}")
+    print(f"🖼️ Nova imagem recebida: {data.get('imagem_url', 'Não enviada')}")
 
     # Atualizar nome se fornecido
     if "nome" in data and data["nome"] != esfiha.nome:
@@ -205,6 +207,7 @@ def update_esfiha(esfiha_id):
 
     # Atualizar URL da imagem
     if "imagem_url" in data:
+        print(f"🔄 Atualizando imagem_url de '{esfiha.imagem_url}' para '{data['imagem_url']}'")
         esfiha.imagem_url = data["imagem_url"]
 
     try:
