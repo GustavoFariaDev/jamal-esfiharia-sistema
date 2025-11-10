@@ -614,7 +614,6 @@ const OrderManagement = () => {
           message={`Tem certeza que deseja ${confirmAction.actionLabel.toLowerCase()}? Esta ação não pode ser desfeita.`}
           confirmText="Sim, confirmar"
           cancelText="Cancelar"
-          type={confirmAction.newStatus === 'cancelado' ? 'danger' : 'warning'}
         />
       )}
 
