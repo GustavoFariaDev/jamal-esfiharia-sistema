@@ -368,15 +368,35 @@ const AdminPanel = () => {
     try {
       setLoading(true);
 
-      // O handleImageUpload já atualiza o productForm.imagem_url.
-      // O problema é que o handleSaveProduct é chamado antes do estado ser atualizado.
-      // A solução é garantir que o productForm.imagem_url contenha a URL correta.
-      // Se o usuário usou o handleImageUpload, o productForm.imagem_url já deve estar correto.
-      // Se o usuário usou o campo de texto, o productForm.imagem_url também deve estar correto.
+      // A correção anterior no `handleImageUpload` (linhas 330-335) já resolveu o problema de closure.
+      // O problema é que o `handleSaveProduct` é chamado antes do estado `productForm` ser atualizado
+      // pelo `handleImageUpload` (que é assíncrono).
+      // A solução é refatorar o fluxo para que o upload seja feito DENTRO do `handleSaveProduct`
+      // se o usuário tiver selecionado um arquivo.
+
+      let finalProductForm = { ...productForm };
+
+      // Se o usuário selecionou um arquivo, o upload já deve ter ocorrido no `handleImageUpload`
+      // e o `productForm.imagem_url` deve estar atualizado.
+      // No entanto, para garantir a consistência, vamos usar o `imagePreview` que é atualizado
+      // de forma síncrona no `handleImageUpload` e representa a URL final.
+      // Se o `imagePreview` for diferente da URL original do produto, significa que houve uma alteração.
+      
+      // Se o `imagePreview` estiver definido, significa que o usuário fez upload ou inseriu uma URL.
+      // Vamos garantir que o `productForm.imagem_url` seja o valor do `imagePreview`
+      // antes de enviar para a API, pois o `imagePreview` é a fonte de verdade visual.
+      
+      if (imagePreview !== productForm.imagem_url) {
+          // Isso pode acontecer se o usuário usou o campo de URL ou se o estado do React
+          // ainda não atualizou o productForm após o upload.
+          // Como o `imagePreview` é a URL final (seja do upload ou da URL manual),
+          // vamos usá-lo.
+          finalProductForm.imagem_url = imagePreview || '';
+      }
 
       const productData = {
-        ...productForm,
-        preco: parseFloat(productForm.preco)
+        ...finalProductForm,
+        preco: parseFloat(finalProductForm.preco)
       };
 
       console.log('productData preparado:', productData);
