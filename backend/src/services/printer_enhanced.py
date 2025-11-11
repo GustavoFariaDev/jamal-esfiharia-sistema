@@ -353,7 +353,8 @@ class ThermalPrinter:
                     # Fallback: usar print command
                     subprocess.run([
                         'print', '/D:' + self.printer_name, temp_file_path
-                    ], check=True, timeout=10            elif system == "Linux":
+                    ], check=True, timeout=10)
+            elif system == "Linux":
                 # Linux - usa lp
                 # ATENÇÃO: Em ambiente de sandbox sem impressora física, 
                 # a impressão real falhará. Vamos simular o sucesso.
@@ -376,7 +377,8 @@ class ThermalPrinter:
                         return False
                     except subprocess.TimeoutExpired:
                         print("Comando lp expirou.")
-                        return False             
+                        return False
+            
             # Remover arquivo temporário
             os.unlink(temp_file_path)
             return True
