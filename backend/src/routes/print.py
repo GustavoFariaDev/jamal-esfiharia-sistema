@@ -97,7 +97,10 @@ def imprimir_pedido(pedido_id):
             response_data['pdf_url'] = f"/api/print/download/{result['pdf_filename']}"
             response_data['pdf_filename'] = result['pdf_filename']
         
-        return jsonify(response_data), 200 if result['success'] else 500
+        # Retorna 200 se o PDF foi gerado com sucesso, mesmo que a térmica tenha falhado.
+        # Se a térmica falhou e o PDF também, retorna 500.
+        status_code = 200 if result['pdf_success'] or result['thermal_success'] else 500
+        return jsonify(response_data), status_code
         
     except Exception as e:
         return jsonify({
@@ -215,7 +218,10 @@ def imprimir_teste():
             response_data['pdf_url'] = f"/api/print/download/{result['pdf_filename']}"
             response_data['pdf_filename'] = result['pdf_filename']
         
-        return jsonify(response_data), 200 if result['success'] else 500
+        # Retorna 200 se o PDF foi gerado com sucesso, mesmo que a térmica tenha falhado.
+        # Se a térmica falhou e o PDF também, retorna 500.
+        status_code = 200 if result['pdf_success'] or result['thermal_success'] else 500
+        return jsonify(response_data), status_code
         
     except Exception as e:
         return jsonify({
