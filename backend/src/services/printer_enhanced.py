@@ -13,12 +13,8 @@ from typing import Dict, List, Optional
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import mm, inch
+from reportlab.lib.units import mm
 from reportlab.lib import colors
-
-# Tamanho de papel para impressora térmica 80mm (3.15 polegadas)
-# Altura é definida dinamicamente pelo conteúdo, mas a largura é fixa.
-THERMAL_80MM = (3.15 * inch, 11.69 * inch) # 80mm x A4 height (will be dynamic)
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 
 
@@ -396,12 +392,11 @@ class PDFPrinter:
     """Classe para impressão em PDF - Formato Compacto e Profissional"""
     
     def create_order_pdf(self, order_data: Dict, output_path: str) -> bool:
-        """Cria PDF do pedido em formato compacto para impressora térmica"""
+        """Cria PDF do pedido em formato compacto"""
         try:
-            # Usar o tamanho de 80mm (3.15 polegadas)
-            doc = SimpleDocTemplate(output_path, pagesize=THERMAL_80MM, 
-                                   topMargin=5*mm, bottomMargin=5*mm,
-                                   leftMargin=5*mm, rightMargin=5*mm)
+            doc = SimpleDocTemplate(output_path, pagesize=A4, 
+                                   topMargin=15*mm, bottomMargin=15*mm,
+                                   leftMargin=15*mm, rightMargin=15*mm)
             elements = []
             styles = getSampleStyleSheet()
             
@@ -420,8 +415,8 @@ class PDFPrinter:
             compact_style = ParagraphStyle(
                 'Compact',
                 parent=styles['Normal'],
-                fontSize=8, # Reduzir fonte para caber na largura
-                leading=10,
+                fontSize=9,
+                leading=11,
                 fontName='Helvetica'
             )
             
@@ -518,8 +513,7 @@ class PDFPrinter:
                 items_data.append([Paragraph(desc, compact_style), f"R$ {subtotal_item:.2f}"])
             
             # Tabela de itens
-            # Ajustar colWidths para a nova largura de 80mm (70mm de área útil)
-            items_table = Table(items_data, colWidths=[55*mm, 15*mm])
+            items_table = Table(items_data, colWidths=[140*mm, 40*mm])
             items_table.setStyle(TableStyle([
                 ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
                 ('FONTSIZE', (0, 0), (-1, -1), 9),
@@ -544,7 +538,7 @@ class PDFPrinter:
             
             totals_data.append(['<b>TOTAL:</b>', f"<b>R$ {total:.2f}</b>"])
             
-            totals_table = Table(totals_data, colWidths=[55*mm, 15*mm])
+            totals_table = Table(totals_data, colWidths=[140*mm, 40*mm])
             totals_table.setStyle(TableStyle([
                 ('FONTNAME', (0, 0), (-1, -2), 'Helvetica'),
                 ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),
