@@ -399,9 +399,14 @@ class PDFPrinter:
         """Cria PDF do pedido em formato compacto para impressora térmica"""
         try:
             # Usar o tamanho de 80mm (3.15 polegadas)
+            # Definir o tamanho da página como THERMAL_80MM e usar portrait para garantir a orientação
             doc = SimpleDocTemplate(output_path, pagesize=THERMAL_80MM, 
                                    topMargin=5*mm, bottomMargin=5*mm,
                                    leftMargin=5*mm, rightMargin=5*mm)
+            
+            # Tentar forçar o PDF a ser o mais limpo possível (não garante que o navegador não adicione cabeçalhos)
+            doc.showBoundary = 0 # Não mostrar bordas
+            doc.allowSplitting = 0 # Não permitir quebra de página (para comanda)
             elements = []
             styles = getSampleStyleSheet()
             
