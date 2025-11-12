@@ -325,20 +325,27 @@ const OrderManagement = () => {
 
         if (response.ok) {
           const data = await response.json();
+          console.log('Resposta da API de impressão:', data);
           
           if (data.status === 'success' && data.pdf_url) {
+            console.log('PDF URL recebida:', data.pdf_url);
+            
             // Fazer download do PDF
-            const pdfResponse = await fetch(
-              `${process.env.REACT_APP_API_BASE_URL || ''}${data.pdf_url}`,
-              {
-                headers: {
-                  'Authorization': `Bearer ${authService.getToken()}`
-                }
+            const pdfUrl = `${process.env.REACT_APP_API_BASE_URL || ''}${data.pdf_url}`;
+            console.log('URL completa do PDF:', pdfUrl);
+            
+            const pdfResponse = await fetch(pdfUrl, {
+              headers: {
+                'Authorization': `Bearer ${authService.getToken()}`
               }
-            );
+            });
+            
+            console.log('Status do download do PDF:', pdfResponse.status);
             
             if (pdfResponse.ok) {
               const blob = await pdfResponse.blob();
+              console.log('Blob recebido, tamanho:', blob.size);
+              
               const url = window.URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
@@ -347,12 +354,21 @@ const OrderManagement = () => {
               a.click();
               window.URL.revokeObjectURL(url);
               document.body.removeChild(a);
+              
+              success('PDF baixado com sucesso!');
+            } else {
+              const errorText = await pdfResponse.text();
+              console.error('Erro ao baixar PDF:', errorText);
+              throw new Error(`Erro ao baixar PDF: ${pdfResponse.status}`);
             }
+          } else {
+            console.error('Resposta sem pdf_url:', data);
+            throw new Error(data.message || 'PDF não foi gerado');
           }
-          
-          success(data.message || 'PDF gerado com sucesso!');
         } else {
-          throw new Error('Erro ao gerar PDF');
+          const errorData = await response.json();
+          console.error('Erro na API:', errorData);
+          throw new Error(errorData.message || 'Erro ao gerar PDF');
         }
       }
     } catch (err) {
