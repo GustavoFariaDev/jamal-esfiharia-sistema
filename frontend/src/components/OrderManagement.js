@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Package, Clock, CheckCircle, XCircle, Truck, Eye, RefreshCw, Printer, Search, Bell, History } from 'lucide-react';
 import apiService from '../services/apiService';
 import authService from '../services/authService';
+import qzTrayService from '../services/qzTrayService';
 import { useToastContext } from '../contexts/ToastContext';
 import ConfirmModal from './ConfirmModal';
 
@@ -278,52 +279,85 @@ const OrderManagement = () => {
 
   const handlePrintOrder = async (orderId, printType) => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || '/api'}/print/pedido/${orderId}/imprimir`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${authService.getToken()}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ tipo: printType })
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
+      // Se for impressão térmica direta, usar QZ Tray
+      if (printType === 'thermal' || printType === 'both') {
+        // Buscar dados do pedido
+        const orderResponse = await apiService.getOrder(orderId);
         
-        if (data.status === 'success' && data.pdf_url) {
-          // Fazer download do PDF
-          const pdfResponse = await fetch(
-            `${process.env.REACT_APP_API_BASE_URL || ''}${data.pdf_url}`,
-            {
-              headers: {
-                'Authorization': `Bearer ${authService.getToken()}`
-              }
-            }
-          );
+        if (orderResponse.success) {
+          const orderData = orderResponse.data;
           
-          if (pdfResponse.ok) {
-            const blob = await pdfResponse.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = data.pdf_filename || `pedido_${orderId}.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
+          // Imprimir via QZ Tray
+          const printResult = await qzTrayService.printOrder(orderData);
+          
+          if (printResult.success) {
+            success(printResult.message);
+            
+            // Se for 'both', continuar para gerar PDF também
+            if (printType !== 'both') {
+              return;
+            }
+          } else {
+            // Se falhou e era apenas thermal, mostrar erro
+            if (printType === 'thermal') {
+              error(printResult.message);
+              return;
+            }
+            // Se era 'both', continuar para PDF como fallback
+            info('Impressão térmica falhou. Gerando PDF...');
           }
         }
-        
-        success(data.message || 'Pedido enviado para impressão');
-      } else {
-        throw new Error('Erro ao imprimir pedido');
+      }
+      
+      // Impressão PDF (ou fallback se térmica falhou)
+      if (printType === 'pdf' || printType === 'both') {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL || '/api'}/print/pedido/${orderId}/imprimir`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${authService.getToken()}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ tipo: 'pdf' })
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          
+          if (data.status === 'success' && data.pdf_url) {
+            // Fazer download do PDF
+            const pdfResponse = await fetch(
+              `${process.env.REACT_APP_API_BASE_URL || ''}${data.pdf_url}`,
+              {
+                headers: {
+                  'Authorization': `Bearer ${authService.getToken()}`
+                }
+              }
+            );
+            
+            if (pdfResponse.ok) {
+              const blob = await pdfResponse.blob();
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = data.pdf_filename || `pedido_${orderId}.pdf`;
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+            }
+          }
+          
+          success(data.message || 'PDF gerado com sucesso!');
+        } else {
+          throw new Error('Erro ao gerar PDF');
+        }
       }
     } catch (err) {
       console.error('Erro ao imprimir:', err);
-      error('Erro ao imprimir pedido');
+      error(err.message || 'Erro ao imprimir pedido');
     }
   };
 
