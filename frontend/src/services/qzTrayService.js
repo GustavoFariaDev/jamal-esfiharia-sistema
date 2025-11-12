@@ -3,6 +3,8 @@
  * 
  * Este serviço permite impressão direta em impressoras térmicas
  * (como Bematech MP4200TH) via QZ Tray instalado localmente.
+ * 
+ * Formato baseado no PDF gerado pelo backend.
  */
 
 import qz from 'qz-tray';
@@ -11,7 +13,7 @@ class QZTrayService {
   constructor() {
     this.connected = false;
     this.printerName = null;
-    this.width = 40; // Largura da impressora térmica (80mm = 40 caracteres)
+    this.width = 75; // Largura para impressora térmica 80mm
   }
 
   /**
@@ -117,10 +119,10 @@ class QZTrayService {
   }
 
   /**
-   * Cria linha separadora
+   * Cria linha separadora com underscores
    */
-  _line(char = '-') {
-    return char.repeat(this.width) + '\n';
+  _line() {
+    return '_'.repeat(this.width) + '\n';
   }
 
   /**
@@ -135,7 +137,7 @@ class QZTrayService {
    * Formata preço
    */
   _formatPrice(value) {
-    return `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+    return `R$ ${parseFloat(value).toFixed(2)}`;
   }
 
   /**
@@ -150,6 +152,7 @@ class QZTrayService {
    * Formata tamanho por extenso
    */
   _formatTamanho(tamanho) {
+    if (!tamanho) return '';
     const extenso = {
       'grande': 'Grande',
       'media': 'Média',
@@ -174,6 +177,14 @@ class QZTrayService {
   }
 
   /**
+   * Formata status do pedido
+   */
+  _formatStatus(status) {
+    if (!status) return 'PENDENTE';
+    return status.toUpperCase();
+  }
+
+  /**
    * Gera comandos ESC/POS para impressão de comanda
    */
   generateESCPOSCommands(orderData) {
@@ -187,13 +198,12 @@ class QZTrayService {
     // ========================================
     // CABEÇALHO
     // ========================================
-    commands.push(this._line('='));
     commands.push(ESC + 'a' + '\x01'); // Centralizar
+    commands.push(ESC + 'E' + '\x01'); // Negrito ON
     commands.push('ESFIHARIA JAMAL\n');
-    commands.push('Rua das Esfihas, 123\n');
-    commands.push('Tel: (11) 99999-9999\n');
+    commands.push(ESC + 'E' + '\x00'); // Negrito OFF
+    commands.push('\n');
     commands.push(ESC + 'a' + '\x00'); // Alinhar à esquerda
-    commands.push(this._line('='));
 
     // ========================================
     // INFORMAÇÕES DO PEDIDO
@@ -202,16 +212,18 @@ class QZTrayService {
     const data = new Date().toLocaleString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
-      year: '2-digit',
+      year: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
     });
     
     commands.push(`PEDIDO #${pedidoId} | ${data}\n`);
-    commands.push(`Cliente: ${(orderData.cliente_nome || 'N/A').substring(0, 25)}\n`);
+    commands.push(`Cliente: ${orderData.cliente_nome || 'N/A'}\n`);
     
     if (orderData.cliente_telefone) {
-      commands.push(`Fone: ${orderData.cliente_telefone}\n`);
+      // Telefone sem formatação de parênteses
+      const fone = orderData.cliente_telefone.replace(/[()]/g, '');
+      commands.push(`Fone: ${fone}\n`);
     }
 
     // Tipo de entrega
@@ -220,13 +232,29 @@ class QZTrayService {
       : 'Retirada';
     commands.push(`Entrega: ${tipoEntrega}\n`);
 
-    commands.push(this._line('-'));
+    // Informações de delivery
+    if (tipoEntrega === 'Delivery') {
+      if (orderData.cep_entrega) {
+        commands.push(`CEP: ${orderData.cep_entrega}\n`);
+      }
+      if (orderData.endereco_entrega) {
+        commands.push(`Endereco: ${orderData.endereco_entrega}\n`);
+      }
+      if (orderData.complemento) {
+        commands.push(`Complemento: ${orderData.complemento}\n`);
+      }
+    }
+
+    // Observações
+    if (orderData.observacoes && orderData.observacoes.trim()) {
+      commands.push(`Observacoes: ${orderData.observacoes.trim()}\n`);
+    }
+
+    commands.push('\n');
 
     // ========================================
     // ITENS
     // ========================================
-    commands.push('ITENS\n\n');
-
     let total = 0;
 
     if (orderData.itens && orderData.itens.length > 0) {
@@ -235,7 +263,6 @@ class QZTrayService {
         const qtd = item.quantidade || 1;
         const preco = parseFloat(item.preco_unitario || 0);
         const tamanho = item.tamanho ? ` ${this._formatTamanho(item.tamanho)}` : '';
-        const categoria = item.categoria || '';
         const eh_meio_a_meio = item.eh_meio_a_meio || false;
         const acrescimos = item.acrescimos || [];
         
@@ -252,84 +279,34 @@ class QZTrayService {
           commands.push(this._alignRight(linhaItem, precoStr));
           
           // Sabores
-          commands.push(`   \u2022 ${nome.substring(0, 32)}\n`);
+          commands.push(`  \u2022 ${nome.toUpperCase()}\n`);
           if (item.esfiha_metade2_nome) {
-            commands.push(`   \u2022 ${item.esfiha_metade2_nome.substring(0, 32)}\n`);
+            commands.push(`  \u2022 ${item.esfiha_metade2_nome.toUpperCase()}\n`);
           }
         } else {
           // Item normal
-          const linhaItem = `${qtd}x ${nome.substring(0, 20)}${tamanho}`;
+          const linhaItem = `${qtd}x ${nome}${tamanho}`;
           const precoStr = this._formatPrice(subtotal);
           commands.push(this._alignRight(linhaItem, precoStr));
-          
-          // Para esfihas, adicionar tipo (aberta/fechada)
-          if (categoria && categoria.toUpperCase().includes('ESFIHA')) {
-            const tipoEsfiha = categoria.toUpperCase().includes('SALGADA') || 
-                              categoria.toUpperCase().includes('VEGETARIANA') 
-                              ? 'Aberta' 
-                              : 'Fechada';
-            commands.push(`   (${tipoEsfiha})\n`);
-          }
-        }
-
-        // Contagem de acréscimos para esfihas
-        if (acrescimos.length > 0 && categoria && categoria.toUpperCase().includes('ESFIHA') && qtd > 1) {
-          const qtdComAcrescimo = acrescimos.reduce((sum, a) => {
-            return sum + (a.tipo === 'esfiha' ? (a.quantidade || 1) : 0);
-          }, 0);
-          
-          if (qtdComAcrescimo > 0 && qtdComAcrescimo < qtd) {
-            const qtdSemAcrescimo = qtd - qtdComAcrescimo;
-            commands.push(`   [${qtdComAcrescimo} c/ acrescimo, ${qtdSemAcrescimo} normal]\n`);
-          } else if (qtdComAcrescimo >= qtd) {
-            commands.push(`   [Todas c/ acrescimo]\n`);
-          }
         }
 
         // Acréscimos
         if (acrescimos.length > 0) {
           acrescimos.forEach(acr => {
-            let nomeAcr = acr.nome || 'Acrescimo';
-            const tipoAcr = acr.tipo || '';
+            const nomeAcr = acr.nome || 'Acrescimo';
             const precoAcr = parseFloat(acr.preco || 0);
-            const qtdAcr = acr.quantidade || 1;
-            
-            // Formatação específica por tipo
-            let tipoLabel = '';
-            let prefixo = '';
-            let qtdLabel = '';
-            
-            if (tipoAcr === 'pizza_metade') {
-              tipoLabel = ' (metade)';
-            } else if (tipoAcr === 'pizza_toda') {
-              tipoLabel = ' (toda)';
-            } else if (tipoAcr === 'borda') {
-              if (!nomeAcr.includes('Borda')) {
-                prefixo = 'Borda ';
-              } else {
-                nomeAcr = nomeAcr.replace('Borda de ', '');
-              }
-            } else if (tipoAcr === 'esfiha' && qtdAcr > 1) {
-              qtdLabel = ` (${qtdAcr}x)`;
-            } else if (qtd > 1 && tipoAcr !== 'borda' && tipoAcr !== 'esfiha') {
-              qtdLabel = ' (cada)';
-            }
-            
             const precoAcrStr = this._formatPrice(precoAcr);
-            const linhaAcr = `   + ${prefixo}${nomeAcr.substring(0, 20)}${tipoLabel}${qtdLabel}`;
-            commands.push(this._alignRight(linhaAcr, precoAcrStr));
+            commands.push(this._alignRight(`  + ${nomeAcr}`, precoAcrStr));
           });
         }
-
-        commands.push('\n');
       });
     }
+
+    commands.push(this._line());
 
     // ========================================
     // TOTAIS
     // ========================================
-    commands.push(this._line('-'));
-    
     const subtotalStr = this._formatPrice(total);
     commands.push(this._alignRight('Subtotal:', subtotalStr));
     
@@ -341,24 +318,25 @@ class QZTrayService {
       total += taxaEntrega;
     }
 
-    commands.push(this._line('-'));
+    commands.push(this._line());
     
     const totalStr = this._formatPrice(total);
+    commands.push('\n');
     commands.push(ESC + 'E' + '\x01'); // Negrito ON
     commands.push(this._alignRight('TOTAL:', totalStr));
     commands.push(ESC + 'E' + '\x00'); // Negrito OFF
-    
-    commands.push(this._line('-'));
+    commands.push('\n');
 
     // ========================================
-    // PAGAMENTO
+    // PAGAMENTO E STATUS
     // ========================================
     const formaPagamento = this._formatFormaPagamento(orderData.forma_pagamento);
     commands.push(`Pagamento: ${formaPagamento}\n`);
 
+    // Troco (se dinheiro)
     if (orderData.troco_para && orderData.forma_pagamento === 'dinheiro') {
       const trocoPara = parseFloat(orderData.troco_para);
-      const trocoPara Str = this._formatPrice(trocoPara);
+      const trocoParaStr = this._formatPrice(trocoPara);
       commands.push(`Troco para: ${trocoParaStr}\n`);
       
       const troco = trocoPara - total;
@@ -368,75 +346,23 @@ class QZTrayService {
       }
     }
 
-    // ========================================
-    // OBSERVAÇÕES
-    // ========================================
-    if (orderData.observacoes && orderData.observacoes.trim()) {
-      commands.push('\nObservacoes:\n');
-      const obs = orderData.observacoes.trim();
-      
-      // Quebrar observações em linhas se for muito longo
-      if (obs.length > this.width) {
-        const palavras = obs.split(' ');
-        let linha = '';
-        
-        palavras.forEach(palavra => {
-          if ((linha + palavra).length > this.width) {
-            commands.push(linha.trim() + '\n');
-            linha = palavra + ' ';
-          } else {
-            linha += palavra + ' ';
-          }
-        });
-        
-        if (linha.trim()) {
-          commands.push(linha.trim() + '\n');
-        }
-      } else {
-        commands.push(obs + '\n');
-      }
+    // Status
+    const status = this._formatStatus(orderData.status);
+    commands.push(`Status: ${status}\n`);
+
+    // Distância (se delivery)
+    if (tipoEntrega === 'Delivery' && orderData.distancia) {
+      commands.push(`Distancia: ${orderData.distancia} km\n`);
     }
 
-    // ========================================
-    // ENDEREÇO (se delivery)
-    // ========================================
-    if (tipoEntrega === 'Delivery') {
-      commands.push('\nEndereco:\n');
-      
-      if (orderData.endereco_entrega) {
-        const endereco = orderData.endereco_entrega;
-        if (endereco.length > this.width) {
-          commands.push(endereco.substring(0, this.width) + '\n');
-          if (endereco.length > this.width) {
-            commands.push(endereco.substring(this.width, this.width * 2) + '\n');
-          }
-        } else {
-          commands.push(endereco + '\n');
-        }
-      }
-      
-      if (orderData.complemento) {
-        commands.push(orderData.complemento.substring(0, this.width) + '\n');
-      }
-      
-      if (orderData.cep_entrega) {
-        commands.push(`CEP: ${orderData.cep_entrega}\n`);
-      }
-      
-      if (orderData.distancia) {
-        commands.push(`Distancia: ${orderData.distancia} km\n`);
-      }
-    }
+    commands.push('\n');
 
     // ========================================
     // RODAPÉ
     // ========================================
-    commands.push(this._line('='));
     commands.push(ESC + 'a' + '\x01'); // Centralizar
     commands.push('Obrigado pela preferencia!\n');
-    commands.push('Volte sempre! \n'); // Emoji removido para compatibilidade
     commands.push(ESC + 'a' + '\x00'); // Alinhar à esquerda
-    commands.push(this._line('='));
     commands.push('\n\n\n');
 
     // Cortar papel (se suportado)
