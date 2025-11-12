@@ -331,7 +331,14 @@ const OrderManagement = () => {
             console.log('PDF URL recebida:', data.pdf_url);
             
             // Fazer download do PDF
-            const pdfUrl = `${process.env.REACT_APP_API_BASE_URL || ''}${data.pdf_url}`;
+            // data.pdf_url já vem com /api/print/download/...
+            // REACT_APP_API_BASE_URL pode ser vazio (produção) ou conter domínio completo
+            const baseUrl = process.env.REACT_APP_API_BASE_URL || '';
+            // Remove /api do final se existir, pois data.pdf_url já tem /api
+            const cleanBaseUrl = baseUrl.replace(/\/api$/, '');
+            const pdfUrl = `${cleanBaseUrl}${data.pdf_url}`;
+            console.log('Base URL:', baseUrl);
+            console.log('Clean Base URL:', cleanBaseUrl);
             console.log('URL completa do PDF:', pdfUrl);
             
             const pdfResponse = await fetch(pdfUrl, {
