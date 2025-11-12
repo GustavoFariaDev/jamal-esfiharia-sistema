@@ -279,27 +279,45 @@ const OrderManagement = () => {
   const handlePrintOrder = async (orderId, printType) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || '/api'}/pedidos/${orderId}/imprimir?tipo=${printType}`,
+        `${process.env.REACT_APP_API_BASE_URL || '/api'}/print/pedido/${orderId}/imprimir`,
         {
+          method: 'POST',
           headers: {
-            'Authorization': `Bearer ${authService.getToken()}`
-          }
+            'Authorization': `Bearer ${authService.getToken()}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ tipo: printType })
         }
       );
 
       if (response.ok) {
-        if (printType === 'pdf' || printType === 'both') {
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `pedido_${orderId}_${new Date().toISOString().slice(0,10).replace(/-/g,'')}_${new Date().toTimeString().slice(0,8).replace(/:/g,'')}.pdf`;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
+        const data = await response.json();
+        
+        if (data.status === 'success' && data.pdf_url) {
+          // Fazer download do PDF
+          const pdfResponse = await fetch(
+            `${process.env.REACT_APP_API_BASE_URL || ''}${data.pdf_url}`,
+            {
+              headers: {
+                'Authorization': `Bearer ${authService.getToken()}`
+              }
+            }
+          );
+          
+          if (pdfResponse.ok) {
+            const blob = await pdfResponse.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = data.pdf_filename || `pedido_${orderId}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+          }
         }
-        success('Pedido enviado para impressão');
+        
+        success(data.message || 'Pedido enviado para impressão');
       } else {
         throw new Error('Erro ao imprimir pedido');
       }

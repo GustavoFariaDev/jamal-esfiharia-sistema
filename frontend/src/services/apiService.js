@@ -200,17 +200,107 @@ class ApiService {
   }
 
   async printOrder(orderId, printType = 'pdf') {
-    return this.request(`/print/pedido/${orderId}/imprimir`, {
-      method: 'POST',
-      body: JSON.stringify({ tipo: printType }),
-    });
+    try {
+      const token = authService.getToken();
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      
+      const response = await fetch(`${API_BASE_URL}/print/pedido/${orderId}/imprimir`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ tipo: printType }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || `Erro na requisição: ${response.status}`);
+      }
+      
+      // Se gerou PDF, fazer download
+      if (data.pdf_url && data.pdf_filename) {
+        const pdfResponse = await fetch(`${API_BASE_URL}${data.pdf_url}`, {
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+        });
+        
+        if (pdfResponse.ok) {
+          const blob = await pdfResponse.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = data.pdf_filename;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        }
+      }
+      
+      return { success: true, data };
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+        return { success: false, error: 'Erro de conexão com o servidor. Verifique se o backend está rodando.' };
+      }
+      return { success: false, error: error.message };
+    }
   }
 
   async testPrint(printType = 'pdf') {
-    return this.request('/print/teste', {
-      method: 'POST',
-      body: JSON.stringify({ tipo: printType }),
-    });
+    try {
+      const token = authService.getToken();
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      
+      const response = await fetch(`${API_BASE_URL}/print/teste`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ tipo: printType }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || `Erro na requisição: ${response.status}`);
+      }
+      
+      // Se gerou PDF, fazer download
+      if (data.pdf_url && data.pdf_filename) {
+        const pdfResponse = await fetch(`${API_BASE_URL}${data.pdf_url}`, {
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+        });
+        
+        if (pdfResponse.ok) {
+          const blob = await pdfResponse.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = data.pdf_filename;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        }
+      }
+      
+      return { success: true, data };
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+        return { success: false, error: 'Erro de conexão com o servidor. Verifique se o backend está rodando.' };
+      }
+      return { success: false, error: error.message };
+    }
   }
 
   // Upload de imagens
