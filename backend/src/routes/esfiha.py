@@ -125,6 +125,9 @@ def add_esfiha():
             nome=nome,
             descricao=data.get("descricao", ""),
             preco=preco,
+            preco_broto=data.get("preco_broto"),
+            preco_media=data.get("preco_media"),
+            preco_grande=data.get("preco_grande"),
             categoria=data.get("categoria", ""),
             disponivel=data.get("disponivel", True),
             imagem_url=data.get("imagem_url", "")
@@ -196,6 +199,16 @@ def update_esfiha(esfiha_id):
                 "status": "error",
                 "message": "Preço inválido."
             }), 400
+    
+    # Atualizar preços por tamanho
+    if "preco_broto" in data:
+        esfiha.preco_broto = float(data["preco_broto"]) if data["preco_broto"] else None
+    
+    if "preco_media" in data:
+        esfiha.preco_media = float(data["preco_media"]) if data["preco_media"] else None
+    
+    if "preco_grande" in data:
+        esfiha.preco_grande = float(data["preco_grande"]) if data["preco_grande"] else None
 
     # Atualizar categoria
     if "categoria" in data:

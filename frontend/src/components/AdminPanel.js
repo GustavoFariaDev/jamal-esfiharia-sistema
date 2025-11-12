@@ -37,6 +37,9 @@ const AdminPanel = () => {
     nome: '',
     descricao: '',
     preco: '',
+    preco_broto: '',
+    preco_media: '',
+    preco_grande: '',
     categoria: '',
     disponivel: true,
     imagem_url: ''
@@ -241,6 +244,9 @@ const AdminPanel = () => {
         nome: product.nome,
         descricao: product.descricao,
         preco: product.preco,
+        preco_broto: product.preco_broto || '',
+        preco_media: product.preco_media || '',
+        preco_grande: product.preco_grande || '',
         categoria: product.categoria,
         disponivel: product.disponivel,
         imagem_url: product.imagem_url || ''
@@ -256,6 +262,9 @@ const AdminPanel = () => {
         nome: '',
         descricao: '',
         preco: '',
+        preco_broto: '',
+        preco_media: '',
+        preco_grande: '',
         categoria: '',
         disponivel: true,
         imagem_url: ''
@@ -1305,39 +1314,115 @@ const AdminPanel = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Preço *
-                  </label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={productForm.preco}
-                    onChange={(e) => setProductForm({ ...productForm, preco: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                    placeholder="0.00"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Categoria *
-                  </label>
-                  <select
-                    value={productForm.categoria}
-                    onChange={(e) => setProductForm({ ...productForm, categoria: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                  >
-                    <option value="">Selecione...</option>
-                    {categories.filter(c => c.id !== 'all').map((cat) => (
-                      <option key={cat.id} value={cat.id}>
-                        {cat.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Categoria *
+                </label>
+                <select
+                  value={productForm.categoria}
+                  onChange={(e) => setProductForm({ ...productForm, categoria: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                >
+                  <option value="">Selecione...</option>
+                  {categories.filter(c => c.id !== 'all').map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
               </div>
+
+              {/* Preços dinâmicos baseados na categoria */}
+              {productForm.categoria && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Preços *
+                  </label>
+                  
+                  {/* Pizzas e Beirutes: 3 preços */}
+                  {(productForm.categoria.toLowerCase().includes('pizza') || productForm.categoria.toLowerCase().includes('beirute')) && (
+                    <div className="grid grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Broto</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          value={productForm.preco_broto}
+                          onChange={(e) => setProductForm({ ...productForm, preco_broto: e.target.value })}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                          placeholder="0.00"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Médio</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          value={productForm.preco_media}
+                          onChange={(e) => setProductForm({ ...productForm, preco_media: e.target.value })}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                          placeholder="0.00"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Grande</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          value={productForm.preco_grande}
+                          onChange={(e) => setProductForm({ ...productForm, preco_grande: e.target.value })}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                          placeholder="0.00"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Esfihas: 2 preços (Aberta e Fechada) */}
+                  {productForm.categoria.toLowerCase().includes('esfiha') && (
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Aberta</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          value={productForm.preco}
+                          onChange={(e) => setProductForm({ ...productForm, preco: e.target.value })}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                          placeholder="0.00"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Fechada</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          value={productForm.preco_broto}
+                          onChange={(e) => setProductForm({ ...productForm, preco_broto: e.target.value })}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                          placeholder="0.00"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Outros produtos: 1 preço */}
+                  {!productForm.categoria.toLowerCase().includes('pizza') && 
+                   !productForm.categoria.toLowerCase().includes('beirute') && 
+                   !productForm.categoria.toLowerCase().includes('esfiha') && (
+                    <div>
+                      <input
+                        type="number"
+                        step="0.01"
+                        value={productForm.preco}
+                        onChange={(e) => setProductForm({ ...productForm, preco: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                        placeholder="0.00"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Seção de Imagem */}
               <div>
