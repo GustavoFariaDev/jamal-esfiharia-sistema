@@ -281,14 +281,20 @@ const OrderManagement = () => {
     try {
       // Se for impressão térmica direta, usar QZ Tray
       if (printType === 'thermal' || printType === 'both') {
+        console.log(`Iniciando impressão térmica do pedido #${orderId}`);
+        
         // Buscar dados do pedido
         const orderResponse = await apiService.getOrder(orderId);
+        console.log('Dados do pedido recebidos:', orderResponse);
         
         if (orderResponse.success) {
           const orderData = orderResponse.data;
+          console.log('Order data para impressão:', orderData);
           
           // Imprimir via QZ Tray
+          console.log('Enviando para QZ Tray...');
           const printResult = await qzTrayService.printOrder(orderData);
+          console.log('Resultado da impressão térmica:', printResult);
           
           if (printResult.success) {
             success(printResult.message);

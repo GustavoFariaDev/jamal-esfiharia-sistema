@@ -188,6 +188,11 @@ class QZTrayService {
    * Gera comandos ESC/POS para impressão de comanda
    */
   generateESCPOSCommands(orderData) {
+    // Validação de dados
+    if (!orderData) {
+      throw new Error('Dados do pedido não fornecidos');
+    }
+    
     const ESC = '\x1B';
     const GS = '\x1D';
     const commands = [];
@@ -259,12 +264,15 @@ class QZTrayService {
 
     if (orderData.itens && orderData.itens.length > 0) {
       orderData.itens.forEach(item => {
+        // Proteção contra dados nulos
+        if (!item) return;
+        
         const nome = item.esfiha_nome || 'Item';
-        const qtd = item.quantidade || 1;
-        const preco = parseFloat(item.preco_unitario || 0);
+        const qtd = parseInt(item.quantidade) || 1;
+        const preco = parseFloat(item.preco_unitario) || 0;
         const tamanho = item.tamanho ? ` ${this._formatTamanho(item.tamanho)}` : '';
         const eh_meio_a_meio = item.eh_meio_a_meio || false;
-        const acrescimos = item.acrescimos || [];
+        const acrescimos = Array.isArray(item.acrescimos) ? item.acrescimos : [];
         
         // Calcular subtotal
         const valorAcrescimos = acrescimos.reduce((sum, a) => sum + parseFloat(a.preco || 0), 0);
@@ -351,8 +359,9 @@ class QZTrayService {
     commands.push(`Status: ${status}\n`);
 
     // Distância (se delivery)
-    if (tipoEntrega === 'Delivery' && orderData.distancia) {
-      commands.push(`Distancia: ${orderData.distancia} km\n`);
+    if (tipoEntrega === 'Delivery' && orderData.distancia_km) {
+      const dist = parseFloat(orderData.distancia_km).toFixed(1);
+      commands.push(`Distancia: ${dist} km\n`);
     }
 
     commands.push('\n');
@@ -365,8 +374,10 @@ class QZTrayService {
     commands.push(ESC + 'a' + '\x00'); // Alinhar à esquerda
     commands.push('\n\n\n');
 
-    // Cortar papel (se suportado)
-    commands.push(GS + 'V' + '\x00'); // Corte total
+    // Cortar papel (Bematech MP-4200 TH)
+    // GS V 48 = Corte total (padrão ESC/POS)
+    // GS V 49 = Corte parcial
+    commands.push(GS + 'V' + '\x30'); // \x30 = 48 em ASCII = Corte total
 
     return commands.join('');
   }
@@ -387,7 +398,7 @@ class QZTrayService {
 
       // Configurar impressão
       const config = qz.configs.create(printer, {
-        encoding: 'Cp850', // Encoding para caracteres especiais (acentos)
+        encoding: 'UTF-8', // Encoding para caracteres especiais (acentos em português)
         altPrinting: true  // Modo alternativo para melhor compatibilidade
       });
 
