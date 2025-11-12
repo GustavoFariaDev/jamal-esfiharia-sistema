@@ -1340,7 +1340,7 @@ const AdminPanel = () => {
                   </label>
                   
                   {/* Pizzas e Beirutes: 3 preços */}
-                  {(productForm.categoria.toLowerCase().includes('pizza') || productForm.categoria.toLowerCase().includes('beirute')) && (
+                  {(productForm.categoria.toLowerCase().includes('pizza') || productForm.categoria.toLowerCase().includes('beirute')) ? (
                     <div className="grid grid-cols-3 gap-3">
                       <div>
                         <label className="block text-xs text-gray-600 mb-1">Broto</label>
@@ -1376,40 +1376,7 @@ const AdminPanel = () => {
                         />
                       </div>
                     </div>
-                  )}
-                  
-                  {/* Esfihas: 2 preços (Aberta e Fechada) */}
-                  {productForm.categoria.toLowerCase().includes('esfiha') && (
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs text-gray-600 mb-1">Aberta</label>
-                        <input
-                          type="number"
-                          step="0.01"
-                          value={productForm.preco}
-                          onChange={(e) => setProductForm({ ...productForm, preco: e.target.value })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                          placeholder="0.00"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-gray-600 mb-1">Fechada</label>
-                        <input
-                          type="number"
-                          step="0.01"
-                          value={productForm.preco_broto}
-                          onChange={(e) => setProductForm({ ...productForm, preco_broto: e.target.value })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                          placeholder="0.00"
-                        />
-                      </div>
-                    </div>
-                  )}
-                  
-                  {/* Outros produtos: 1 preço */}
-                  {!productForm.categoria.toLowerCase().includes('pizza') && 
-                   !productForm.categoria.toLowerCase().includes('beirute') && 
-                   !productForm.categoria.toLowerCase().includes('esfiha') && (
+                  ) : (
                     <div>
                       <input
                         type="number"
