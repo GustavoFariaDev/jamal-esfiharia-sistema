@@ -85,6 +85,12 @@ def imprimir_pedido(pedido_id):
         # Realizar impressão
         result = printer_service.print_order(order_data, print_type)
         
+        print(f"\n=== RESULTADO DA IMPRESSÃO ===")
+        print(f"Success: {result['success']}")
+        print(f"PDF Success: {result['pdf_success']}")
+        print(f"PDF Filename: {result.get('pdf_filename')}")
+        print(f"PDF Path: {result.get('pdf_path')}")
+        
         response_data = {
             'status': 'success' if result['success'] else 'error',
             'message': result['message'],
@@ -94,8 +100,10 @@ def imprimir_pedido(pedido_id):
         
         # Se gerou PDF, incluir link para download
         if result.get('pdf_filename'):
-            response_data['pdf_url'] = f"/api/print/download/{result['pdf_filename']}"
+            pdf_url = f"/api/print/download/{result['pdf_filename']}"
+            response_data['pdf_url'] = pdf_url
             response_data['pdf_filename'] = result['pdf_filename']
+            print(f"PDF URL gerada: {pdf_url}")
         
         # Retorna 200 se o PDF foi gerado com sucesso, mesmo que a térmica tenha falhado.
         # Se a térmica falhou e o PDF também, retorna 500.
@@ -115,12 +123,34 @@ def download_pdf(filename):
         # Obter caminho absoluto do backend
         basedir = os.path.abspath(os.path.dirname(__file__))
         backend_dir = os.path.dirname(os.path.dirname(basedir))
-        file_path = os.path.join(backend_dir, 'uploads', 'pdfs', filename)
+        pdf_dir = os.path.join(backend_dir, 'uploads', 'pdfs')
+        file_path = os.path.join(pdf_dir, filename)
+        
+        print(f"\n=== DOWNLOAD PDF ===")
+        print(f"Filename solicitado: {filename}")
+        print(f"Basedir: {basedir}")
+        print(f"Backend dir: {backend_dir}")
+        print(f"PDF dir: {pdf_dir}")
+        print(f"File path: {file_path}")
+        print(f"PDF dir existe? {os.path.exists(pdf_dir)}")
+        print(f"Arquivo existe? {os.path.exists(file_path)}")
+        
+        # Listar arquivos no diretório
+        if os.path.exists(pdf_dir):
+            arquivos = os.listdir(pdf_dir)
+            print(f"Arquivos no diretório: {arquivos}")
+        else:
+            print("Diretório de PDFs não existe!")
         
         if not os.path.exists(file_path):
             return jsonify({
                 'status': 'error',
-                'message': 'Arquivo não encontrado'
+                'message': f'Arquivo não encontrado: {filename}',
+                'debug': {
+                    'file_path': file_path,
+                    'pdf_dir_exists': os.path.exists(pdf_dir),
+                    'files_in_dir': os.listdir(pdf_dir) if os.path.exists(pdf_dir) else []
+                }
             }), 404
         
         return send_file(
