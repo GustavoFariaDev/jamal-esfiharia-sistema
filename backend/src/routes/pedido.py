@@ -237,6 +237,8 @@ def criar_pedido():
         nome_cliente=dados.get("nome_cliente"),
         telefone=dados.get("telefone"),
         endereco=dados.get("endereco"),
+        complemento=dados.get("complemento"),
+        cep_entrega=dados.get("cep_entrega"),
         forma_entrega=dados.get("forma_entrega"),
         distancia_km=distancia_km,
         taxa_entrega=taxa_entrega,

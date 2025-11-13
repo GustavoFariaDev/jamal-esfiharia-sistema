@@ -124,7 +124,7 @@ class ThermalPrinter:
         # Informações de endereço completas (apenas para delivery)
         if tipo_entrega in ['delivery', 'entrega']:
             cep = order_data.get('cep_entrega', '')
-            endereco = order_data.get('endereco_entrega', '') or order_data.get('endereco', '')
+            endereco = order_data.get('endereco', '')
             complemento = order_data.get('complemento', '')
             
             if cep:
@@ -405,7 +405,7 @@ class PDFPrinter:
             # Informações de endereço completas (CEP, endereço, complemento)
             if tipo_entrega_raw in ['delivery', 'entrega']:
                 cep = order_data.get('cep_entrega', '')
-                endereco = order_data.get('endereco_entrega', '') or order_data.get('endereco', '')
+                endereco = order_data.get('endereco', '')
                 complemento = order_data.get('complemento', '')
                 
                 if cep:

@@ -296,29 +296,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
         </div>
       )}
 
-      <div className="text-xs text-gray-500 space-y-1">
-        <p className="font-medium">Taxas de entrega por distância:</p>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1 ml-2">
-          <div>• 0km a 1,5km: R$ 3,00</div>
-          <div>• 1,5km a 2,5km: R$ 4,00</div>
-          <div>• 2,5km a 3,5km: R$ 5,00</div>
-          <div>• 3,5km a 4,5km: R$ 6,00</div>
-          <div>• 4,5km a 5,5km: R$ 7,00</div>
-          <div>• 5,5km a 6,5km: R$ 8,00</div>
-          <div>• 6,5km a 7,5km: R$ 9,00</div>
-          <div>• 7,5km a 8,5km: R$ 10,00</div>
-          <div>• 8,5km a 9,5km: R$ 11,00</div>
-          <div>• 10km: R$ 13,00</div>
-          <div>• 12km: R$ 15,00</div>
-          <div>• 13km: R$ 16,00</div>
-          <div>• 14km: R$ 18,00</div>
-          <div>• 15km: R$ 20,00</div>
-          <div>• 16km: R$ 22,00</div>
-          <div>• 18km: R$ 25,00</div>
-          <div>• 19km: R$ 27,00</div>
-          <div>• 20km: R$ 29,00</div>
-        </div>
-      </div>
+
     </div>
   );
 };

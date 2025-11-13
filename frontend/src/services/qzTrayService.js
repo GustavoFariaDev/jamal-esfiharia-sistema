@@ -242,8 +242,8 @@ class QZTrayService {
       if (orderData.cep_entrega) {
         commands.push(`CEP: ${orderData.cep_entrega}\n`);
       }
-      if (orderData.endereco_entrega) {
-        commands.push(`Endereco: ${orderData.endereco_entrega}\n`);
+      if (orderData.endereco) {
+        commands.push(`Endereco: ${orderData.endereco}\n`);
       }
       if (orderData.complemento) {
         commands.push(`Complemento: ${orderData.complemento}\n`);
