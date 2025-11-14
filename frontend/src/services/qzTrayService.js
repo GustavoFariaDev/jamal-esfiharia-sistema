@@ -32,6 +32,9 @@ class QZTrayService {
       resolve();
     });
 
+    // Definir algoritmo de assinatura (necessário desde QZ Tray 2.1)
+    qz.security.setSignatureAlgorithm("SHA512");
+    
     qz.security.setSignaturePromise(function(toSign) {
       return function(resolve, reject) {
         // Assinatura vazia para certificado autoassinado
