@@ -14,6 +14,33 @@ class QZTrayService {
     this.connected = false;
     this.printerName = null;
     this.width = 75; // Largura para impressora térmica 80mm
+    this.securityConfigured = false;
+  }
+
+  /**
+   * Configura a segurança do QZ Tray (certificado autoassinado)
+   */
+  configureSecurity() {
+    if (this.securityConfigured) {
+      return;
+    }
+
+    // Para desenvolvimento local, usar certificado autoassinado
+    // O QZ Tray permite isso sem assinatura digital
+    qz.security.setCertificatePromise(function(resolve, reject) {
+      // Certificado autoassinado (permite impressão local sem backend)
+      resolve();
+    });
+
+    qz.security.setSignaturePromise(function(toSign) {
+      return function(resolve, reject) {
+        // Assinatura vazia para certificado autoassinado
+        resolve();
+      };
+    });
+
+    this.securityConfigured = true;
+    console.log('Segurança do QZ Tray configurada (modo local)');
   }
 
   /**
@@ -25,6 +52,9 @@ class QZTrayService {
     }
 
     try {
+      // Configurar segurança antes de conectar
+      this.configureSecurity();
+      
       await qz.websocket.connect();
       this.connected = true;
       console.log('QZ Tray conectado com sucesso!');
