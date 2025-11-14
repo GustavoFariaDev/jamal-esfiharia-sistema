@@ -243,10 +243,24 @@ class QZTrayService {
         commands.push(`CEP: ${orderData.cep_entrega}\n`);
       }
       if (orderData.endereco) {
-        commands.push(`Endereco: ${orderData.endereco}\n`);
+        // Quebrar endereço em linhas se for muito longo (largura = 75)
+        const maxLen = 65; // Deixar espaço para "End: "
+        const endereco = orderData.endereco;
+        if (endereco.length > maxLen) {
+          commands.push(`End: ${endereco.substring(0, maxLen)}\n`);
+          // Segunda linha (se necessário)
+          if (endereco.length > maxLen) {
+            commands.push(`     ${endereco.substring(maxLen, maxLen * 2)}\n`);
+          }
+        } else {
+          commands.push(`End: ${endereco}\n`);
+        }
       }
       if (orderData.complemento) {
-        commands.push(`Complemento: ${orderData.complemento}\n`);
+        commands.push(`Compl: ${orderData.complemento}\n`);
+      }
+      if (orderData.distancia_km) {
+        commands.push(`Dist: ${parseFloat(orderData.distancia_km).toFixed(1)} km\n`);
       }
     }
 
