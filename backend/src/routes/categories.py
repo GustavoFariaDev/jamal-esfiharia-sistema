@@ -19,7 +19,8 @@ def get_categories():
         ).all()
         
         # Extrair nomes das categorias
-        category_names = {cat[0] for cat in categories if cat[0]}
+        # Normalizar para maiúsculas para evitar duplicações (ex: BEBIDAS e bebidas)
+        category_names = {cat[0].upper() for cat in categories if cat[0]}
         
         # Definir ordem lógica das categorias
         # Ordem: Esfihas → Pizzas → Fogazzes → Pastéis → Beirutes → Acompanhamentos → Bebidas
