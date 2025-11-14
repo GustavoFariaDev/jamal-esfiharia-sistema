@@ -524,6 +524,33 @@ def obter_estatisticas_admin():
         }), 500
 
 
+@pedido_bp.route("/<int:pedido_id>/", methods=["GET"])
+@admin_required
+def obter_pedido_para_impressao(pedido_id):
+    """Obtém dados completos de um pedido para impressão (Admin)."""
+    try:
+        pedido = Pedido.query.get(pedido_id)
+        
+        if not pedido:
+            return jsonify({
+                "success": False,
+                "status": "error",
+                "message": "Pedido não encontrado."
+            }), 404
+        
+        return jsonify({
+            "success": True,
+            "status": "success",
+            "data": pedido.to_dict()
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "status": "error",
+            "message": f"Erro ao buscar pedido: {str(e)}"
+        }), 500
+
+
 @pedido_bp.route("/<int:pedido_id>/historico", methods=["GET"])
 @admin_required
 def obter_historico_pedido(pedido_id):
@@ -563,33 +590,6 @@ def obter_historico_pedido(pedido_id):
         return jsonify({
             "status": "error",
             "message": f"Erro ao buscar histórico: {str(e)}"
-        }), 500
-
-
-@pedido_bp.route("/<int:pedido_id>/", methods=["GET"])
-@admin_required
-def obter_pedido_para_impressao(pedido_id):
-    """Obtém dados completos de um pedido para impressão (Admin)."""
-    try:
-        pedido = Pedido.query.get(pedido_id)
-        
-        if not pedido:
-            return jsonify({
-                "success": False,
-                "status": "error",
-                "message": "Pedido não encontrado."
-            }), 404
-        
-        return jsonify({
-            "success": True,
-            "status": "success",
-            "data": pedido.to_dict()
-        }), 200
-    except Exception as e:
-        return jsonify({
-            "success": False,
-            "status": "error",
-            "message": f"Erro ao buscar pedido: {str(e)}"
         }), 500
 
 
