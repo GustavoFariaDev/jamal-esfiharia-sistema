@@ -223,6 +223,14 @@ class QZTrayService {
       throw new Error('Dados do pedido não fornecidos');
     }
     
+    // Log detalhado para debug
+    console.log('=== GERANDO COMANDOS ESC/POS ===');
+    console.log('orderData completo:', JSON.stringify(orderData, null, 2));
+    console.log('Itens encontrados:', orderData.itens ? orderData.itens.length : 0);
+    if (orderData.itens && orderData.itens.length > 0) {
+      console.log('Primeiro item:', orderData.itens[0]);
+    }
+    
     const ESC = '\x1B';
     const GS = '\x1D';
     const commands = [];
