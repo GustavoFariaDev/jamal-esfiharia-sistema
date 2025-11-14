@@ -135,7 +135,7 @@ class ThermalPrinter:
         # Informações de endereço do cliente (se delivery)
         if tipo_entrega in ['delivery', 'entrega']:
             cep = order_data.get('cep_entrega', '')
-            endereco = order_data.get('endereco_entrega', '')
+            endereco = order_data.get('endereco', '') or order_data.get('endereco_entrega', '')
             complemento = order_data.get('complemento', '')
             
             if cep:
@@ -149,6 +149,11 @@ class ThermalPrinter:
                     lines.append(f"End: {endereco}")
             if complemento:
                 lines.append(f"Compl: {complemento[:self.width-7]}")
+            
+            # Distância
+            distancia = order_data.get('distancia_km')
+            if distancia:
+                lines.append(f"Dist: {distancia:.1f} km")
         
         # Observações
         obs = order_data.get('observacoes', '').strip()
@@ -297,20 +302,6 @@ class ThermalPrinter:
         
         lines.append(self._line("-"))
         
-        # Endereço (se delivery)
-        if tipo_entrega in ['delivery', 'entrega'] and order_data.get('endereco_entrega'):
-            endereco = order_data['endereco_entrega']
-            lines.append(f"End: {endereco[:35]}")
-            
-            # Segunda linha do endereço se necessário
-            if len(endereco) > 35:
-                lines.append(endereco[35:70])
-            
-            # Distância
-            distancia = order_data.get('distancia_km')
-            if distancia:
-                lines.append(f"{distancia:.1f} km")
-        
         # Observações
         obs = order_data.get('observacoes', '').strip()
         if obs:
@@ -320,8 +311,6 @@ class ThermalPrinter:
             while obs_resto:
                 lines.append(obs_resto[:self.width])
                 obs_resto = obs_resto[self.width:]
-        
-        if tipo_entrega in ['delivery', 'entrega'] or obs:
             lines.append(self._line("-"))
         
         # Rodapé
@@ -451,7 +440,7 @@ class PDFPrinter:
             # Informações de endereço do cliente
             if tipo_entrega_raw in ['delivery', 'entrega']:
                 cep = order_data.get('cep_entrega', '')
-                endereco = order_data.get('endereco_entrega', '')
+                endereco = order_data.get('endereco', '') or order_data.get('endereco_entrega', '')
                 complemento = order_data.get('complemento', '')
                 
                 if cep:

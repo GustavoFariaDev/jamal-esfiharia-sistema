@@ -283,20 +283,6 @@ class ThermalPrinter:
         
         lines.append(self._line("-"))
         
-        # Endereço (se delivery)
-        if tipo_entrega in ['delivery', 'entrega'] and order_data.get('endereco_entrega'):
-            endereco = order_data['endereco_entrega']
-            lines.append(f"End: {endereco[:35]}")
-            
-            # Segunda linha do endereço se necessário
-            if len(endereco) > 35:
-                lines.append(endereco[35:70])
-            
-            # Distância
-            distancia = order_data.get('distancia_km')
-            if distancia:
-                lines.append(f"{distancia:.1f} km")
-        
         # Observações
         obs = order_data.get('observacoes', '').strip()
         if obs:
@@ -306,8 +292,6 @@ class ThermalPrinter:
             while obs_resto:
                 lines.append(obs_resto[:self.width])
                 obs_resto = obs_resto[self.width:]
-        
-        if tipo_entrega in ['delivery', 'entrega'] or obs:
             lines.append(self._line("-"))
         
         # Rodapé
