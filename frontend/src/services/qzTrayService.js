@@ -253,16 +253,19 @@ class QZTrayService {
     });
     
     commands.push(`PEDIDO #${pedidoId} | ${data}\n`);
-    commands.push(`Cliente: ${orderData.cliente_nome || 'N/A'}\n`);
+    const nomeCliente = orderData.nome_cliente || orderData.cliente_nome || 'N/A';
+    commands.push(`Cliente: ${nomeCliente}\n`);
     
-    if (orderData.cliente_telefone) {
+    const telefone = orderData.telefone || orderData.cliente_telefone;
+    if (telefone) {
       // Telefone sem formatação de parênteses
-      const fone = orderData.cliente_telefone.replace(/[()]/g, '');
+      const fone = telefone.replace(/[()]/g, '');
       commands.push(`Fone: ${fone}\n`);
     }
 
     // Tipo de entrega
-    const tipoEntrega = orderData.tipo_entrega === 'delivery' || orderData.tipo_entrega === 'entrega' 
+    const formaEntrega = orderData.forma_entrega || orderData.tipo_entrega;
+    const tipoEntrega = formaEntrega === 'delivery' || formaEntrega === 'entrega' 
       ? 'Delivery' 
       : 'Retirada';
     commands.push(`Entrega: ${tipoEntrega}\n`);
@@ -311,7 +314,7 @@ class QZTrayService {
         // Proteção contra dados nulos
         if (!item) return;
         
-        const nome = item.esfiha_nome || 'Item';
+        const nome = item.esfiha || item.esfiha_nome || 'Item';
         const qtd = parseInt(item.quantidade) || 1;
         const preco = parseFloat(item.preco_unitario) || 0;
         const tamanho = item.tamanho ? ` ${this._formatTamanho(item.tamanho)}` : '';
@@ -319,7 +322,7 @@ class QZTrayService {
         const acrescimos = Array.isArray(item.acrescimos) ? item.acrescimos : [];
         
         // Calcular subtotal
-        const valorAcrescimos = acrescimos.reduce((sum, a) => sum + parseFloat(a.preco || 0), 0);
+        const valorAcrescimos = acrescimos.reduce((sum, a) => sum + (parseFloat(a.preco_unitario || a.preco || 0) * parseInt(a.quantidade || 1)), 0);
         const subtotal = (preco + valorAcrescimos) * qtd;
         total += subtotal;
 
@@ -332,8 +335,9 @@ class QZTrayService {
           
           // Sabores
           commands.push(`  \u2022 ${nome.toUpperCase()}\n`);
-          if (item.esfiha_metade2_nome) {
-            commands.push(`  \u2022 ${item.esfiha_metade2_nome.toUpperCase()}\n`);
+          const metade2 = item.esfiha_metade2 || item.esfiha_metade2_nome;
+          if (metade2) {
+            commands.push(`  \u2022 ${metade2.toUpperCase()}\n`);
           }
         } else {
           // Item normal
@@ -345,10 +349,12 @@ class QZTrayService {
         // Acréscimos
         if (acrescimos.length > 0) {
           acrescimos.forEach(acr => {
-            const nomeAcr = acr.nome || 'Acrescimo';
-            const precoAcr = parseFloat(acr.preco || 0);
+            const nomeAcr = acr.acrescimo_nome || acr.nome || 'Acrescimo';
+            const qtdAcr = parseInt(acr.quantidade || 1);
+            const precoAcr = parseFloat(acr.preco_unitario || acr.preco || 0) * qtdAcr;
             const precoAcrStr = this._formatPrice(precoAcr);
-            commands.push(this._alignRight(`  + ${nomeAcr}`, precoAcrStr));
+            const qtdLabel = qtdAcr > 1 ? ` (${qtdAcr}x)` : '';
+            commands.push(this._alignRight(`  + ${nomeAcr}${qtdLabel}`, precoAcrStr));
           });
         }
       });
