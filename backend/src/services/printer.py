@@ -215,12 +215,13 @@ class ThermalPrinter:
                     elif tipo_acr == 'pizza_toda':
                         tipo_label = " (toda)"
                     elif tipo_acr == 'borda':
-                        # Para bordas, manter o prefixo "Borda" mas simplificar
+                        # Sempre garantir que apareça "Borda Recheada:"
                         if 'Borda' not in nome_acr:
-                            prefixo = "Borda "
+                            prefixo = "Borda Recheada: "
                         else:
-                            # Simplificar se já tem "Borda de"
-                            nome_acr = nome_acr.replace('Borda de ', '')
+                            # Se já tem "Borda", substituir por "Borda Recheada:"
+                            nome_acr = nome_acr.replace('Borda de ', '').replace('Borda ', '')
+                            prefixo = "Borda Recheada: "
                     # Para 'esfiha' e QUALQUER outro tipo, não adiciona label especial
                     
                     # Se quantidade > 1, indicar (cada) ou a quantidade específica
@@ -453,10 +454,13 @@ class PDFPrinter:
                         elif tipo_acr == 'pizza_toda':
                             tipo_label = " (toda)"
                         elif tipo_acr == 'borda':
+                            # Sempre garantir que apareça "Borda Recheada:"
                             if 'Borda' not in nome_acr:
-                                prefixo = "Borda "
+                                prefixo = "Borda Recheada: "
                             else:
+                                # Se já tem "Borda", substituir por "Borda Recheada:"
                                 nome_acr = nome_acr.replace('Borda de ', '').replace('Borda ', '')
+                                prefixo = "Borda Recheada: "
                         # Para 'esfiha' e QUALQUER outro tipo, não adiciona label especial
                         
                         # Quantidade de acréscimos
