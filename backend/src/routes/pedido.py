@@ -2,7 +2,8 @@ import os
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from src.models.user import db, User
-from src.models.pedido import Pedido, ItemPedido, StatusPedido
+from src.models.pedido import Pedido, ItemPedido, ItemPedidoAcrescimo, StatusPedido
+from src.models.acrescimo import Acrescimo
 from src.models.pedido_historico import PedidoHistorico
 from src.models.esfiha import Esfiha
 from src.middleware.auth import admin_required
@@ -173,13 +174,56 @@ def criar_pedido():
                 "message": f"Esfiha '{esfiha.nome}' não está disponível no momento."
             }), 400
 
-        subtotal = esfiha.preco * quantidade
+        # Verificar se é pizza meio a meio
+        eh_meio_a_meio = item_data.get("eh_meio_a_meio", False)
+        esfiha_id_metade2 = item_data.get("esfiha_id_metade2")
+        tamanho = item_data.get("tamanho")
+        
+        preco_base = esfiha.preco
+        
+        # Se for meio a meio, calcular preço baseado no maior valor
+        if eh_meio_a_meio and esfiha_id_metade2:
+            esfiha_metade2 = Esfiha.query.get(esfiha_id_metade2)
+            if not esfiha_metade2:
+                return jsonify({
+                    "status": "error",
+                    "message": f"Produto ID {esfiha_id_metade2} (segunda metade) não encontrado."
+                }), 404
+            
+            if not esfiha_metade2.disponivel:
+                return jsonify({
+                    "status": "error",
+                    "message": f"Produto '{esfiha_metade2.nome}' não está disponível no momento."
+                }), 400
+            
+            # Preço da pizza meio a meio = maior preço entre as duas metades
+            preco_base = max(esfiha.preco, esfiha_metade2.preco)
+        
+        # Processar acréscimos do item
+        acrescimos_item = item_data.get("acrescimos", [])
+        total_acrescimos = 0
+        
+        for acrescimo_data in acrescimos_item:
+            acrescimo_id = acrescimo_data.get("acrescimo_id")
+            qtd_acrescimo = acrescimo_data.get("quantidade", 1)
+            
+            if acrescimo_id:
+                acrescimo = Acrescimo.query.get(acrescimo_id)
+                if acrescimo and acrescimo.disponivel:
+                    total_acrescimos += acrescimo.preco * qtd_acrescimo
+        
+        subtotal = (preco_base * quantidade) + total_acrescimos
         valor_total_calculado += subtotal
+        
         itens_pedido_info.append({
             "esfiha_id": esfiha_id,
             "quantidade": quantidade,
-            "preco_unitario": esfiha.preco,
-            "observacoes": item_data.get("observacoes", "")
+            "preco_unitario": preco_base,
+            "observacoes": item_data.get("observacoes", ""),
+            "acrescimos": acrescimos_item,
+            "eh_meio_a_meio": eh_meio_a_meio,
+            "esfiha_id_metade2": esfiha_id_metade2,
+            "tamanho": tamanho
         })
 
     if not itens_pedido_info:
@@ -258,9 +302,27 @@ def criar_pedido():
             esfiha_id=item_info["esfiha_id"],
             quantidade=item_info["quantidade"],
             preco_unitario=item_info["preco_unitario"],
-            observacoes=item_info["observacoes"]
+            observacoes=item_info["observacoes"],
+            eh_meio_a_meio=item_info.get("eh_meio_a_meio", False),
+            esfiha_id_metade2=item_info.get("esfiha_id_metade2"),
+            tamanho=item_info.get("tamanho")
         )
         db.session.add(novo_item)
+        db.session.flush()  # Para obter o ID do item
+        
+        # Adicionar acréscimos do item
+        for acrescimo_data in item_info.get("acrescimos", []):
+            acrescimo_id = acrescimo_data.get("acrescimo_id")
+            if acrescimo_id:
+                acrescimo = Acrescimo.query.get(acrescimo_id)
+                if acrescimo:
+                    item_acrescimo = ItemPedidoAcrescimo(
+                        item_pedido_id=novo_item.id,
+                        acrescimo_id=acrescimo.id,
+                        quantidade=acrescimo_data.get("quantidade", 1),
+                        preco_unitario=acrescimo.preco
+                    )
+                    db.session.add(item_acrescimo)
 
     try:
         db.session.commit()
