@@ -199,13 +199,14 @@ class ThermalPrinter:
                     elif qtd_com_acrescimo >= qtd:
                         lines.append(f"   [Todas c/ acréscimo]")
             
+            # Acréscimos - SEMPRE exibir, independente do tipo
             if acrescimos:
                 for acr in acrescimos:
                     nome_acr = acr.get('nome', 'Acréscimo')[:20]
                     tipo_acr = acr.get('tipo', '')
                     preco_acr = float(acr.get('preco', 0))
                     
-                    # Tipo abreviado e formatação específica
+                    # Tipo abreviado e formatação específica (mas SEMPRE exibe)
                     tipo_label = ""
                     prefixo = ""
                     
@@ -213,8 +214,6 @@ class ThermalPrinter:
                         tipo_label = " (metade)"
                     elif tipo_acr == 'pizza_toda':
                         tipo_label = " (toda)"
-                    elif tipo_acr == 'esfiha':
-                        tipo_label = ""
                     elif tipo_acr == 'borda':
                         # Para bordas, manter o prefixo "Borda" mas simplificar
                         if 'Borda' not in nome_acr:
@@ -222,7 +221,7 @@ class ThermalPrinter:
                         else:
                             # Simplificar se já tem "Borda de"
                             nome_acr = nome_acr.replace('Borda de ', '')
-                        tipo_label = ""
+                    # Para 'esfiha' e QUALQUER outro tipo, não adiciona label especial
                     
                     # Se quantidade > 1, indicar (cada) ou a quantidade específica
                     qtd_acr = acr.get('quantidade', 1)
@@ -233,6 +232,7 @@ class ThermalPrinter:
                         qtd_label = " (cada)"
                     
                     preco_acr_str = self._format_price(preco_acr)
+                    # SEMPRE adiciona o acréscimo, independente do tipo
                     lines.append(f"   + {prefixo}{nome_acr}{tipo_label}{qtd_label} {preco_acr_str}")
             
             lines.append("")
@@ -436,7 +436,7 @@ class PDFPrinter:
                 else:
                     desc = f"<b>{qtd}x {nome}{tamanho_str}</b>"
                 
-                # Acréscimos
+                # Acréscimos - SEMPRE exibir, independente do tipo
                 if acrescimos:
                     for acr in acrescimos:
                         nome_acr = acr.get('nome', 'Acréscimo')
@@ -447,17 +447,17 @@ class PDFPrinter:
                         tipo_label = ""
                         prefixo = ""
                         
+                        # Formatação específica por tipo (mas SEMPRE exibe)
                         if tipo_acr == 'pizza_metade':
                             tipo_label = " (metade)"
                         elif tipo_acr == 'pizza_toda':
                             tipo_label = " (toda)"
-                        elif tipo_acr == 'esfiha':
-                            tipo_label = ""
                         elif tipo_acr == 'borda':
                             if 'Borda' not in nome_acr:
                                 prefixo = "Borda "
                             else:
                                 nome_acr = nome_acr.replace('Borda de ', '').replace('Borda ', '')
+                        # Para 'esfiha' e QUALQUER outro tipo, não adiciona label especial
                         
                         # Quantidade de acréscimos
                         qtd_label = ""
@@ -466,6 +466,7 @@ class PDFPrinter:
                         elif qtd > 1 and tipo_acr not in ['borda', 'esfiha']:
                             qtd_label = " (cada)"
                         
+                        # SEMPRE adiciona o acréscimo, independente do tipo
                         desc += f"<br/>&nbsp;&nbsp;+ {prefixo}{nome_acr}{tipo_label}{qtd_label} R$ {preco_acr:.2f}"
                 
                 items_data.append([Paragraph(desc, compact_style), f"R$ {subtotal_item:.2f}"])
