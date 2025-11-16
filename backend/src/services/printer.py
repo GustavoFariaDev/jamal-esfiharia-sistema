@@ -351,7 +351,7 @@ class PDFPrinter:
             title_style = ParagraphStyle(
                 'Title',
                 parent=styles['Heading1'],
-                fontSize=16,
+                fontSize=18,
                 textColor=colors.HexColor('#2c3e50'),
                 spaceAfter=10,
                 alignment=TA_CENTER,
@@ -362,8 +362,8 @@ class PDFPrinter:
             compact_style = ParagraphStyle(
                 'Compact',
                 parent=styles['Normal'],
-                fontSize=9,
-                leading=11,
+                fontSize=11,
+                leading=14,
                 fontName='Helvetica'
             )
             
@@ -442,18 +442,31 @@ class PDFPrinter:
                         nome_acr = acr.get('nome', 'Acréscimo')
                         tipo_acr = acr.get('tipo', '')
                         preco_acr = float(acr.get('preco', 0))
+                        qtd_acr = acr.get('quantidade', 1)
                         
                         tipo_label = ""
+                        prefixo = ""
+                        
                         if tipo_acr == 'pizza_metade':
                             tipo_label = " (metade)"
                         elif tipo_acr == 'pizza_toda':
                             tipo_label = " (toda)"
+                        elif tipo_acr == 'esfiha':
+                            tipo_label = ""
                         elif tipo_acr == 'borda':
-                            nome_acr = nome_acr.replace('Borda de ', '').replace('Borda ', '')
+                            if 'Borda' not in nome_acr:
+                                prefixo = "Borda "
+                            else:
+                                nome_acr = nome_acr.replace('Borda de ', '').replace('Borda ', '')
                         
-                        qtd_label = " (cada)" if qtd > 1 and tipo_acr != 'borda' else ""
+                        # Quantidade de acréscimos
+                        qtd_label = ""
+                        if tipo_acr == 'esfiha' and qtd_acr > 1:
+                            qtd_label = f" ({qtd_acr}x)"
+                        elif qtd > 1 and tipo_acr not in ['borda', 'esfiha']:
+                            qtd_label = " (cada)"
                         
-                        desc += f"<br/>&nbsp;&nbsp;+ {nome_acr}{tipo_label}{qtd_label} {preco_acr:.2f}"
+                        desc += f"<br/>&nbsp;&nbsp;+ {prefixo}{nome_acr}{tipo_label}{qtd_label} R$ {preco_acr:.2f}"
                 
                 items_data.append([Paragraph(desc, compact_style), f"R$ {subtotal_item:.2f}"])
             
@@ -461,7 +474,7 @@ class PDFPrinter:
             items_table = Table(items_data, colWidths=[140*mm, 40*mm])
             items_table.setStyle(TableStyle([
                 ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 0), (-1, -1), 9),
+                ('FONTSIZE', (0, 0), (-1, -1), 11),
                 ('ALIGN', (1, 0), (1, -1), 'RIGHT'),
                 ('VALIGN', (0, 0), (-1, -1), 'TOP'),
                 ('LINEBELOW', (0, -1), (-1, -1), 1, colors.black),
@@ -487,7 +500,7 @@ class PDFPrinter:
             totals_table.setStyle(TableStyle([
                 ('FONTNAME', (0, 0), (-1, -2), 'Helvetica'),
                 ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                ('FONTSIZE', (0, 0), (-1, -1), 12),
                 ('ALIGN', (1, 0), (1, -1), 'RIGHT'),
                 ('LINEABOVE', (0, -1), (-1, -1), 2, colors.black),
             ]))
