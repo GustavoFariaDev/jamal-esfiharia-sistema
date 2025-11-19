@@ -120,14 +120,24 @@ def add_esfiha():
             "message": "Já existe uma esfiha com este nome."
         }), 409
 
+    # Converter strings vazias em None para campos numéricos opcionais
+    def parse_optional_price(value):
+        """Converte string vazia ou None em None, caso contrário tenta converter para float."""
+        if value is None or value == "":
+            return None
+        try:
+            return float(value)
+        except (ValueError, TypeError):
+            return None
+    
     try:
         new_esfiha = Esfiha(
             nome=nome,
             descricao=data.get("descricao", ""),
             preco=preco,
-            preco_broto=data.get("preco_broto"),
-            preco_media=data.get("preco_media"),
-            preco_grande=data.get("preco_grande"),
+            preco_broto=parse_optional_price(data.get("preco_broto")),
+            preco_media=parse_optional_price(data.get("preco_media")),
+            preco_grande=parse_optional_price(data.get("preco_grande")),
             categoria=data.get("categoria", ""),
             disponivel=data.get("disponivel", True),
             imagem_url=data.get("imagem_url", "")
