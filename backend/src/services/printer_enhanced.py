@@ -175,6 +175,7 @@ class ThermalPrinter:
             preco_base = float(item.get('preco_unitario', 0))
             eh_meio_a_meio = item.get('eh_meio_a_meio', False)
             tamanho = item.get('tamanho', '')
+            tipo_massa = item.get('tipo_massa', '')
             acrescimos = item.get('acrescimos', [])
             categoria = item.get('categoria', '')
             
@@ -204,7 +205,10 @@ class ThermalPrinter:
                 lines.append(f"{linha_item}{' ' * max(1, espacos)}{preco_str}")
                 
                 # Para esfihas, adicionar tipo (aberta/fechada)
-                if categoria and 'ESFIHA' in categoria.upper():
+                if tipo_massa:
+                    tipo_label = "Aberta" if tipo_massa.lower() == "aberta" else "Fechada"
+                    lines.append(f"   ({tipo_label})")
+                elif categoria and 'ESFIHA' in categoria.upper():
                     tipo_esfiha = "Aberta" if "SALGADA" in categoria.upper() or "VEGETARIANA" in categoria.upper() else "Fechada"
                     lines.append(f"   ({tipo_esfiha})")
             
@@ -470,6 +474,7 @@ class PDFPrinter:
                 preco_base = float(item.get('preco_unitario', 0))
                 eh_meio_a_meio = item.get('eh_meio_a_meio', False)
                 tamanho = item.get('tamanho', '')
+                tipo_massa = item.get('tipo_massa', '')
                 categoria = item.get('categoria', '')
                 acrescimos = item.get('acrescimos', [])
                 
@@ -493,8 +498,12 @@ class PDFPrinter:
                 else:
                     desc = f"<b>{qtd}x {nome}{tamanho_str}</b>"
                     
-                    # Adicionar informação de tipo para esfihas
-                    if categoria and 'ESFIHA' in categoria.upper():
+                    # Adicionar informação de tipo de massa se fornecido pelo cliente
+                    if tipo_massa:
+                        tipo_label = "Aberta" if tipo_massa.lower() == "aberta" else "Fechada"
+                        desc += f"<br/>&nbsp;&nbsp;<i>({tipo_label})</i>"
+                    # Se não tiver tipo_massa, usar categoria como fallback
+                    elif categoria and 'ESFIHA' in categoria.upper():
                         tipo_esfiha = "Aberta" if "SALGADA" in categoria.upper() or "VEGETARIANA" in categoria.upper() else "Fechada"
                         desc += f"<br/>&nbsp;&nbsp;<i>({tipo_esfiha})</i>"
                 

@@ -56,6 +56,7 @@ class ItemPedido(db.Model):
     eh_meio_a_meio = db.Column(db.Boolean, default=False, nullable=False)
     esfiha_id_metade2 = db.Column(db.Integer, db.ForeignKey('esfiha.id'), nullable=True)
     tamanho = db.Column(db.String(20), nullable=True)  # broto, media, grande
+    tipo_massa = db.Column(db.String(20), nullable=True)  # aberta, fechada (para esfihas)
 
     esfiha = db.relationship('Esfiha', foreign_keys=[esfiha_id], backref='itens_pedido')
     esfiha_metade2 = db.relationship('Esfiha', foreign_keys=[esfiha_id_metade2])
@@ -78,7 +79,8 @@ class ItemPedido(db.Model):
             'eh_meio_a_meio': self.eh_meio_a_meio,
             'esfiha_id_metade2': self.esfiha_id_metade2,
             'esfiha_metade2': self.esfiha_metade2.nome if self.esfiha_metade2 else None,
-            'tamanho': self.tamanho
+            'tamanho': self.tamanho,
+            'tipo_massa': self.tipo_massa
         }
     
     def calcular_total_com_acrescimos(self):

@@ -62,6 +62,7 @@ def imprimir_pedido(pedido_id):
                 'preco_unitario': float(item.preco_unitario),
                 'eh_meio_a_meio': item.eh_meio_a_meio,
                 'tamanho': item.tamanho,
+                'tipo_massa': item.tipo_massa,
                 'categoria': item.esfiha.categoria if item.esfiha else '',
                 'acrescimos': []
             }

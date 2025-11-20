@@ -491,6 +491,7 @@ const FullMenu = () => {
               eh_meio_a_meio: false,
               esfiha_id_metade2: null,
               tamanho: item.selectedSize || null,
+              tipo_massa: item.tipoMassa || null,
               acrescimos: (item.extras || []).map(extra => ({
                 acrescimo_id: extra.id,
                 quantidade: 1
