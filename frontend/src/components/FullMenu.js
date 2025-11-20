@@ -405,13 +405,18 @@ const FullMenu = () => {
 
     // Validações específicas para entrega
     if (deliveryType === 'entrega') {
+      if (!customerInfo.cep || customerInfo.cep.trim().length < 9) {
+        warning('Por favor, informe um CEP válido');
+        return false;
+      }
+
       if (!customerInfo.address.trim()) {
-        warning('Por favor, informe seu endereço');
+        warning('Por favor, informe seu endereço completo');
         return false;
       }
 
       if (!deliveryInfo) {
-        warning('Por favor, calcule a taxa de entrega');
+        warning('Por favor, calcule a taxa de entrega usando o CEP');
         return false;
       }
     }
@@ -877,7 +882,8 @@ const FullMenu = () => {
                           value={customerInfo.address}
                           onChange={(e) => setCustomerInfo({...customerInfo, address: e.target.value})}
                           placeholder="Rua, Número - Bairro"
-                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
+                          disabled={!customerInfo.cep || customerInfo.cep.length < 9}
+                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
                         <p className="text-xs text-gray-500 mt-1">* Preencha o CEP acima para buscar automaticamente. Adicione o número da casa se necessário.</p>
                       </div>
@@ -890,7 +896,8 @@ const FullMenu = () => {
                           value={customerInfo.complement}
                           onChange={(e) => setCustomerInfo({...customerInfo, complement: e.target.value})}
                           placeholder="Apto, Bloco, etc"
-                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
+                          disabled={!customerInfo.cep || customerInfo.cep.length < 9}
+                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
                       </div>
                     </>

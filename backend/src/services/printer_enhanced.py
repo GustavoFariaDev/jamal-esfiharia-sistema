@@ -470,6 +470,7 @@ class PDFPrinter:
                 preco_base = float(item.get('preco_unitario', 0))
                 eh_meio_a_meio = item.get('eh_meio_a_meio', False)
                 tamanho = item.get('tamanho', '')
+                categoria = item.get('categoria', '')
                 acrescimos = item.get('acrescimos', [])
                 
                 # Tamanho por extenso
@@ -491,6 +492,11 @@ class PDFPrinter:
                     desc += f"&nbsp;&nbsp;• {metade2}"
                 else:
                     desc = f"<b>{qtd}x {nome}{tamanho_str}</b>"
+                    
+                    # Adicionar informação de tipo para esfihas
+                    if categoria and 'ESFIHA' in categoria.upper():
+                        tipo_esfiha = "Aberta" if "SALGADA" in categoria.upper() or "VEGETARIANA" in categoria.upper() else "Fechada"
+                        desc += f"<br/>&nbsp;&nbsp;<i>({tipo_esfiha})</i>"
                 
                 # Acréscimos - SEMPRE exibir, independente do tipo
                 if acrescimos:
