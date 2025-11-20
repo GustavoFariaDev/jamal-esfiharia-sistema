@@ -794,7 +794,20 @@ const OrderManagement = () => {
                     {selectedOrder.itens && selectedOrder.itens.map((item, index) => (
                       <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded">
                         <div>
-                          <p className="font-medium">{item.esfiha || item.nome || 'Item'}</p>
+                          <p className="font-medium">
+                            {item.esfiha || item.nome || 'Item'}
+                            {item.tamanho && ` (${item.tamanho.charAt(0).toUpperCase() + item.tamanho.slice(1)})`}
+                          </p>
+                          {item.tipo_massa && (
+                            <p className="text-xs text-gray-500 italic">
+                              {item.tipo_massa === 'aberta' ? 'Aberta' : 'Fechada'}
+                            </p>
+                          )}
+                          {item.acrescimos && item.acrescimos.length > 0 && (
+                            <p className="text-xs text-gray-600">
+                              + {item.acrescimos.map(a => a.acrescimo_nome || a.nome).join(', ')}
+                            </p>
+                          )}
                           <p className="text-sm text-gray-600">Quantidade: {item.quantidade}</p>
                         </div>
                         <p className="font-bold">{formatCurrency(item.preco_unitario * item.quantidade)}</p>
