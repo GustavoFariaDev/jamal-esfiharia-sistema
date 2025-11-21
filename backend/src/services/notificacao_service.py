@@ -81,7 +81,7 @@ class NotificacaoService:
             StatusPedido.A_CAMINHO: (
                 f"🛵 Pedido #{pedido.id} a caminho! "
                 f"Seu pedido saiu para entrega. "
-                f"Endereço: {pedido.endereco}. "
+                f"Endereço: {pedido.endereco}{', ' + pedido.numero if pedido.numero else ''}. "
                 f"Em breve chegará!"
             )
         }

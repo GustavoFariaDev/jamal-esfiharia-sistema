@@ -137,6 +137,7 @@ class ThermalPrinter:
         if tipo_entrega in ['delivery', 'entrega']:
             cep = order_data.get('cep_entrega', '')
             endereco = order_data.get('endereco', '') or order_data.get('endereco_entrega', '')
+            numero = order_data.get('numero', '')
             complemento = order_data.get('complemento', '')
             
             if cep:
@@ -148,6 +149,8 @@ class ThermalPrinter:
                     lines.append(f"     {endereco[self.width:self.width*2]}")
                 else:
                     lines.append(f"End: {endereco}")
+            if numero:
+                lines.append(f"Num: {numero}")
             if complemento:
                 lines.append(f"Compl: {complemento[:self.width-7]}")
             
@@ -464,12 +467,15 @@ class PDFPrinter:
             if tipo_entrega_raw in ['delivery', 'entrega']:
                 cep = order_data.get('cep_entrega', '')
                 endereco = order_data.get('endereco', '') or order_data.get('endereco_entrega', '')
+                numero = order_data.get('numero', '')
                 complemento = order_data.get('complemento', '')
                 
                 if cep:
                     info_text += f"CEP: {cep}<br/>"
                 if endereco:
                     info_text += f"Endereço: {endereco}<br/>"
+                if numero:
+                    info_text += f"Número: {numero}<br/>"
                 if complemento:
                     info_text += f"Complemento: {complemento}<br/>"
             

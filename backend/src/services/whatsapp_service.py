@@ -28,6 +28,7 @@ class WhatsAppService:
         nome_cliente = pedido_data.get('nome_cliente', 'N/A')
         telefone = pedido_data.get('telefone', 'N/A')
         endereco = pedido_data.get('endereco', '')
+        numero = pedido_data.get('numero', '')
         complemento = pedido_data.get('complemento', '')
         cep_entrega = pedido_data.get('cep_entrega', '')
         forma_entrega = pedido_data.get('forma_entrega', 'retirada')
@@ -49,6 +50,8 @@ class WhatsAppService:
         # Adicionar endereço completo se for delivery
         if forma_entrega == "entrega" and endereco:
             mensagem += f"\n📍 *Endereço:* {endereco}"
+            if numero:
+                mensagem += f"\n   *Número:* {numero}"
             if complemento:
                 mensagem += f"\n   *Complemento:* {complemento}"
             if cep_entrega:
