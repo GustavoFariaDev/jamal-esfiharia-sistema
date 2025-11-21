@@ -460,7 +460,7 @@ const FullMenu = () => {
         body: JSON.stringify({
           nome_cliente: customerInfo.name,
           telefone: customerInfo.phone,
-          endereco: customerInfo.address ? `${customerInfo.address}, ${customerInfo.numero || 'S/N'}` : '',
+          endereco: customerInfo.address && customerInfo.numero ? `${customerInfo.address}, ${customerInfo.numero}` : customerInfo.address || '',
           complemento: customerInfo.complement || '',
           cep_entrega: customerInfo.cep || '',
           forma_entrega: deliveryType,
