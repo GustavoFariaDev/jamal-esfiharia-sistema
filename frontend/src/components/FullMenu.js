@@ -923,11 +923,24 @@ const FullMenu = () => {
                           type="text"
                           value={customerInfo.address}
                           onChange={(e) => setCustomerInfo({...customerInfo, address: e.target.value})}
-                          placeholder="Rua, Número - Bairro"
+                          placeholder="Rua - Bairro"
                           disabled={!customerInfo.cep || customerInfo.cep.length < 9}
                           className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
-                        <p className="text-xs text-gray-500 mt-1">* Preencha o CEP acima para buscar automaticamente. Adicione o número da casa se necessário.</p>
+                        <p className="text-xs text-gray-500 mt-1">* Preencha o CEP acima para buscar automaticamente.</p>
+                      </div>
+
+                      {/* Número */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">Número *</label>
+                        <input
+                          type="text"
+                          value={customerInfo.numero || ''}
+                          onChange={(e) => setCustomerInfo({...customerInfo, numero: e.target.value})}
+                          placeholder="Número da residência"
+                          disabled={!customerInfo.cep || customerInfo.cep.length < 9}
+                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                        />
                       </div>
 
                       {/* Complemento */}
