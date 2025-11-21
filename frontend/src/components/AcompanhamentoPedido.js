@@ -121,12 +121,27 @@ const AcompanhamentoPedido = () => {
   };
 
   const formatarTelefone = (valor) => {
-    const numeros = valor.replace(/\D/g, '');
-    if (numeros.length <= 10) {
-      return numeros.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-    } else {
-      return numeros.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    // Extrair apenas números do input
+    let numeros = valor.replace(/\D/g, '');
+    
+    // LIMITAR ESTRITAMENTE a 11 dígitos
+    numeros = numeros.slice(0, 11);
+    
+    // Aplicar máscara (11) 98765-4321
+    let formatted = '';
+    if (numeros.length > 0) {
+      formatted = '(' + numeros.substring(0, 2);
+      if (numeros.length >= 2) {
+        formatted += ') ';
+      }
+      if (numeros.length > 2) {
+        formatted += numeros.substring(2, 7);
+      }
+      if (numeros.length > 7) {
+        formatted += '-' + numeros.substring(7, 11);
+      }
     }
+    return formatted;
   };
 
   const handleTelefoneChange = (e) => {

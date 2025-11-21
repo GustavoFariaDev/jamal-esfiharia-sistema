@@ -869,11 +869,36 @@ const FullMenu = () => {
                       type="tel"
                       value={customerInfo.phone}
                       onChange={(e) => {
-                        const newPhone = e.target.value;
-                        setCustomerInfo({...customerInfo, phone: newPhone});
-                        buscarHistoricoCliente(newPhone);
+                        // Extrair apenas números do input
+                        let value = e.target.value.replace(/\D/g, '');
+                        
+                        // LIMITAR ESTRITAMENTE a 11 dígitos
+                        value = value.slice(0, 11);
+                        
+                        // Aplicar máscara (11) 98765-4321
+                        let formatted = '';
+                        if (value.length > 0) {
+                          formatted = '(' + value.substring(0, 2);
+                          if (value.length >= 2) {
+                            formatted += ') ';
+                          }
+                          if (value.length > 2) {
+                            formatted += value.substring(2, 7);
+                          }
+                          if (value.length > 7) {
+                            formatted += '-' + value.substring(7, 11);
+                          }
+                        }
+                        
+                        setCustomerInfo({...customerInfo, phone: formatted});
+                        
+                        // Buscar histórico apenas se tiver 11 dígitos
+                        if (value.length === 11) {
+                          buscarHistoricoCliente(formatted);
+                        }
                       }}
                       placeholder="(11) 98765-4321"
+                      maxLength="15"
                       className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
                     />
                     {isLoadingHistory && (
