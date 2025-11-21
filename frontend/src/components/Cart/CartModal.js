@@ -148,28 +148,24 @@ const CartModal = ({
                 type="tel"
                 value={customerInfo.phone}
                 onChange={(e) => {
-                  // Limitar o input a 15 caracteres (tamanho da máscara completa)
-                  let inputValue = e.target.value;
-                  if (inputValue.length > 15) {
-                    inputValue = inputValue.slice(0, 15);
-                  }
+                  // Extrair apenas números do input
+                  let value = e.target.value.replace(/\D/g, '');
                   
-                  let value = inputValue.replace(/\D/g, ''); // Remove tudo que não é número
-                  
-                  // Limitar a 11 dígitos
-                  if (value.length > 11) {
-                    value = value.slice(0, 11);
-                  }
+                  // LIMITAR ESTRITAMENTE a 11 dígitos
+                  value = value.slice(0, 11);
                   
                   // Aplicar máscara (11) 98765-4321
-                  let formatted = value;
+                  let formatted = '';
                   if (value.length > 0) {
-                    formatted = '(' + value;
+                    formatted = '(' + value.substring(0, 2);
+                    if (value.length >= 2) {
+                      formatted += ') ';
+                    }
                     if (value.length > 2) {
-                      formatted = '(' + value.slice(0, 2) + ') ' + value.slice(2);
+                      formatted += value.substring(2, 7);
                     }
                     if (value.length > 7) {
-                      formatted = '(' + value.slice(0, 2) + ') ' + value.slice(2, 7) + '-' + value.slice(7);
+                      formatted += '-' + value.substring(7, 11);
                     }
                   }
                   
