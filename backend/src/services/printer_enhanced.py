@@ -209,7 +209,12 @@ class ThermalPrinter:
             else:
                 # Item normal - SEMPRE mostrar tipo de produto
                 if tipo_produto:
-                    linha_item = f"{qtd}x {tipo_produto} - {nome[:15]}{tamanho_str}"
+                    # Calcular espaço disponível para o nome
+                    # Formato: "QQQx TIPO - NOME TAMANHO     PRECO"
+                    prefixo = f"{qtd}x {tipo_produto} - "
+                    espaco_nome = self.width - len(prefixo) - len(tamanho_str) - len(preco_str) - 2
+                    nome_truncado = nome[:max(10, espaco_nome)]  # Mínimo 10 chars
+                    linha_item = f"{prefixo}{nome_truncado}{tamanho_str}"
                 else:
                     linha_item = f"{qtd}x {nome[:20]}{tamanho_str}"
                     

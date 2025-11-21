@@ -18,6 +18,7 @@ def get_product_type(categoria: str) -> str:
     categoria_upper = categoria.upper()
     
     # Mapeamento de categorias para tipos
+    # IMPORTANTE: Verificar termos mais específicos primeiro!
     if 'ESFIHA' in categoria_upper:
         return "ESFIHA"
     elif 'PIZZA' in categoria_upper:
@@ -26,7 +27,8 @@ def get_product_type(categoria: str) -> str:
         return "BEIRUTE"
     elif 'FOGAZZ' in categoria_upper:
         return "FOGAZZ"
-    elif 'PASTEL' in categoria_upper or 'PASTÉIS' in categoria_upper:
+    # Verificar PASTEL antes de SALGADO (pois "PASTEIS SALGADOS" contém "SALGADO")
+    elif 'PASTEL' in categoria_upper or 'PASTÉIS' in categoria_upper or 'PASTEIS' in categoria_upper:
         return "PASTEL"
     elif 'BATATA' in categoria_upper:
         return "BATATA"
