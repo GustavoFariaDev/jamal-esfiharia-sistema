@@ -176,8 +176,24 @@ const CartModal = ({
                   <input
                     type="text"
                     value={customerInfo.address}
-                    onChange={(e) => setCustomerInfo({...customerInfo, address: e.target.value})}
-                    placeholder="Rua, Número - Bairro"
+                    readOnly
+                    placeholder="Preencha o CEP acima para buscar o endereço"
+                    className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                    title="O endereço é preenchido automaticamente após informar o CEP"
+                  />
+                  {!customerInfo.address && deliveryInfo && (
+                    <p className="text-xs text-amber-600 mt-1">⚠️ Endereço será preenchido automaticamente pelo CEP</p>
+                  )}
+                </div>
+
+                {/* Número */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">Número *</label>
+                  <input
+                    type="text"
+                    value={customerInfo.numero || ''}
+                    onChange={(e) => setCustomerInfo({...customerInfo, numero: e.target.value})}
+                    placeholder="Número da residência"
                     className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
                   />
                 </div>
@@ -189,7 +205,7 @@ const CartModal = ({
                     type="text"
                     value={customerInfo.complement}
                     onChange={(e) => setCustomerInfo({...customerInfo, complement: e.target.value})}
-                    placeholder="Apto, Bloco, etc"
+                    placeholder="Apto, Bloco, etc (opcional)"
                     className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
                   />
                 </div>

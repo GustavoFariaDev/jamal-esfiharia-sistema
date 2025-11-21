@@ -46,6 +46,7 @@ const FullMenu = () => {
     name: '',
     phone: '',
     address: '',
+    numero: '',
     complement: '',
     cep: '',
     observations: '',
@@ -411,7 +412,12 @@ const FullMenu = () => {
       }
 
       if (!customerInfo.address.trim()) {
-        warning('Por favor, informe seu endereço completo');
+        warning('Por favor, calcule a taxa de entrega usando o CEP para preencher o endereço');
+        return false;
+      }
+
+      if (!customerInfo.numero || !customerInfo.numero.trim()) {
+        warning('Por favor, informe o número da residência');
         return false;
       }
 
@@ -445,7 +451,7 @@ const FullMenu = () => {
         body: JSON.stringify({
           nome_cliente: customerInfo.name,
           telefone: customerInfo.phone,
-          endereco: customerInfo.address || '',
+          endereco: customerInfo.address ? `${customerInfo.address}, ${customerInfo.numero || 'S/N'}` : '',
           complemento: customerInfo.complement || '',
           cep_entrega: customerInfo.cep || '',
           forma_entrega: deliveryType,
@@ -530,6 +536,7 @@ const FullMenu = () => {
           name: '',
           phone: '',
           address: '',
+          numero: '',
           complement: '',
           cep: '',
           observations: '',

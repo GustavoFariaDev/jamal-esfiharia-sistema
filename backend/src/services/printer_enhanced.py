@@ -15,6 +15,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import mm, inch
 from reportlab.lib import colors
+from src.services.product_type_helper import get_product_type, get_product_subtype
 
 # Tamanho de papel para impressora térmica 80mm (3.15 polegadas)
 # Altura é definida dinamicamente pelo conteúdo, mas a largura é fixa.
@@ -179,6 +180,10 @@ class ThermalPrinter:
             acrescimos = item.get('acrescimos', [])
             categoria = item.get('categoria', '')
             
+            # DEBUG: Log da categoria para verificação
+            if categoria:
+                print(f"DEBUG: Item '{nome}' - Categoria: '{categoria}' - Tipo: '{get_product_type(categoria)}')")
+            
             # Calcular subtotal do item
             valor_acrescimos = sum(float(a.get('preco', 0)) for a in acrescimos)
             subtotal_item = (preco_base + valor_acrescimos) * qtd
@@ -188,10 +193,13 @@ class ThermalPrinter:
             tamanho_str = self._tamanho_extenso(tamanho)
             preco_str = self._format_price(subtotal_item)
             
+            # Determinar tipo de produto
+            tipo_produto = get_product_type(categoria)
+            
             if eh_meio_a_meio:
                 # Pizza meio a meio
                 metade2 = item.get('esfiha_metade2_nome', 'Outro')
-                linha_item = f"{qtd}x Pizza Meio a Meio{tamanho_str}"
+                linha_item = f"{qtd}x {tipo_produto or 'PIZZA'} Meio a Meio{tamanho_str}"
                 espacos = self.width - len(linha_item) - len(preco_str)
                 lines.append(f"{linha_item}{' ' * max(1, espacos)}{preco_str}")
                 
@@ -199,8 +207,12 @@ class ThermalPrinter:
                 lines.append(f"   • {nome[:32]}")
                 lines.append(f"   • {metade2[:32]}")
             else:
-                # Item normal
-                linha_item = f"{qtd}x {nome[:20]}{tamanho_str}"
+                # Item normal - SEMPRE mostrar tipo de produto
+                if tipo_produto:
+                    linha_item = f"{qtd}x {tipo_produto} - {nome[:15]}{tamanho_str}"
+                else:
+                    linha_item = f"{qtd}x {nome[:20]}{tamanho_str}"
+                    
                 espacos = self.width - len(linha_item) - len(preco_str)
                 lines.append(f"{linha_item}{' ' * max(1, espacos)}{preco_str}")
                 
@@ -489,14 +501,21 @@ class PDFPrinter:
                 subtotal_item = (preco_base + valor_acrescimos) * qtd
                 total += subtotal_item
                 
+                # Determinar tipo de produto
+                tipo_produto = get_product_type(categoria)
+                
                 # Montar descrição
                 if eh_meio_a_meio:
                     metade2 = item.get('esfiha_metade2_nome', 'Outro')
-                    desc = f"<b>{qtd}x Pizza Meio a Meio{tamanho_str}</b><br/>"
+                    desc = f"<b>{qtd}x {tipo_produto or 'PIZZA'} Meio a Meio{tamanho_str}</b><br/>"
                     desc += f"&nbsp;&nbsp;• {nome}<br/>"
                     desc += f"&nbsp;&nbsp;• {metade2}"
                 else:
-                    desc = f"<b>{qtd}x {nome}{tamanho_str}</b>"
+                    # SEMPRE mostrar tipo de produto
+                    if tipo_produto:
+                        desc = f"<b>{qtd}x {tipo_produto} - {nome}{tamanho_str}</b>"
+                    else:
+                        desc = f"<b>{qtd}x {nome}{tamanho_str}</b>"
                     
                     # Adicionar informação de tipo de massa se fornecido pelo cliente
                     if tipo_massa:
