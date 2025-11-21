@@ -73,10 +73,19 @@ def imprimir_pedido(pedido_id):
             
             # Adicionar acréscimos
             for acrescimo_item in item.acrescimos:
+                # Garantir que acréscimos sempre apareçam, mesmo se o acréscimo foi deletado
                 if acrescimo_item.acrescimo:
                     item_data['acrescimos'].append({
                         'nome': acrescimo_item.acrescimo.nome,
                         'tipo': acrescimo_item.acrescimo.tipo,
+                        'preco': float(acrescimo_item.preco_unitario),
+                        'quantidade': acrescimo_item.quantidade
+                    })
+                else:
+                    # Acréscimo foi deletado, mas ainda mostrar no pedido histórico
+                    item_data['acrescimos'].append({
+                        'nome': f'Acréscimo #{acrescimo_item.acrescimo_id}',
+                        'tipo': 'outro',
                         'preco': float(acrescimo_item.preco_unitario),
                         'quantidade': acrescimo_item.quantidade
                     })

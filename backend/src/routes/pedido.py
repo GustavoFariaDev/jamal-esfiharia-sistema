@@ -223,7 +223,8 @@ def criar_pedido():
             "acrescimos": acrescimos_item,
             "eh_meio_a_meio": eh_meio_a_meio,
             "esfiha_id_metade2": esfiha_id_metade2,
-            "tamanho": tamanho
+            "tamanho": tamanho,
+            "tipo_massa": item_data.get("tipo_massa")  # Capturar tipo de massa do frontend
         })
 
     if not itens_pedido_info:
@@ -305,7 +306,8 @@ def criar_pedido():
             observacoes=item_info["observacoes"],
             eh_meio_a_meio=item_info.get("eh_meio_a_meio", False),
             esfiha_id_metade2=item_info.get("esfiha_id_metade2"),
-            tamanho=item_info.get("tamanho")
+            tamanho=item_info.get("tamanho"),
+            tipo_massa=item_info.get("tipo_massa")  # Salvar tipo de massa (aberta/fechada)
         )
         db.session.add(novo_item)
         db.session.flush()  # Para obter o ID do item
