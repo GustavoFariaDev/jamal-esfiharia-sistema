@@ -148,7 +148,13 @@ const CartModal = ({
                 type="tel"
                 value={customerInfo.phone}
                 onChange={(e) => {
-                  let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+                  // Limitar o input a 15 caracteres (tamanho da máscara completa)
+                  let inputValue = e.target.value;
+                  if (inputValue.length > 15) {
+                    inputValue = inputValue.slice(0, 15);
+                  }
+                  
+                  let value = inputValue.replace(/\D/g, ''); // Remove tudo que não é número
                   
                   // Limitar a 11 dígitos
                   if (value.length > 11) {
