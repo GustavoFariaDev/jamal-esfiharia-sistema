@@ -394,35 +394,44 @@ const FullMenu = () => {
       return false;
     }
 
+    // Validar nome
     if (!customerInfo.name.trim()) {
-      warning('Por favor, informe seu nome');
+      warning('❌ Nome é obrigatório');
       return false;
     }
 
+    // Validar telefone
     if (!customerInfo.phone.trim()) {
-      warning('Por favor, informe seu telefone');
+      warning('❌ Telefone é obrigatório');
+      return false;
+    }
+    
+    // Validar formato do telefone (deve ter 11 dígitos)
+    const phoneDigits = customerInfo.phone.replace(/\D/g, '');
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      warning('❌ Telefone inválido. Use o formato: (11) 98765-4321');
       return false;
     }
 
     // Validações específicas para entrega
     if (deliveryType === 'entrega') {
       if (!customerInfo.cep || customerInfo.cep.trim().length < 9) {
-        warning('Por favor, informe um CEP válido');
+        warning('❌ CEP é obrigatório para entrega. Formato: 12345-678');
         return false;
       }
 
       if (!customerInfo.address.trim()) {
-        warning('Por favor, calcule a taxa de entrega usando o CEP para preencher o endereço');
+        warning('❌ Endereço é obrigatório. Clique em "Calcular" no CEP para preencher automaticamente');
         return false;
       }
 
       if (!customerInfo.numero || !customerInfo.numero.trim()) {
-        warning('Por favor, informe o número da residência');
+        warning('❌ Número da residência é obrigatório');
         return false;
       }
 
       if (!deliveryInfo) {
-        warning('Por favor, calcule a taxa de entrega usando o CEP');
+        warning('❌ Calcule a taxa de entrega clicando no botão "Calcular" ao lado do CEP');
         return false;
       }
     }

@@ -148,11 +148,34 @@ const CartModal = ({
                 type="tel"
                 value={customerInfo.phone}
                 onChange={(e) => {
-                  const newPhone = e.target.value;
-                  setCustomerInfo({...customerInfo, phone: newPhone});
-                  onBuscarHistoricoCliente(newPhone);
+                  let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+                  
+                  // Limitar a 11 dígitos
+                  if (value.length > 11) {
+                    value = value.slice(0, 11);
+                  }
+                  
+                  // Aplicar máscara (11) 98765-4321
+                  let formatted = value;
+                  if (value.length > 0) {
+                    formatted = '(' + value;
+                    if (value.length > 2) {
+                      formatted = '(' + value.slice(0, 2) + ') ' + value.slice(2);
+                    }
+                    if (value.length > 7) {
+                      formatted = '(' + value.slice(0, 2) + ') ' + value.slice(2, 7) + '-' + value.slice(7);
+                    }
+                  }
+                  
+                  setCustomerInfo({...customerInfo, phone: formatted});
+                  
+                  // Buscar histórico apenas se tiver 11 dígitos
+                  if (value.length === 11) {
+                    onBuscarHistoricoCliente(formatted);
+                  }
                 }}
                 placeholder="(11) 98765-4321"
+                maxLength="15"
                 className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
               />
               {isLoadingHistory && (
