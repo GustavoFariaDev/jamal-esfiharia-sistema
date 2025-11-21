@@ -97,6 +97,7 @@ class Pedido(db.Model):
     nome_cliente = db.Column(db.String(100), nullable=False)
     telefone = db.Column(db.String(20), nullable=False)
     endereco = db.Column(db.Text, nullable=True)
+    numero = db.Column(db.String(20), nullable=True)  # Número da residência
     complemento = db.Column(db.String(200), nullable=True)  # Complemento do endereço
     cep_entrega = db.Column(db.String(10), nullable=True)  # CEP do endereço de entrega
     forma_entrega = db.Column(db.String(20), nullable=False)  # retirada ou entrega
@@ -124,6 +125,7 @@ class Pedido(db.Model):
             'nome_cliente': self.nome_cliente,
             'telefone': self.telefone,
             'endereco': self.endereco,
+            'numero': self.numero,
             'complemento': self.complemento,
             'cep_entrega': self.cep_entrega,
             'forma_entrega': self.forma_entrega,
