@@ -733,7 +733,7 @@ const FullMenu = () => {
                     } else if (category.includes('esfiha')) {
                       setSelectedEsfiha(product);
                       setShowEsfihaModal(true);
-                    } else if (category.includes('pasté') || category.includes('fogazz')) {
+                    } else if (category.includes('pasté') || category.includes('fogazz') || category.includes('batata')) {
                       setSelectedGenericProduct(product);
                       setShowGenericModal(true);
                     } else {
