@@ -27,6 +27,8 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
       // Esfihas, Pastéis e Fogazzas usam o mesmo tipo de acréscimo
       if (category.includes('esfiha') || category.includes('pastel') || category.includes('pastéis') || category.includes('fogazz')) {
         tipo = 'esfiha';
+      } else if (category.includes('batata')) {
+        tipo = 'batata_recheio';
       } else if (category.includes('pizza')) {
         // Pizzas não têm acréscimos genéricos (usam modal específico)
         tipo = '';
@@ -65,12 +67,19 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
 
   // Toggle acréscimo
   const handleExtraToggle = (extra) => {
+    const isBatata = product.category?.toLowerCase().includes('batata');
     const isSelected = selectedExtras.some(e => e.id === extra.id);
     
-    if (isSelected) {
-      setSelectedExtras(selectedExtras.filter(e => e.id !== extra.id));
+    if (isBatata) {
+      // Para batatas: comportamento de radio button (apenas 1 selecionado)
+      setSelectedExtras([extra]);
     } else {
-      setSelectedExtras([...selectedExtras, extra]);
+      // Para outros produtos: comportamento de checkbox (múltiplos)
+      if (isSelected) {
+        setSelectedExtras(selectedExtras.filter(e => e.id !== extra.id));
+      } else {
+        setSelectedExtras([...selectedExtras, extra]);
+      }
     }
   };
 
@@ -111,7 +120,7 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
           {availableExtras.length > 0 && (
             <div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">
-                Acréscimos <span className="text-sm font-normal text-gray-500">(Opcional)</span>
+                {product.category?.toLowerCase().includes('batata') ? 'Escolha o Recheio' : 'Acréscimos'} <span className="text-sm font-normal text-gray-500">{product.category?.toLowerCase().includes('batata') ? '(Obrigatório)' : '(Opcional)'}</span>
               </h3>
               
               {loading ? (
@@ -120,29 +129,32 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
                   <p className="mt-2 text-gray-600">Carregando acréscimos...</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3">
                   {availableExtras.map((extra) => {
                     const isSelected = selectedExtras.some(e => e.id === extra.id);
+                    const isBatata = product.category?.toLowerCase().includes('batata');
                     
                     return (
                       <button
                         key={extra.id}
                         onClick={() => handleExtraToggle(extra)}
-                        className={`p-3 rounded-lg border-2 text-left transition-all ${
+                        className={`p-4 rounded-lg border-2 text-left transition-all ${
                           isSelected
-                            ? 'border-red-600 bg-red-50'
+                            ? (isBatata ? 'border-orange-600 bg-orange-50' : 'border-red-600 bg-red-50')
                             : 'border-gray-200 hover:border-red-300'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
                             <div className="font-semibold text-gray-900">{extra.nome}</div>
-                            <div className="text-sm text-red-600 font-bold">
-                              + R$ {extra.preco.toFixed(2)}
+                            <div className={`text-sm font-bold ${
+                              isBatata ? 'text-green-600' : 'text-red-600'
+                            }`}>
+                              {isBatata ? 'Incluído' : `+ R$ ${extra.preco.toFixed(2)}`}
                             </div>
                           </div>
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                            isSelected ? 'bg-red-600 border-red-600' : 'border-gray-300'
+                          <div className={`w-5 h-5 ${isBatata ? 'rounded-full' : 'rounded'} border-2 flex items-center justify-center ${
+                            isSelected ? (isBatata ? 'bg-orange-600 border-orange-600' : 'bg-red-600 border-red-600') : 'border-gray-300'
                           }`}>
                             {isSelected && (
                               <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
