@@ -7,6 +7,10 @@ const PizzaCardSimple = ({ item, onImageError, onClick }) => {
     item.category.toLowerCase().includes('pizzas')
   );
 
+  // Verificar se é batata recheada com opções
+  const isBatata = item.category && item.category.toLowerCase().includes('batata');
+  const hasOptions = (item.preco_media && item.preco_grande) || (item.preco_broto && item.preco_media && item.preco_grande);
+
   // Cores do Jamal
   const jamalColors = {
     primary: '#DC2626',    // Vermelho
@@ -72,6 +76,21 @@ const PizzaCardSimple = ({ item, onImageError, onClick }) => {
               </span>
             </div>
           </div>
+        ) : isBatata && hasOptions ? (
+          <div className="space-y-1 mb-3">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-600">Pequena:</span>
+              <span className="font-bold" style={{ color: jamalColors.secondary }}>
+                R$ {(item.preco_media || 0).toFixed(2)}
+              </span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-600">Grande:</span>
+              <span className="font-bold text-lg" style={{ color: jamalColors.secondary }}>
+                R$ {(item.preco_grande || 0).toFixed(2)}
+              </span>
+            </div>
+          </div>
         ) : (
           <div className="mb-3">
             <span className="text-2xl font-bold" style={{ color: jamalColors.primary }}>
@@ -81,7 +100,7 @@ const PizzaCardSimple = ({ item, onImageError, onClick }) => {
         )}
 
         {/* Botão */}
-        {isPizza ? (
+        {isPizza || (isBatata && hasOptions) ? (
           <button
             onClick={(e) => {
               e.stopPropagation();

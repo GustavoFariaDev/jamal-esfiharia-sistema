@@ -150,23 +150,25 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
               {/* Seleção de Tamanho */}
               <div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">Tamanho</h3>
-                <div className="grid grid-cols-3 gap-3">
-                  {['broto', 'media', 'grande'].map((size) => {
+                <div className={`grid gap-3 ${isBatata ? 'grid-cols-2' : 'grid-cols-3'}`}>
+                  {(isBatata ? ['media', 'grande'] : ['broto', 'media', 'grande']).map((size) => {
                     const sizePrice = getSizePrice(size);
-                    const sizeLabels = { broto: 'Broto', media: 'Média', grande: 'Grande' };
+                    const sizeLabels = isBatata 
+                      ? { media: 'Pequena', grande: 'Grande' }
+                      : { broto: 'Broto', media: 'Média', grande: 'Grande' };
                     return (
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
                         className={`p-4 rounded-xl border-2 transition-all ${
                           selectedSize === size
-                            ? 'border-red-600 bg-red-50 shadow-md'
+                            ? (isBatata ? 'border-orange-600 bg-orange-50 shadow-md' : 'border-red-600 bg-red-50 shadow-md')
                             : 'border-gray-200 hover:border-red-300'
                         }`}
                       >
                         <div className="text-center">
                           <div className="font-bold text-gray-900">{sizeLabels[size]}</div>
-                          <div className="text-lg font-bold text-red-600 mt-1">
+                          <div className={`text-lg font-bold mt-1 ${isBatata ? 'text-orange-600' : 'text-red-600'}`}>
                             R$ {sizePrice.toFixed(2)}
                           </div>
                         </div>
@@ -176,17 +178,19 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
                 </div>
               </div>
 
-              {/* Botão Meio a Meio */}
-              <button
-                onClick={handleMeioAMeioClick}
-                className="w-full px-4 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-orange-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 font-bold text-base"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="9" strokeWidth="2"/>
-                  <line x1="12" y1="3" x2="12" y2="21" strokeWidth="2"/>
-                </svg>
-                🍕 Montar Pizza Meio a Meio
-              </button>
+              {/* Botão Meio a Meio - Apenas para pizzas */}
+              {!isBatata && (
+                <button
+                  onClick={handleMeioAMeioClick}
+                  className="w-full px-4 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-orange-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 font-bold text-base"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9" strokeWidth="2"/>
+                    <line x1="12" y1="3" x2="12" y2="21" strokeWidth="2"/>
+                  </svg>
+                  🍕 Montar Pizza Meio a Meio
+                </button>
+              )}
 
               {/* Acréscimos e Bordas */}
               <ExtrasSelector
