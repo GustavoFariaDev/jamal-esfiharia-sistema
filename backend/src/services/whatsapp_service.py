@@ -70,6 +70,17 @@ class WhatsAppService:
             
             mensagem += f"\n• {qtd}x {nome_item} - R$ {subtotal:.2f}"
             
+            # Adicionar acréscimos (recheios, bordas, etc.) se houver
+            acrescimos = item.get('acrescimos', [])
+            if acrescimos:
+                for acrescimo in acrescimos:
+                    nome_acrescimo = acrescimo.get('acrescimo_nome', 'Acréscimo')
+                    preco_acrescimo = acrescimo.get('preco_unitario', 0)
+                    if preco_acrescimo > 0:
+                        mensagem += f"\n    + {nome_acrescimo} - R$ {preco_acrescimo:.2f}"
+                    else:
+                        mensagem += f"\n    + {nome_acrescimo}"
+            
             # Adicionar observações do item se houver
             obs_item = item.get('observacoes', '')
             if obs_item:

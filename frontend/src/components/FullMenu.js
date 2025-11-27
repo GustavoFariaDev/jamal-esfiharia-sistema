@@ -143,7 +143,10 @@ const FullMenu = () => {
 
   const filteredItems = menuItems.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
+    // Comparar categoria normalizada (lowercase) com selectedCategory
+    const itemCategory = (item.category || '').toLowerCase();
+    const selectedCat = (selectedCategory || '').toLowerCase();
+    const matchesCategory = selectedCategory === "all" || itemCategory === selectedCat || itemCategory.includes(selectedCat);
     return matchesSearch && matchesCategory && item.disponivel;
   });
 
@@ -528,20 +531,30 @@ const FullMenu = () => {
           'Pedido realizado com sucesso! Acesse /status para acompanhar o status do seu pedido.'
         );
         
-        // Abrir WhatsApp para gestão (link principal)
+        // Abrir ambas as abas do WhatsApp de forma mais confiável
+        // Abrir primeira aba (gestão) imediatamente
         if (result.whatsapp_link_gestao || result.whatsapp_link) {
           const linkGestao = result.whatsapp_link_gestao || result.whatsapp_link;
           console.log('Abrindo WhatsApp da gestão:', linkGestao);
-          setTimeout(() => {
-            window.open(linkGestao, '_blank');
-          }, 500);
+          const janelaGestao = window.open(linkGestao, '_blank');
+          
+          if (!janelaGestao) {
+            console.warn('Pop-up bloqueado pelo navegador. Tentando abrir na mesma aba...');
+            window.location.href = linkGestao;
+          }
         }
         
-        // Abrir WhatsApp para enviar confirmação ao cliente
+        // Abrir segunda aba (cliente) após 2 segundos
         if (result.whatsapp_link_cliente) {
-          console.log('Abrindo WhatsApp para confirmação ao cliente:', result.whatsapp_link_cliente);
+          console.log('Agendando abertura do WhatsApp para confirmação ao cliente:', result.whatsapp_link_cliente);
           setTimeout(() => {
-            window.open(result.whatsapp_link_cliente, '_blank');
+            console.log('Abrindo WhatsApp para o cliente agora...');
+            const janelaCliente = window.open(result.whatsapp_link_cliente, '_blank');
+            
+            if (!janelaCliente) {
+              console.warn('Pop-up do cliente bloqueado. Mostrando alerta...');
+              alert('Por favor, permita pop-ups para enviar a confirmação ao cliente via WhatsApp.');
+            }
           }, 2000);
         } else {
           console.warn('Link do WhatsApp para cliente não encontrado na resposta');
@@ -691,7 +704,7 @@ const FullMenu = () => {
                 >
                   <option value="all">Todas as Categorias</option>
                   {categories.map((cat) => (
-                    <option key={cat.id || cat} value={cat.id || cat}>{cat.name || cat}</option>
+                    <option key={cat.id || cat} value={(cat.name || cat).toLowerCase()}>{cat.name || cat}</option>
                   ))}
                 </select>
               </div>
@@ -1054,7 +1067,7 @@ const FullMenu = () => {
                     Limpar Carrinho
                   </button>
                   <button
-                    onClick={() => setShowConfirmModal(true)}
+                    onClick={handleCheckout}
                     className="flex-1 px-4 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
                   >
                     Finalizar Pedido

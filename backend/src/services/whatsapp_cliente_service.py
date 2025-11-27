@@ -80,6 +80,13 @@ Seu pedido *#{pedido_id}* foi recebido com sucesso! 🎉"""
             nome_item = item.get('esfiha', item.get('esfiha_nome', 'Item'))
             qtd = item.get('quantidade', 1)
             mensagem += f"\n• {qtd}x {nome_item}"
+            
+            # Adicionar acréscimos (recheios, bordas, etc.) se houver
+            acrescimos = item.get('acrescimos', [])
+            if acrescimos:
+                for acrescimo in acrescimos:
+                    nome_acrescimo = acrescimo.get('acrescimo_nome', 'Acréscimo')
+                    mensagem += f"\n    + {nome_acrescimo}"
         
         # Valores
         mensagem += "\n\n💰 *VALOR TOTAL:*"
