@@ -9,6 +9,7 @@ from src.models.pedido import Pedido, ItemPedido, ItemPedidoAcrescimo, StatusPed
 from src.models.esfiha import Esfiha
 from src.models.acrescimo import Acrescimo
 from src.services.whatsapp_service import WhatsAppService
+from src.services.whatsapp_cliente_service import WhatsAppClienteService
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -41,12 +42,24 @@ def criar_pedido():
             "message": "Forma de entrega inválida. Use 'retirada' ou 'entrega'."
         }), 400
 
-    # Se for entrega, endereço é obrigatório
+    # Se for entrega, endereço e número são obrigatórios
     if forma_entrega == "entrega":
         if not dados.get("endereco"):
             return jsonify({
                 "status": "error",
                 "message": "Endereço é obrigatório para entrega."
+            }), 400
+        
+        if not dados.get("numero") or not dados.get("numero").strip():
+            return jsonify({
+                "status": "error",
+                "message": "Número da residência é obrigatório para entrega."
+            }), 400
+        
+        if not dados.get("cep_entrega") or not dados.get("cep_entrega").strip():
+            return jsonify({
+                "status": "error",
+                "message": "CEP é obrigatório para entrega."
             }), 400
 
     valor_total_calculado = 0
@@ -149,6 +162,7 @@ def criar_pedido():
             nome_cliente=dados.get("nome_cliente"),
             telefone=dados.get("telefone"),
             endereco=dados.get("endereco"),
+            numero=dados.get("numero"),
             complemento=dados.get("complemento"),
             cep_entrega=dados.get("cep_entrega"),
             forma_entrega=forma_entrega,
@@ -159,7 +173,7 @@ def criar_pedido():
             observacoes=dados.get("observacoes", ""),
             forma_pagamento=dados.get("forma_pagamento", "dinheiro"),
             troco_para=dados.get("troco_para"),
-                data_criacao=datetime.now(ZoneInfo('America/Sao_Paulo'))
+            data_criacao=datetime.now(ZoneInfo('America/Sao_Paulo'))
         )
         
         db.session.add(novo_pedido)
@@ -199,17 +213,25 @@ def criar_pedido():
         
         # Gerar link do WhatsApp para enviar pedido à gestão
         pedido_dict = novo_pedido.to_dict()
-        resultado_whatsapp = WhatsAppService.enviar_pedido_para_gestao(pedido_dict)
+        resultado_whatsapp_gestao = WhatsAppService.enviar_pedido_para_gestao(pedido_dict)
         
-        # Adicionar link do WhatsApp na resposta
-        if resultado_whatsapp["sucesso"]:
-            pedido_dict["whatsapp_link"] = resultado_whatsapp["link"]
+        # Gerar link do WhatsApp para enviar confirmação ao cliente
+        resultado_whatsapp_cliente = WhatsAppClienteService.enviar_confirmacao_para_cliente(pedido_dict)
+        
+        # Adicionar links do WhatsApp na resposta
+        if resultado_whatsapp_gestao["sucesso"]:
+            pedido_dict["whatsapp_link_gestao"] = resultado_whatsapp_gestao["link"]
+        
+        if resultado_whatsapp_cliente["sucesso"]:
+            pedido_dict["whatsapp_link_cliente"] = resultado_whatsapp_cliente["link"]
 
         return jsonify({
             "status": "success",
             "message": "Pedido criado com sucesso!",
             "data": pedido_dict,
-            "whatsapp_link": resultado_whatsapp.get("link")
+            "whatsapp_link": resultado_whatsapp_gestao.get("link"),  # Link para gestão (compatibilidade)
+            "whatsapp_link_gestao": resultado_whatsapp_gestao.get("link"),
+            "whatsapp_link_cliente": resultado_whatsapp_cliente.get("link")
         }), 201
 
     except Exception as e:

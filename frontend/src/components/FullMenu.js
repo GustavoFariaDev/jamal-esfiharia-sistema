@@ -528,14 +528,23 @@ const FullMenu = () => {
           'Pedido realizado com sucesso! Acesse /status para acompanhar o status do seu pedido.'
         );
         
-        // Abrir WhatsApp automaticamente se o link estiver disponível
-        if (result.whatsapp_link) {
-          console.log('Abrindo WhatsApp com link:', result.whatsapp_link);
+        // Abrir WhatsApp para gestão (link principal)
+        if (result.whatsapp_link_gestao || result.whatsapp_link) {
+          const linkGestao = result.whatsapp_link_gestao || result.whatsapp_link;
+          console.log('Abrindo WhatsApp da gestão:', linkGestao);
           setTimeout(() => {
-            window.open(result.whatsapp_link, '_blank');
-          }, 1000);
+            window.open(linkGestao, '_blank');
+          }, 500);
+        }
+        
+        // Abrir WhatsApp para enviar confirmação ao cliente
+        if (result.whatsapp_link_cliente) {
+          console.log('Abrindo WhatsApp para confirmação ao cliente:', result.whatsapp_link_cliente);
+          setTimeout(() => {
+            window.open(result.whatsapp_link_cliente, '_blank');
+          }, 2000);
         } else {
-          console.warn('Link do WhatsApp não encontrado na resposta');
+          console.warn('Link do WhatsApp para cliente não encontrado na resposta');
         }
         
         clearCart();
