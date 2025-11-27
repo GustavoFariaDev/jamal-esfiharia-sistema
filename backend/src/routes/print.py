@@ -44,6 +44,7 @@ def imprimir_pedido(pedido_id):
             'observacoes': pedido.observacoes,
             'tipo_entrega': pedido.forma_entrega,
             'endereco': pedido.endereco,
+            'numero': pedido.numero,
             'complemento': pedido.complemento,
             'cep_entrega': pedido.cep_entrega,
             'distancia_km': float(pedido.distancia_km) if pedido.distancia_km else None,
