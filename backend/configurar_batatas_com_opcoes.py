@@ -71,7 +71,6 @@ def configurar_batatas_opcoes():
         if not recheio1:
             recheio1 = Acrescimo(
                 nome="Calabresa e Mussarela",
-                descricao="Recheio de calabresa com mussarela",
                 preco=0.00,  # Preço já incluído na batata
                 tipo="batata_recheio",
                 disponivel=True
@@ -89,7 +88,6 @@ def configurar_batatas_opcoes():
         if not recheio2:
             recheio2 = Acrescimo(
                 nome="Bacon e Cheddar",
-                descricao="Recheio de bacon com cheddar",
                 preco=0.00,  # Preço já incluído na batata
                 tipo="batata_recheio",
                 disponivel=True
