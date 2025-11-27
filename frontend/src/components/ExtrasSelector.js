@@ -8,12 +8,13 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
 
   const isPizza = productType === 'pizza';
   const isEsfiha = productType === 'esfiha';
+  const isBatata = productType === 'batata';
 
   useEffect(() => {
-    if (isPizza || isEsfiha) {
+    if (isPizza || isEsfiha || isBatata) {
       fetchAllExtras();
     }
-  }, [isPizza, isEsfiha, isHalfAndHalf]);
+  }, [isPizza, isEsfiha, isBatata, isHalfAndHalf]);
 
   useEffect(() => {
     // Definir tab inicial baseado no tipo de produto
@@ -23,8 +24,10 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
       setSelectedTab('pizza_metade');
     } else if (isEsfiha) {
       setSelectedTab('esfiha');
+    } else if (isBatata) {
+      setSelectedTab('batata_recheio');
     }
-  }, [isPizza, isEsfiha, isHalfAndHalf]);
+  }, [isPizza, isEsfiha, isBatata, isHalfAndHalf]);
 
   const fetchAllExtras = async () => {
     try {
@@ -36,6 +39,13 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
         
         if (result.status === 'success') {
           setAvailableExtras({ esfiha: result.data || [] });
+        }
+      } else if (isBatata) {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || '/api'}/acrescimos?tipo=batata_recheio`);
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+          setAvailableExtras({ batata_recheio: result.data || [] });
         }
       } else if (isPizza) {
         let tipos = [];
@@ -98,7 +108,8 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
       'pizza_metade': '🍕 Por Metade',
       'pizza_toda': '🍕 Pizza Toda',
       'borda': '🟦 Borda',
-      'esfiha': '🥟 Acréscimos'
+      'esfiha': '🥟 Acréscimos',
+      'batata_recheio': '🍟 Escolha o Recheio'
     };
     return labels[tipo] || tipo;
   };
@@ -108,12 +119,13 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
       'pizza_metade': 'Acréscimos por metade da pizza - R$ 7,00 cada',
       'pizza_toda': 'Acréscimos para pizza inteira - R$ 12,00 cada',
       'borda': 'Escolha uma borda recheada para sua pizza',
-      'esfiha': 'Adicione ingredientes extras à sua esfiha'
+      'esfiha': 'Adicione ingredientes extras à sua esfiha',
+      'batata_recheio': 'Escolha o recheio da sua batata (já incluído no preço)'
     };
     return descriptions[tipo] || '';
   };
 
-  if (!isPizza && !isEsfiha) {
+  if (!isPizza && !isEsfiha && !isBatata) {
     return null;
   }
 
@@ -258,6 +270,31 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
                       </div>
                       <span className="text-base font-bold text-red-600">
                         + R$ {extra.preco.toFixed(2)}
+                      </span>
+                    </label>
+                  ))
+                ) : isBatata && availableExtras.batata_recheio && availableExtras.batata_recheio.length > 0 ? (
+                  availableExtras.batata_recheio.map((extra) => (
+                    <label
+                      key={extra.id}
+                      className={`flex items-center justify-between p-4 rounded-lg cursor-pointer transition-all ${
+                        isExtraSelected(extra.id)
+                          ? 'bg-orange-100 border-3 border-orange-600 shadow-lg'
+                          : 'bg-gray-100 border-3 border-gray-300 hover:border-orange-300 hover:bg-orange-50'
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <input
+                          type="radio"
+                          name="batata-recheio"
+                          checked={isExtraSelected(extra.id)}
+                          onChange={() => toggleExtra(extra)}
+                          className="w-6 h-6 text-orange-600 focus:ring-orange-500 border-gray-400"
+                        />
+                        <span className="ml-4 text-base font-bold text-gray-900">{extra.nome}</span>
+                      </div>
+                      <span className="text-base font-bold text-green-600">
+                        Incluído
                       </span>
                     </label>
                   ))

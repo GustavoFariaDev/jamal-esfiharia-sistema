@@ -21,6 +21,9 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
 
   if (!isOpen || !pizza) return null;
 
+  // Detectar se é batata recheada
+  const isBatata = pizza.category && pizza.category.toLowerCase().includes('batata');
+
   // Preços por tamanho
   const getSizePrice = (size) => {
     switch (size) {
@@ -187,7 +190,7 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
 
               {/* Acréscimos e Bordas */}
               <ExtrasSelector
-                productType="pizza"
+                productType={isBatata ? "batata" : "pizza"}
                 isHalfAndHalf={false}
                 selectedExtras={selectedExtras}
                 onExtrasChange={setSelectedExtras}
