@@ -196,8 +196,15 @@ def criar_pedido():
                     "message": f"Produto '{esfiha_metade2.nome}' não está disponível no momento."
                 }), 400
             
+            # LOG: Mostrar cálculo de preço
+            print(f"\n=== CÁLCULO MEIO A MEIO (PEDIDO COMPLETO) ===")
+            print(f"Pizza 1: {esfiha.nome} - R$ {esfiha.preco:.2f}")
+            print(f"Pizza 2: {esfiha_metade2.nome} - R$ {esfiha_metade2.preco:.2f}")
+            
             # Preço da pizza meio a meio = maior preço entre as duas metades
             preco_base = max(esfiha.preco, esfiha_metade2.preco)
+            print(f"Preço calculado (MAX): R$ {preco_base:.2f}")
+            print(f"===========================\n")
         
         # Processar acréscimos do item
         acrescimos_item = item_data.get("acrescimos", [])
