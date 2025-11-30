@@ -94,9 +94,21 @@ def criar_pedido():
         esfiha_id_metade2 = item_data.get("esfiha_id_metade2")
         tamanho = item_data.get("tamanho")
         
-        preco_base = esfiha.preco
+        # Função auxiliar para obter preço baseado no tamanho
+        def get_preco_por_tamanho(produto, tamanho_selecionado):
+            if not tamanho_selecionado:
+                return produto.preco
+            
+            if tamanho_selecionado == 'grande':
+                return produto.preco_grande if produto.preco_grande else produto.preco
+            elif tamanho_selecionado == 'media':
+                return produto.preco_media if produto.preco_media else produto.preco
+            elif tamanho_selecionado == 'broto':
+                return produto.preco_broto if produto.preco_broto else produto.preco
+            
+            return produto.preco
         
-        # Se for meio a meio, calcular preço baseado no maior valor
+        # Se for meio a meio, calcular preço baseado no maior valor E no tamanho
         if eh_meio_a_meio and esfiha_id_metade2:
             esfiha_metade2 = Esfiha.query.get(esfiha_id_metade2)
             if not esfiha_metade2:
@@ -111,15 +123,27 @@ def criar_pedido():
                     "message": f"Produto '{esfiha_metade2.nome}' não está disponível no momento."
                 }), 400
             
+            # Obter preços baseados no tamanho selecionado
+            preco1 = get_preco_por_tamanho(esfiha, tamanho)
+            preco2 = get_preco_por_tamanho(esfiha_metade2, tamanho)
+            
             # LOG: Mostrar cálculo de preço
             print(f"\n=== CÁLCULO MEIO A MEIO (PEDIDO SIMPLES) ===")
-            print(f"Pizza 1: {esfiha.nome} - R$ {esfiha.preco:.2f}")
-            print(f"Pizza 2: {esfiha_metade2.nome} - R$ {esfiha_metade2.preco:.2f}")
+            print(f"Tamanho selecionado: {tamanho or 'padrão'}")
+            print(f"Pizza 1: {esfiha.nome}")
+            print(f"  - Preço base: R$ {esfiha.preco:.2f}")
+            print(f"  - Preço {tamanho}: R$ {preco1:.2f}")
+            print(f"Pizza 2: {esfiha_metade2.nome}")
+            print(f"  - Preço base: R$ {esfiha_metade2.preco:.2f}")
+            print(f"  - Preço {tamanho}: R$ {preco2:.2f}")
             
             # Preço da pizza meio a meio = maior preço entre as duas metades
-            preco_base = max(esfiha.preco, esfiha_metade2.preco)
-            print(f"Preço calculado (MAX): R$ {preco_base:.2f}")
+            preco_base = max(preco1, preco2)
+            print(f"✓ Preço final (MAX): R$ {preco_base:.2f}")
             print(f"===========================\n")
+        else:
+            # Para itens normais, usar preço baseado no tamanho
+            preco_base = get_preco_por_tamanho(esfiha, tamanho)
         
         # Processar acréscimos do item
         acrescimos_item = item_data.get("acrescimos", [])
