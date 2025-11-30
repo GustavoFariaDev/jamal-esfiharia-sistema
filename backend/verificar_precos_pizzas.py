@@ -9,8 +9,12 @@ import os
 # Adicionar o diretório backend ao path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from app import app, db
+from app import create_app
+from src.models.user import db
 from src.models.esfiha import Esfiha
+
+# Criar a aplicação
+app = create_app()
 
 def verificar_precos_pizzas():
     """Verifica os preços das pizzas no banco de dados"""
