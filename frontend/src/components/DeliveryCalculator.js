@@ -93,7 +93,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       // Coordenadas aproximadas de cidades da região
       // Nota: Santo André tem múltiplos bairros, usar coordenada central
       const cityCoordinates = {
-        'santo andré': { lat: -23.6700, lng: -46.5400 },  // Centro de Santo André (não exatamente no restaurante)
+        'santo andré': { lat: -23.65, lng: -46.55 },  // Coordenadas para ~2.6km de distância do restaurante
         'são paulo': { lat: -23.5505, lng: -46.6333 },
         'são bernardo do campo': { lat: -23.6914, lng: -46.5650 },
         'são caetano do sul': { lat: -23.6236, lng: -46.5491 },
