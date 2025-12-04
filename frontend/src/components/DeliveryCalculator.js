@@ -16,6 +16,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   };
 
   // Tabela de taxas de entrega por distância (em km)
+  // Sincronizado com backend/src/services/delivery_fee.py
   const deliveryRates = [
     { maxDistance: 1.5, fee: 3.00, label: '0km a 1,5km' },
     { maxDistance: 2.5, fee: 4.00, label: '1,5km a 2,5km' },
@@ -26,15 +27,15 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     { maxDistance: 7.5, fee: 9.00, label: '6,5km a 7,5km' },
     { maxDistance: 8.5, fee: 10.00, label: '7,5km a 8,5km' },
     { maxDistance: 9.5, fee: 11.00, label: '8,5km a 9,5km' },
-    { maxDistance: 10.5, fee: 13.00, label: '10km' },
-    { maxDistance: 12.5, fee: 15.00, label: '12km' },
-    { maxDistance: 13.5, fee: 16.00, label: '13km' },
-    { maxDistance: 14.5, fee: 18.00, label: '14km' },
-    { maxDistance: 15.5, fee: 20.00, label: '15km' },
-    { maxDistance: 16.5, fee: 22.00, label: '16km' },
-    { maxDistance: 18.5, fee: 25.00, label: '18km' },
-    { maxDistance: 19.5, fee: 27.00, label: '19km' },
-    { maxDistance: 20.5, fee: 29.00, label: '20km' },
+    { maxDistance: 10.0, fee: 13.00, label: '9,5km a 10,0km' },
+    { maxDistance: 12.0, fee: 15.00, label: '10,0km a 12,0km' },
+    { maxDistance: 13.0, fee: 16.00, label: '12,0km a 13,0km' },
+    { maxDistance: 14.0, fee: 18.00, label: '13,0km a 14,0km' },
+    { maxDistance: 15.0, fee: 20.00, label: '14,0km a 15,0km' },
+    { maxDistance: 16.0, fee: 22.00, label: '15,0km a 16,0km' },
+    { maxDistance: 18.0, fee: 25.00, label: '16,0km a 18,0km' },
+    { maxDistance: 19.0, fee: 27.00, label: '18,0km a 19,0km' },
+    { maxDistance: 20.1, fee: 29.00, label: '19,0km a 20,0km' },
     { maxDistance: 999, fee: 35.00, label: 'Acima de 20km' }
   ];
 
