@@ -6,10 +6,13 @@
  * 
  * Formato baseado no PDF gerado pelo backend.
  * 
- * ATUALIZAÇÃO: Configurado para funcionar em HTTPS (produção)
+ * ATUALIZAÇÃO: Configurado para funcionar em HTTPS com assinatura via backend
  */
 
 import qz from 'qz-tray';
+
+// URL base da API (ajusta automaticamente para produção ou desenvolvimento)
+const API_BASE_URL = process.env.REACT_APP_API_URL || window.location.origin;
 
 class QZTrayService {
   constructor() {
@@ -20,10 +23,10 @@ class QZTrayService {
   }
 
   /**
-   * Configura a segurança do QZ Tray para HTTPS
+   * Configura a segurança do QZ Tray para HTTPS com assinatura via backend
    * 
-   * Esta configuração permite que o QZ Tray funcione em sites HTTPS
-   * sem necessidade de certificado digital pago.
+   * Esta configuração usa o backend para assinar requisições,
+   * eliminando a necessidade de permissão manual do usuário.
    */
   configureSecurity() {
     if (this.securityConfigured) {
@@ -31,37 +34,71 @@ class QZTrayService {
     }
 
     try {
-      // Configuração para HTTPS - Certificado Público
-      // O QZ Tray 2.2+ permite uso sem assinatura em modo de confiança
+      console.log('🔐 Configurando segurança do QZ Tray com backend...');
+      
+      // Configurar certificado - buscar do backend
       qz.security.setCertificatePromise(function(resolve, reject) {
-        // Usar certificado público do QZ Tray Community
-        // Isso permite funcionamento em HTTPS sem backend de assinatura
-        fetch('https://raw.githubusercontent.com/qzind/qz-tray/master/assets/signing/digital-certificate.txt', {
-          cache: 'no-store',
-          headers: { 'Content-Type': 'text/plain' }
+        // Buscar certificado do backend
+        fetch(`${API_BASE_URL}/api/qz/certificate`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'text/plain'
+          }
         })
-        .then(response => response.text())
-        .then(cert => resolve(cert))
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Erro ao buscar certificado: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then(cert => {
+          console.log('✅ Certificado carregado do backend');
+          resolve(cert);
+        })
         .catch(err => {
-          console.warn('Não foi possível carregar certificado remoto, usando modo local:', err);
-          // Fallback: modo local (funciona se o usuário adicionar exceção)
-          resolve();
+          console.error('❌ Erro ao carregar certificado:', err);
+          reject(err);
         });
       });
 
-      // Configurar assinatura (vazia para modo de confiança)
+      // Configurar assinatura - usar backend para assinar
       qz.security.setSignatureAlgorithm("SHA512");
       
       qz.security.setSignaturePromise(function(toSign) {
         return function(resolve, reject) {
-          // Assinatura vazia - requer que o usuário confie no site
-          // O QZ Tray vai pedir permissão na primeira vez
-          resolve();
+          // Enviar para backend assinar
+          fetch(`${API_BASE_URL}/api/qz/sign`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              request: toSign
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Erro ao assinar requisição: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data.success && data.signature) {
+              console.log('✅ Requisição assinada pelo backend');
+              resolve(data.signature);
+            } else {
+              throw new Error(data.error || 'Erro ao assinar requisição');
+            }
+          })
+          .catch(err => {
+            console.error('❌ Erro ao assinar requisição:', err);
+            reject(err);
+          });
         };
       });
 
       this.securityConfigured = true;
-      console.log('✅ Segurança do QZ Tray configurada para HTTPS');
+      console.log('✅ Segurança do QZ Tray configurada com backend');
     } catch (error) {
       console.error('❌ Erro ao configurar segurança do QZ Tray:', error);
       throw error;
@@ -91,7 +128,7 @@ class QZTrayService {
     } catch (error) {
       console.error('❌ Erro ao conectar ao QZ Tray:', error);
       
-      // Mensagem de erro detalhada
+      // Mensagem de erro detalhada com soluções
       let errorMessage = 'Não foi possível conectar ao QZ Tray.\n\n';
       
       if (error.message && error.message.includes('Unable to establish connection')) {
@@ -101,12 +138,13 @@ class QZTrayService {
         errorMessage += '2. Procure o ícone verde na bandeja do sistema\n';
         errorMessage += '3. Se não estiver rodando, abra o QZ Tray\n';
         errorMessage += '4. Baixe em: https://qz.io/download/';
-      } else if (error.message && error.message.includes('certificate')) {
+      } else if (error.message && (error.message.includes('certificate') || error.message.includes('certificado'))) {
         errorMessage += '🔐 Problema com certificado de segurança.\n\n';
         errorMessage += 'Soluções:\n';
-        errorMessage += '1. Clique em "Permitir" quando o QZ Tray pedir permissão\n';
-        errorMessage += '2. Marque "Lembrar desta decisão" para não pedir novamente\n';
-        errorMessage += '3. Recarregue a página (Ctrl+F5)';
+        errorMessage += '1. Verifique se o backend está rodando\n';
+        errorMessage += '2. Recarregue a página (Ctrl+F5)\n';
+        errorMessage += '3. Limpe o cache do navegador\n';
+        errorMessage += '4. Entre em contato com o suporte';
       } else {
         errorMessage += `Erro técnico: ${error.message}\n\n`;
         errorMessage += 'Entre em contato com o suporte técnico.';

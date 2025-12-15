@@ -113,3 +113,6 @@ Desktop.ini
 # - Garanta que nenhum arquivo sensível seja commitado
 # - Use 'git status' para verificar arquivos não rastreados
 # ═══════════════════════════════════════════════════════════════════════
+
+# QZ Tray certificates
+backend/certs/private-key.pem

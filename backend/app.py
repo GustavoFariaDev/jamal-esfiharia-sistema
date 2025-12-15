@@ -64,6 +64,7 @@ def create_app():
     from src.routes.status_pedido import status_pedido_bp
     from src.routes.setup import setup_bp
     from src.routes.notificacao import notificacao_bp
+    from src.routes.qz_signing import qz_signing_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(user_bp, url_prefix='/api/users')
@@ -80,6 +81,7 @@ def create_app():
     app.register_blueprint(status_pedido_bp, url_prefix='/api/pedidos')
     app.register_blueprint(setup_bp, url_prefix='/api/setup')
     app.register_blueprint(notificacao_bp, url_prefix='/api/notificacoes')
+    app.register_blueprint(qz_signing_bp, url_prefix='/api')
     
     # Rota para servir arquivos de upload
     @app.route('/uploads/<filename>')
