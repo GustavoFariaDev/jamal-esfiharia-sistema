@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { MapPin, Loader2 } from 'lucide-react';
+import { MapPin, Loader2, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   const [cep, setCep] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [deliveryInfo, setDeliveryInfo] = useState(null);
+  const [debugMsg, setDebugMsg] = useState('');
 
   // Endereço base do restaurante
   const RESTAURANT_ADDRESS = {
@@ -52,6 +53,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     setCep(formatted);
     setError('');
     setDeliveryInfo(null);
+    setDebugMsg('');
   };
 
   const validateCEP = (cep) => {
@@ -69,16 +71,14 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
         return data.routes[0].distance / 1000;
       }
-      
-      console.warn('OSRM falhou, usando Haversine como fallback');
-      return calculateHaversineDistance(lat1, lon1, lat2, lon2);
+      return null;
     } catch (error) {
       console.error('Erro ao calcular rota OSRM:', error);
-      return calculateHaversineDistance(lat1, lon1, lat2, lon2);
+      return null;
     }
   };
 
-  // Função para calcular distância em linha reta (Haversine) com fator de correção
+  // Função para calcular distância em linha reta (Haversine)
   const calculateHaversineDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; 
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -88,42 +88,55 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
       Math.sin(dLon/2) * Math.sin(dLon/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    // Fator de correção aumentado para 1.4 (40% a mais que linha reta) para ser mais seguro
-    return R * c * 1.4;
+    return R * c;
   };
 
   // Função robusta para obter coordenadas via Nominatim com múltiplas tentativas
   const getCoordinates = async (addressData, cep) => {
+    // Estratégias de busca ordenadas da mais específica para a mais genérica
     const strategies = [
-      // 1. Busca exata: Logradouro + Bairro + Cidade + UF
-      `${addressData.logradouro}, ${addressData.bairro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
-      // 2. Busca sem bairro (as vezes o nome do bairro difere): Logradouro + Cidade + UF
-      `${addressData.logradouro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
-      // 3. Busca por CEP direto (Nominatim suporta CEPs estruturados)
-      `${cep}, Brasil`,
-      // 4. Busca por Bairro + Cidade (Fallback para centro do bairro)
-      `${addressData.bairro}, ${addressData.localidade}, ${addressData.uf}, Brasil`
+      // 1. Logradouro + Bairro + Cidade + UF (Padrão)
+      {
+        query: `${addressData.logradouro}, ${addressData.bairro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
+        type: 'exact'
+      },
+      // 2. Logradouro + Cidade + UF (Sem bairro - muitas vezes o bairro confunde)
+      {
+        query: `${addressData.logradouro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
+        type: 'street_city'
+      },
+      // 3. Apenas Logradouro + Cidade (Sem UF)
+      {
+        query: `${addressData.logradouro}, ${addressData.localidade}, Brasil`,
+        type: 'street_only'
+      },
+      // 4. CEP exato (Nominatim as vezes acha pelo CEP)
+      {
+        query: `${cep}, Brasil`,
+        type: 'cep'
+      }
     ];
 
-    for (const query of strategies) {
+    for (const strategy of strategies) {
       try {
-        console.log(`Tentando geocodificar: ${query}`);
-        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`);
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(strategy.query)}&limit=1`, {
+          headers: { 'User-Agent': 'JamalEsfiharia/1.0' }
+        });
         const data = await response.json();
         
         if (data && data.length > 0) {
-          console.log(`Sucesso com: ${query}`);
           return {
             lat: parseFloat(data[0].lat),
             lng: parseFloat(data[0].lon),
-            precision: query.includes(addressData.logradouro) ? 'high' : 'medium'
+            matchType: strategy.type,
+            displayName: data[0].display_name
           };
         }
       } catch (error) {
-        console.error(`Erro na estratégia "${query}":`, error);
+        console.error(`Erro na estratégia "${strategy.query}":`, error);
       }
-      // Pequeno delay para não sobrecarregar a API
-      await new Promise(r => setTimeout(r, 200));
+      // Delay para respeitar limite da API
+      await new Promise(r => setTimeout(r, 300));
     }
 
     return null;
@@ -155,6 +168,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
 
     setLoading(true);
     setError('');
+    setDebugMsg('');
 
     try {
       // 1. Consulta API ViaCEP
@@ -170,11 +184,13 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
 
       // 2. Obter coordenadas com estratégia robusta
       let clientCoords = await getCoordinates(data, cep);
+      let isApproximate = false;
 
-      // Se falhar totalmente, usar coordenadas fixas da cidade (último recurso)
+      // Se falhar, usar coordenadas aproximadas da cidade (Fallback de segurança)
       if (!clientCoords) {
-        console.warn('Geocodificação falhou totalmente. Usando centro da cidade.');
-        // Fallback manual para cidades conhecidas
+        isApproximate = true;
+        setDebugMsg('Endereço exato não localizado no mapa. Usando referência aproximada.');
+        
         const cityCoordinates = {
           'santo andré': { lat: -23.65, lng: -46.55 },
           'são caetano do sul': { lat: -23.6236, lng: -46.5491 },
@@ -182,16 +198,29 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
           'mauá': { lat: -23.6678, lng: -46.4614 }
         };
         const city = data.localidade.toLowerCase();
-        clientCoords = cityCoordinates[city] || { lat: -23.6631, lng: -46.5292 }; // Default para restaurante
+        clientCoords = cityCoordinates[city] || { lat: -23.6631, lng: -46.5292 };
+      } else {
+        setDebugMsg(`Localizado via: ${clientCoords.matchType === 'exact' ? 'Endereço Completo' : 'Rua/CEP'}`);
       }
       
       // 3. Calcular distância real de rota (OSRM)
-      const distance = await calculateRouteDistance(
+      let distance = await calculateRouteDistance(
         RESTAURANT_ADDRESS.lat,
         RESTAURANT_ADDRESS.lng,
         clientCoords.lat,
         clientCoords.lng
       );
+
+      // Se OSRM falhar, usar Haversine com margem de segurança
+      if (distance === null) {
+        const haversine = calculateHaversineDistance(
+          RESTAURANT_ADDRESS.lat,
+          RESTAURANT_ADDRESS.lng,
+          clientCoords.lat,
+          clientCoords.lng
+        );
+        distance = haversine * 1.3; // +30% margem
+      }
 
       const rateInfo = getFeeByDistance(distance);
       const estimatedTime = calculateEstimatedTime(distance);
@@ -205,6 +234,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
         time: estimatedTime,
         distance: distance.toFixed(1),
         zone: rateInfo.label,
+        isApproximate: isApproximate,
         addressData: {
           logradouro: data.logradouro || '',
           bairro: data.bairro || '',
@@ -238,7 +268,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       <div className="flex flex-col gap-2">
         <label className="text-sm font-medium text-gray-700 flex justify-between items-center">
           Calcular Taxa de Entrega
-          <span className="text-xs text-green-600 font-bold bg-green-100 px-2 py-0.5 rounded-full">v2.0 (GPS Ativo)</span>
+          <span className="text-xs text-blue-600 font-bold bg-blue-100 px-2 py-0.5 rounded-full">v3.0 (Busca Inteligente)</span>
         </label>
         <div className="flex gap-2">
           <div className="flex-1 relative">
@@ -271,20 +301,33 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+        <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-red-600" />
           <p className="text-sm text-red-600">{error}</p>
         </div>
       )}
 
       {deliveryInfo && (
-        <div className="p-4 bg-green-50 border border-green-200 rounded-lg space-y-2">
+        <div className={`p-4 border rounded-lg space-y-2 ${deliveryInfo.isApproximate ? 'bg-yellow-50 border-yellow-200' : 'bg-green-50 border-green-200'}`}>
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <p className="text-sm text-gray-600 mb-1">Endereço:</p>
               <p className="text-sm font-medium text-gray-800">{deliveryInfo.address}</p>
+              {debugMsg && (
+                <p className="text-xs text-gray-500 mt-1 italic flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3" /> {debugMsg}
+                </p>
+              )}
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4 mt-3 pt-3 border-t border-green-200">
+          
+          {deliveryInfo.isApproximate && (
+            <div className="p-2 bg-yellow-100 rounded text-xs text-yellow-800 mt-2">
+              ⚠️ Localização aproximada. A distância pode variar.
+            </div>
+          )}
+
+          <div className={`grid grid-cols-3 gap-4 mt-3 pt-3 border-t ${deliveryInfo.isApproximate ? 'border-yellow-200' : 'border-green-200'}`}>
             <div>
               <p className="text-xs text-gray-500">Distância</p>
               <p className="text-lg font-bold text-gray-800">{deliveryInfo.distance} km</p>
