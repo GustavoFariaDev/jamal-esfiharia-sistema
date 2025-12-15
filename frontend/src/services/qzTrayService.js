@@ -353,205 +353,162 @@ class QZTrayService {
           commands.push(`End: ${endereco}\n`);
         }
       }
+      if (orderData.numero) {
+        commands.push(`Num: ${orderData.numero}\n`);
+      }
       if (orderData.complemento) {
-        commands.push(`Compl: ${orderData.complemento}\n`);
+        commands.push(`Comp: ${orderData.complemento}\n`);
       }
-      if (orderData.distancia_km) {
-        commands.push(`Dist: ${parseFloat(orderData.distancia_km).toFixed(1)} km\n`);
+      if (orderData.bairro) {
+        commands.push(`Bairro: ${orderData.bairro}\n`);
+      }
+      if (orderData.cidade) {
+        commands.push(`Cidade: ${orderData.cidade}\n`);
       }
     }
 
-    // Observações
-    if (orderData.observacoes && orderData.observacoes.trim()) {
-      commands.push(`Observacoes: ${orderData.observacoes.trim()}\n`);
-    }
+    commands.push(this._line());
 
+    // ========================================
+    // ITENS DO PEDIDO
+    // ========================================
+    commands.push(ESC + 'E' + '\x01'); // Negrito ON
+    commands.push('ITENS DO PEDIDO\n');
+    commands.push(ESC + 'E' + '\x00'); // Negrito OFF
     commands.push('\n');
-
-    // ========================================
-    // ITENS
-    // ========================================
-    let total = 0;
 
     if (orderData.itens && orderData.itens.length > 0) {
       orderData.itens.forEach(item => {
-        // Proteção contra dados nulos
-        if (!item) return;
+        // Nome do item e quantidade
+        const nomeItem = item.nome || item.produto_nome || 'Item sem nome';
+        const quantidade = item.quantidade || 1;
+        const precoUnitario = item.preco_unitario || item.preco || 0;
+        const subtotal = item.subtotal || (quantidade * precoUnitario);
         
-        const nome = item.esfiha || item.esfiha_nome || 'Item';
-        const qtd = parseInt(item.quantidade) || 1;
-        const preco = parseFloat(item.preco_unitario) || 0;
-        const tamanho = item.tamanho ? ` ${this._formatTamanho(item.tamanho)}` : '';
-        const eh_meio_a_meio = item.eh_meio_a_meio || false;
-        const acrescimos = Array.isArray(item.acrescimos) ? item.acrescimos : [];
+        // Formatar linha do item: "2x Esfiha de Carne"
+        commands.push(`${quantidade}x ${nomeItem}\n`);
         
-        // Calcular subtotal
-        const valorAcrescimos = acrescimos.reduce((sum, a) => sum + (parseFloat(a.preco_unitario || a.preco || 0) * parseInt(a.quantidade || 1)), 0);
-        const subtotal = (preco + valorAcrescimos) * qtd;
-        total += subtotal;
-
-        // Linha principal do item
-        if (eh_meio_a_meio) {
-          // Pizza meio a meio
-          const linhaItem = `${qtd}x Pizza Meio a Meio${tamanho}`;
-          const precoStr = this._formatPrice(subtotal);
-          commands.push(this._alignRight(linhaItem, precoStr));
-          
-          // Sabores
-          if (item.sabor1) {
-            commands.push(`   1) ${item.sabor1}\n`);
-          }
-          if (item.sabor2) {
-            commands.push(`   2) ${item.sabor2}\n`);
-          }
-        } else {
-          // Item normal
-          const linhaItem = `${qtd}x ${nome}${tamanho}`;
-          const precoStr = this._formatPrice(subtotal);
-          commands.push(this._alignRight(linhaItem, precoStr));
+        // Detalhes adicionais (tamanho, borda, observação)
+        if (item.tamanho) {
+          commands.push(`   Tam: ${this._formatTamanho(item.tamanho)}\n`);
         }
-
-        // Acréscimos
-        if (acrescimos.length > 0) {
-          acrescimos.forEach(acr => {
-            const nomeAcr = acr.nome || acr.acrescimo_nome || 'Acréscimo';
-            const qtdAcr = parseInt(acr.quantidade) || 1;
-            const precoAcr = parseFloat(acr.preco_unitario || acr.preco || 0);
-            const subtotalAcr = precoAcr * qtdAcr;
-            
-            const linhaAcr = `  + ${qtdAcr}x ${nomeAcr}`;
-            const precoAcrStr = this._formatPrice(subtotalAcr);
-            commands.push(this._alignRight(linhaAcr, precoAcrStr));
-          });
+        
+        if (item.borda && item.borda !== 'sem_borda') {
+          commands.push(`   Borda: ${item.borda}\n`);
         }
-
-        // Observações do item
-        if (item.observacoes && item.observacoes.trim()) {
-          commands.push(`  Obs: ${item.observacoes.trim()}\n`);
+        
+        if (item.observacao) {
+          commands.push(`   Obs: ${item.observacao}\n`);
         }
-
+        
+        // Preço alinhado à direita
+        commands.push(this._alignRight('', this._formatPrice(subtotal)));
         commands.push('\n');
       });
     } else {
-      commands.push('Nenhum item no pedido\n\n');
+      commands.push('Nenhum item encontrado no pedido.\n');
     }
+
+    commands.push(this._line());
 
     // ========================================
     // TOTAIS
     // ========================================
-    commands.push(this._line());
+    const subtotal = orderData.subtotal || 0;
+    const taxaEntrega = orderData.taxa_entrega || 0;
+    const desconto = orderData.desconto || 0;
+    const total = orderData.total || (subtotal + taxaEntrega - desconto);
 
-    // Subtotal
-    const subtotalProdutos = total;
-    commands.push(this._alignRight('Subtotal:', this._formatPrice(subtotalProdutos)));
-
-    // Taxa de entrega
-    const taxaEntrega = parseFloat(orderData.taxa_entrega || 0);
+    commands.push(this._alignRight('Subtotal:', this._formatPrice(subtotal)));
+    
     if (taxaEntrega > 0) {
       commands.push(this._alignRight('Taxa de Entrega:', this._formatPrice(taxaEntrega)));
-      total += taxaEntrega;
     }
-
-    // Total
+    
+    if (desconto > 0) {
+      commands.push(this._alignRight('Desconto:', `-${this._formatPrice(desconto)}`));
+    }
+    
+    commands.push('\n');
     commands.push(ESC + 'E' + '\x01'); // Negrito ON
-    commands.push(this._alignRight('TOTAL:', this._formatPrice(total)));
+    commands.push(ESC + 'a' + '\x02'); // Alinhar à direita
+    commands.push(`TOTAL: ${this._formatPrice(total)}\n`);
+    commands.push(ESC + 'a' + '\x00'); // Alinhar à esquerda
     commands.push(ESC + 'E' + '\x00'); // Negrito OFF
+    
+    commands.push(this._line());
 
-    // Forma de pagamento
-    const formaPagamento = this._formatFormaPagamento(orderData.forma_pagamento);
-    commands.push(`\nPagamento: ${formaPagamento}\n`);
-
-    // Troco (se for dinheiro)
-    if (orderData.forma_pagamento === 'dinheiro' && orderData.troco_para) {
-      const trocoPara = parseFloat(orderData.troco_para);
-      const troco = trocoPara - total;
-      commands.push(`Troco para: ${this._formatPrice(trocoPara)}\n`);
+    // ========================================
+    // PAGAMENTO E OBSERVAÇÕES
+    // ========================================
+    const formaPagamento = orderData.forma_pagamento || orderData.metodo_pagamento;
+    commands.push(`Pagamento: ${this._formatFormaPagamento(formaPagamento)}\n`);
+    
+    if (formaPagamento === 'dinheiro' && orderData.troco_para) {
+      const troco = parseFloat(orderData.troco_para) - parseFloat(total);
       if (troco > 0) {
+        commands.push(`Troco para: ${this._formatPrice(orderData.troco_para)}\n`);
         commands.push(`Troco: ${this._formatPrice(troco)}\n`);
       }
+    }
+
+    if (orderData.observacao) {
+      commands.push('\n');
+      commands.push(ESC + 'E' + '\x01'); // Negrito ON
+      commands.push('OBSERVAÇÕES GERAIS:\n');
+      commands.push(ESC + 'E' + '\x00'); // Negrito OFF
+      commands.push(`${orderData.observacao}\n`);
     }
 
     // ========================================
     // RODAPÉ
     // ========================================
-    commands.push('\n');
-    commands.push(this._line());
+    commands.push('\n\n');
     commands.push(ESC + 'a' + '\x01'); // Centralizar
-    commands.push('Obrigado pela preferencia!\n');
-    commands.push('Volte sempre!\n');
-    commands.push('\n');
-    commands.push('Av. Gago Coutinho, 310\n');
-    commands.push('Santa Maria - Santo Andre - SP\n');
-    commands.push('Tel: (11) 93333-1106\n');
-    commands.push(ESC + 'a' + '\x00'); // Alinhar à esquerda
-
-    // Cortar papel
+    commands.push('Obrigado pela preferência!\n');
+    commands.push('www.esfihariajamal.com.br\n');
     commands.push('\n\n\n');
-    commands.push(GS + 'V' + '\x41' + '\x03'); // Corte parcial
+    
+    // Corte de papel
+    commands.push(GS + 'V' + '\x41' + '\x00'); // Corte total
 
-    return commands.join('');
+    return commands;
   }
 
   /**
-   * Imprime pedido na impressora térmica
+   * Imprime o pedido
    */
-  async printOrder(orderData, printerName = null) {
+  async printOrder(orderData) {
     try {
-      // Conectar ao QZ Tray
-      await this.connect();
-
-      // Definir impressora
-      const printer = printerName || this.printerName || await this.findThermalPrinter();
-
-      // Gerar comandos ESC/POS
-      const escposCommands = this.generateESCPOSCommands(orderData);
-
-      // Configurar impressão
-      const config = qz.configs.create(printer, {
-        encoding: 'UTF-8', // Encoding para caracteres especiais (acentos em português)
-        altPrinting: true  // Modo alternativo para melhor compatibilidade
-      });
-
-      // Enviar para impressora
-      const data = [{
-        type: 'raw',
-        format: 'command',
-        data: escposCommands
-      }];
-
-      await qz.print(config, data);
-
-      console.log('✅ Impressão enviada com sucesso!');
-      
-      return {
-        success: true,
-        message: 'Comanda impressa com sucesso!'
-      };
-    } catch (error) {
-      console.error('❌ Erro ao imprimir:', error);
-      
-      // Mensagem de erro amigável
-      let errorMessage = 'Erro ao imprimir na impressora térmica.';
-      
-      if (error.message.includes('QZ Tray')) {
-        errorMessage = error.message;
-      } else if (error.message.includes('Nenhuma impressora')) {
-        errorMessage = 'Nenhuma impressora térmica encontrada. Verifique se a impressora está conectada e ligada.';
+      // 1. Conectar e encontrar impressora
+      if (!this.printerName) {
+        await this.findThermalPrinter();
+      } else {
+        await this.connect();
       }
 
-      throw new Error(errorMessage);
-    }
-  }
+      if (!this.printerName) {
+        throw new Error('Nenhuma impressora selecionada');
+      }
 
-  /**
-   * Verifica se QZ Tray está disponível
-   */
-  async isAvailable() {
-    try {
-      await this.connect();
+      // 2. Gerar comandos ESC/POS
+      const commands = this.generateESCPOSCommands(orderData);
+
+      // 3. Configurar dados para envio
+      const config = qz.configs.create(this.printerName);
+      
+      // 4. Enviar para impressora
+      console.log(`🖨️ Enviando para impressora: ${this.printerName}`);
+      await qz.print(config, commands);
+      
+      console.log('✅ Impressão enviada com sucesso!');
+      
+      // REMOVIDO: alert('Comanda impressa com sucesso!');
+      
       return true;
     } catch (error) {
-      return false;
+      console.error('❌ Erro na impressão:', error);
+      throw error;
     }
   }
 }
