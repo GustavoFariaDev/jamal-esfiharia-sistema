@@ -22,37 +22,17 @@ class QZTrayService {
   /**
    * Configura a segurança do QZ Tray usando certificado demo
    * 
-   * Esta configuração usa o certificado demo do QZ Tray que já está
-   * instalado localmente, sem necessidade de assinatura do backend.
+   * A configuração de segurança agora está no arquivo sign-message.js
+   * que é carregado no index.html antes do React
    */
   configureSecurity() {
     if (this.securityConfigured) {
       return;
     }
 
-    try {
-      console.log('🔐 Configurando segurança do QZ Tray...');
-      
-      // Usar certificado demo do QZ Tray (já configurado no Site Manager)
-      qz.security.setCertificatePromise(function(resolve, reject) {
-        resolve(); // Usar certificado padrão do QZ Tray
-      });
-
-      // Assinatura vazia (aceita pelo certificado demo)
-      qz.security.setSignatureAlgorithm("SHA512");
-      
-      qz.security.setSignaturePromise(function(toSign) {
-        return function(resolve, reject) {
-          resolve(); // Sem assinatura (modo demo)
-        };
-      });
-
-      this.securityConfigured = true;
-      console.log('✅ Segurança do QZ Tray configurada (modo demo)');
-    } catch (error) {
-      console.error('❌ Erro ao configurar segurança do QZ Tray:', error);
-      throw error;
-    }
+    // A configuração já foi feita pelo sign-message.js
+    console.log('🔐 Segurança do QZ Tray configurada via sign-message.js');
+    this.securityConfigured = true;
   }
 
   /**
