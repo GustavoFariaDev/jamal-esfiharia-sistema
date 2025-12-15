@@ -16,7 +16,6 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   };
 
   // Tabela de taxas de entrega por distância (em km)
-  // Sincronizado com backend/src/services/delivery_fee.py
   const deliveryRates = [
     { maxDistance: 1.5, fee: 3.00, label: '0km a 1,5km' },
     { maxDistance: 2.5, fee: 4.00, label: '1,5km a 2,5km' },
@@ -40,11 +39,8 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   ];
 
   const formatCEP = (value) => {
-    // Remove tudo que não é número
     const numbers = value.replace(/\D/g, '');
-    // Limita a 8 dígitos
     const limited = numbers.slice(0, 8);
-    // Adiciona o hífen após 5 dígitos
     if (limited.length > 5) {
       return `${limited.slice(0, 5)}-${limited.slice(5)}`;
     }
@@ -63,20 +59,17 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     return numbers.length === 8;
   };
 
-  // Função para calcular distância de rota real usando OSRM (Open Source Routing Machine)
+  // Função para calcular distância de rota real usando OSRM
   const calculateRouteDistance = async (lat1, lon1, lat2, lon2) => {
     try {
-      // OSRM espera coordenadas como lon,lat
       const url = `https://router.project-osrm.org/route/v1/driving/${lon1},${lat1};${lon2},${lat2}?overview=false`;
       const response = await fetch(url);
       const data = await response.json();
 
       if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
-        // Distância vem em metros, converter para km
         return data.routes[0].distance / 1000;
       }
       
-      // Fallback para Haversine se a API falhar
       console.warn('OSRM falhou, usando Haversine como fallback');
       return calculateHaversineDistance(lat1, lon1, lat2, lon2);
     } catch (error) {
@@ -85,9 +78,9 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     }
   };
 
-  // Função para calcular distância em linha reta (Haversine) - Fallback
+  // Função para calcular distância em linha reta (Haversine) com fator de correção
   const calculateHaversineDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Raio da Terra em km
+    const R = 6371; 
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = 
@@ -95,62 +88,47 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
       Math.sin(dLon/2) * Math.sin(dLon/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    // Fator de correção de 1.3 para aproximar distância de rota urbana
-    return R * c * 1.3;
+    // Fator de correção aumentado para 1.4 (40% a mais que linha reta) para ser mais seguro
+    return R * c * 1.4;
   };
 
-  // Função para obter coordenadas exatas via Nominatim (OpenStreetMap)
-  const getCoordinates = async (address) => {
-    try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`);
-      const data = await response.json();
-      
-      if (data && data.length > 0) {
-        return {
-          lat: parseFloat(data[0].lat),
-          lng: parseFloat(data[0].lon)
-        };
+  // Função robusta para obter coordenadas via Nominatim com múltiplas tentativas
+  const getCoordinates = async (addressData, cep) => {
+    const strategies = [
+      // 1. Busca exata: Logradouro + Bairro + Cidade + UF
+      `${addressData.logradouro}, ${addressData.bairro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
+      // 2. Busca sem bairro (as vezes o nome do bairro difere): Logradouro + Cidade + UF
+      `${addressData.logradouro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
+      // 3. Busca por CEP direto (Nominatim suporta CEPs estruturados)
+      `${cep}, Brasil`,
+      // 4. Busca por Bairro + Cidade (Fallback para centro do bairro)
+      `${addressData.bairro}, ${addressData.localidade}, ${addressData.uf}, Brasil`
+    ];
+
+    for (const query of strategies) {
+      try {
+        console.log(`Tentando geocodificar: ${query}`);
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`);
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          console.log(`Sucesso com: ${query}`);
+          return {
+            lat: parseFloat(data[0].lat),
+            lng: parseFloat(data[0].lon),
+            precision: query.includes(addressData.logradouro) ? 'high' : 'medium'
+          };
+        }
+      } catch (error) {
+        console.error(`Erro na estratégia "${query}":`, error);
       }
-      return null;
-    } catch (error) {
-      console.error('Erro ao geocodificar endereço:', error);
-      return null;
+      // Pequeno delay para não sobrecarregar a API
+      await new Promise(r => setTimeout(r, 200));
     }
+
+    return null;
   };
 
-  // Função para estimar coordenadas baseado no CEP (aproximação por região)
-  const estimateCoordinatesByCEP = (cep, addressData) => {
-    const cepNum = parseInt(cep.replace(/\D/g, ''));
-    
-    // Se temos dados do ViaCEP com localidade, podemos fazer uma estimativa melhor
-    if (addressData.localidade) {
-      const cidade = addressData.localidade.toLowerCase();
-      
-      // Coordenadas aproximadas de cidades da região
-      const cityCoordinates = {
-        'santo andré': { lat: -23.65, lng: -46.55 },
-        'são paulo': { lat: -23.5505, lng: -46.6333 },
-        'são bernardo do campo': { lat: -23.6914, lng: -46.5650 },
-        'são caetano do sul': { lat: -23.6236, lng: -46.5491 },
-        'diadema': { lat: -23.6858, lng: -46.6228 },
-        'mauá': { lat: -23.6678, lng: -46.4614 },
-        'ribeirão pires': { lat: -23.7083, lng: -46.4133 },
-        'rio grande da serra': { lat: -23.7444, lng: -46.3986 }
-      };
-      
-      if (cityCoordinates[cidade]) {
-        return cityCoordinates[cidade];
-      }
-    }
-    
-    // Fallback genérico
-    return {
-      lat: -23.6631,
-      lng: -46.5292
-    };
-  };
-
-  // Função para calcular tempo estimado baseado na distância
   const calculateEstimatedTime = (distance) => {
     if (distance <= 3) return '20-30 min';
     if (distance <= 6) return '30-40 min';
@@ -160,7 +138,6 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     return '75-90 min';
   };
 
-  // Função para determinar taxa baseada na distância
   const getFeeByDistance = (distance) => {
     for (let rate of deliveryRates) {
       if (distance <= rate.maxDistance) {
@@ -191,19 +168,21 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
         return;
       }
 
-      // 2. Tentar obter coordenadas exatas do endereço
-      const fullAddressSearch = `${data.logradouro}, ${data.bairro}, ${data.localidade}, ${data.uf}, Brasil`;
-      let clientCoords = await getCoordinates(fullAddressSearch);
+      // 2. Obter coordenadas com estratégia robusta
+      let clientCoords = await getCoordinates(data, cep);
 
-      // Se falhar, tentar apenas cidade/bairro
+      // Se falhar totalmente, usar coordenadas fixas da cidade (último recurso)
       if (!clientCoords) {
-        const citySearch = `${data.bairro}, ${data.localidade}, ${data.uf}, Brasil`;
-        clientCoords = await getCoordinates(citySearch);
-      }
-
-      // Se ainda falhar, usar estimativa
-      if (!clientCoords) {
-        clientCoords = estimateCoordinatesByCEP(cepNumbers, data);
+        console.warn('Geocodificação falhou totalmente. Usando centro da cidade.');
+        // Fallback manual para cidades conhecidas
+        const cityCoordinates = {
+          'santo andré': { lat: -23.65, lng: -46.55 },
+          'são caetano do sul': { lat: -23.6236, lng: -46.5491 },
+          'são bernardo do campo': { lat: -23.6914, lng: -46.5650 },
+          'mauá': { lat: -23.6678, lng: -46.4614 }
+        };
+        const city = data.localidade.toLowerCase();
+        clientCoords = cityCoordinates[city] || { lat: -23.6631, lng: -46.5292 }; // Default para restaurante
       }
       
       // 3. Calcular distância real de rota (OSRM)
@@ -214,7 +193,6 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
         clientCoords.lng
       );
 
-      // Determina taxa baseada na distância
       const rateInfo = getFeeByDistance(distance);
       const estimatedTime = calculateEstimatedTime(distance);
 
@@ -227,7 +205,6 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
         time: estimatedTime,
         distance: distance.toFixed(1),
         zone: rateInfo.label,
-        // Dados completos do endereço para preencher formulário
         addressData: {
           logradouro: data.logradouro || '',
           bairro: data.bairro || '',
@@ -238,7 +215,6 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
 
       setDeliveryInfo(info);
       
-      // Notifica o componente pai sobre a taxa calculada E o endereço completo
       if (onDeliveryFeeCalculated) {
         onDeliveryFeeCalculated(info);
       }
@@ -327,8 +303,6 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
           </div>
         </div>
       )}
-
-
     </div>
   );
 };
