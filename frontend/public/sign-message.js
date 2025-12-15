@@ -1,9 +1,22 @@
 /**
- * Assinatura de mensagens para QZ Tray
- * Usando certificado demo gerado localmente
+ * QZ Tray Security Configuration
+ * 
+ * Este arquivo configura a segurança do QZ Tray para impressão térmica.
+ * Ele carrega o certificado demo e configura a assinatura criptográfica.
+ * 
+ * Certificado: Demo do QZ Tray (autoassinado)
+ * Algoritmo: SHA512withRSA
+ * 
+ * IMPORTANTE: Para remover a mensagem "Invalid Certificate", configure:
+ * 1. Arquivo: C:\Users\[USUARIO]\.qz\qz-tray.properties
+ * 2. Adicione: security.allow-untrusted=true
+ * 3. Reinicie o QZ Tray
  */
 
-// Certificado demo do QZ Tray (público)
+// ============================================================================
+// CERTIFICADO DEMO DO QZ TRAY
+// ============================================================================
+
 var CERTIFICATE = "-----BEGIN CERTIFICATE-----\n" +
 "MIIECzCCAvOgAwIBAgIGAZsi+vUCMA0GCSqGSIb3DQEBCwUAMIGiMQswCQYDVQQG\n" +
 "EwJVUzELMAkGA1UECAwCTlkxEjAQBgNVBAcMCUNhbmFzdG90YTEbMBkGA1UECgwS\n" +
