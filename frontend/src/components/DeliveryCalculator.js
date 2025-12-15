@@ -95,25 +95,25 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   const getCoordinates = async (addressData, cep) => {
     // Estratégias de busca ordenadas da mais específica para a mais genérica
     const strategies = [
-      // 1. Logradouro + Bairro + Cidade + UF (Padrão)
+      // 1. Logradouro + Bairro + Cidade + UF (Padrão - Mais preciso)
       {
         query: `${addressData.logradouro}, ${addressData.bairro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
         type: 'exact'
       },
-      // 2. Logradouro + Cidade + UF (Sem bairro - muitas vezes o bairro confunde)
+      // 2. CEP exato (Prioridade alta pois é único e evita ruas homônimas em bairros errados)
+      {
+        query: `${cep}, Brasil`,
+        type: 'cep'
+      },
+      // 3. Logradouro + Cidade + UF (Sem bairro - Fallback perigoso para ruas duplicadas)
       {
         query: `${addressData.logradouro}, ${addressData.localidade}, ${addressData.uf}, Brasil`,
         type: 'street_city'
       },
-      // 3. Apenas Logradouro + Cidade (Sem UF)
+      // 4. Apenas Logradouro + Cidade (Sem UF)
       {
         query: `${addressData.logradouro}, ${addressData.localidade}, Brasil`,
         type: 'street_only'
-      },
-      // 4. CEP exato (Nominatim as vezes acha pelo CEP)
-      {
-        query: `${cep}, Brasil`,
-        type: 'cep'
       }
     ];
 
