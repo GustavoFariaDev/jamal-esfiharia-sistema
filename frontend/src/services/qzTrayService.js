@@ -149,29 +149,72 @@ class QZTrayService {
       'thermal',
       'receipt',
       'pos',
-      'térmica'
+      'térmica',
+      'tm-t20',
+      'tm-t88',
+      'epson'
+    ];
+
+    // Palavras-chave para EXCLUIR (impressoras virtuais/PDF)
+    const excludeKeywords = [
+      'xps',
+      'document writer',
+      'microsoft',
+      'pdf',
+      'onenote',
+      'fax',
+      'send to',
+      'adobe'
     ];
 
     // Procurar impressora térmica
     for (const printer of printers) {
       const printerLower = printer.toLowerCase();
+      
+      // Verificar se NÃO é impressora virtual
+      let isVirtual = false;
+      for (const exclude of excludeKeywords) {
+        if (printerLower.includes(exclude)) {
+          isVirtual = true;
+          break;
+        }
+      }
+      
+      if (isVirtual) {
+        console.log('Ignorando impressora virtual:', printer);
+        continue;
+      }
+      
+      // Verificar se é impressora térmica
       for (const keyword of thermalKeywords) {
         if (printerLower.includes(keyword)) {
           this.printerName = printer;
-          console.log('Impressora térmica encontrada:', printer);
+          console.log('✅ Impressora térmica encontrada:', printer);
           return printer;
         }
       }
     }
 
-    // Se não encontrou, usar a primeira impressora
-    if (printers.length > 0) {
-      this.printerName = printers[0];
-      console.log('Usando primeira impressora:', printers[0]);
-      return printers[0];
+    // Se não encontrou térmica, usar a primeira impressora física (não virtual)
+    for (const printer of printers) {
+      const printerLower = printer.toLowerCase();
+      
+      let isVirtual = false;
+      for (const exclude of excludeKeywords) {
+        if (printerLower.includes(exclude)) {
+          isVirtual = true;
+          break;
+        }
+      }
+      
+      if (!isVirtual) {
+        this.printerName = printer;
+        console.log('⚠️ Usando primeira impressora física:', printer);
+        return printer;
+      }
     }
 
-    throw new Error('Nenhuma impressora encontrada');
+    throw new Error('Nenhuma impressora térmica encontrada. Verifique se a impressora Bematech está conectada e ligada.');
   }
 
   /**
