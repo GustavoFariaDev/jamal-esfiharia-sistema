@@ -63,8 +63,30 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     return numbers.length === 8;
   };
 
-  // Função para calcular distância entre duas coordenadas (fórmula de Haversine)
-  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  // Função para calcular distância de rota real usando OSRM (Open Source Routing Machine)
+  const calculateRouteDistance = async (lat1, lon1, lat2, lon2) => {
+    try {
+      // OSRM espera coordenadas como lon,lat
+      const url = `https://router.project-osrm.org/route/v1/driving/${lon1},${lat1};${lon2},${lat2}?overview=false`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
+        // Distância vem em metros, converter para km
+        return data.routes[0].distance / 1000;
+      }
+      
+      // Fallback para Haversine se a API falhar
+      console.warn('OSRM falhou, usando Haversine como fallback');
+      return calculateHaversineDistance(lat1, lon1, lat2, lon2);
+    } catch (error) {
+      console.error('Erro ao calcular rota OSRM:', error);
+      return calculateHaversineDistance(lat1, lon1, lat2, lon2);
+    }
+  };
+
+  // Função para calcular distância em linha reta (Haversine) - Fallback
+  const calculateHaversineDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Raio da Terra em km
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -73,27 +95,40 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
       Math.sin(dLon/2) * Math.sin(dLon/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    const distance = R * c;
-    return distance;
+    // Fator de correção de 1.3 para aproximar distância de rota urbana
+    return R * c * 1.3;
+  };
+
+  // Função para obter coordenadas exatas via Nominatim (OpenStreetMap)
+  const getCoordinates = async (address) => {
+    try {
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`);
+      const data = await response.json();
+      
+      if (data && data.length > 0) {
+        return {
+          lat: parseFloat(data[0].lat),
+          lng: parseFloat(data[0].lon)
+        };
+      }
+      return null;
+    } catch (error) {
+      console.error('Erro ao geocodificar endereço:', error);
+      return null;
+    }
   };
 
   // Função para estimar coordenadas baseado no CEP (aproximação por região)
   const estimateCoordinatesByCEP = (cep, addressData) => {
     const cepNum = parseInt(cep.replace(/\D/g, ''));
     
-    // Mapeamento aproximado de CEPs da região de São Paulo/ABC
-    // Santo André: 09000-000 a 09999-999
-    // São Paulo (zonas próximas): 01000-000 a 05999-999
-    
     // Se temos dados do ViaCEP com localidade, podemos fazer uma estimativa melhor
     if (addressData.localidade) {
       const cidade = addressData.localidade.toLowerCase();
-      const uf = addressData.uf.toLowerCase();
       
       // Coordenadas aproximadas de cidades da região
-      // Nota: Santo André tem múltiplos bairros, usar coordenada central
       const cityCoordinates = {
-        'santo andré': { lat: -23.65, lng: -46.55 },  // Coordenadas para ~2.6km de distância do restaurante
+        'santo andré': { lat: -23.65, lng: -46.55 },
         'são paulo': { lat: -23.5505, lng: -46.6333 },
         'são bernardo do campo': { lat: -23.6914, lng: -46.5650 },
         'são caetano do sul': { lat: -23.6236, lng: -46.5491 },
@@ -108,28 +143,11 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       }
     }
     
-    // Estimativa por faixa de CEP (São Paulo)
-    if (cepNum >= 1000000 && cepNum <= 5999999) {
-      // Região central de São Paulo - varia de 2 a 8 km
-      const variation = (cepNum % 1000) / 1000;
-      return {
-        lat: -23.5505 + (variation * 0.1 - 0.05),
-        lng: -46.6333 + (variation * 0.1 - 0.05)
-      };
-    } else if (cepNum >= 9000000 && cepNum <= 9099999) {
-      // Santo André - varia de 0.5 a 5 km
-      const variation = (cepNum % 1000) / 1000;
-      return {
-        lat: -23.6631 + (variation * 0.08 - 0.04),
-        lng: -46.5292 + (variation * 0.08 - 0.04)
-      };
-    } else {
-      // Outras regiões - estimativa mais distante
-      return {
-        lat: -23.5505 + ((cepNum % 10000) / 10000 * 0.3 - 0.15),
-        lng: -46.6333 + ((cepNum % 10000) / 10000 * 0.3 - 0.15)
-      };
-    }
+    // Fallback genérico
+    return {
+      lat: -23.6631,
+      lng: -46.5292
+    };
   };
 
   // Função para calcular tempo estimado baseado na distância
@@ -162,7 +180,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     setError('');
 
     try {
-      // Consulta API ViaCEP
+      // 1. Consulta API ViaCEP
       const cepNumbers = cep.replace(/\D/g, '');
       const response = await fetch(`https://viacep.com.br/ws/${cepNumbers}/json/`);
       const data = await response.json();
@@ -173,11 +191,23 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
         return;
       }
 
-      // Estima coordenadas do endereço do cliente
-      const clientCoords = estimateCoordinatesByCEP(cepNumbers, data);
+      // 2. Tentar obter coordenadas exatas do endereço
+      const fullAddressSearch = `${data.logradouro}, ${data.bairro}, ${data.localidade}, ${data.uf}, Brasil`;
+      let clientCoords = await getCoordinates(fullAddressSearch);
+
+      // Se falhar, tentar apenas cidade/bairro
+      if (!clientCoords) {
+        const citySearch = `${data.bairro}, ${data.localidade}, ${data.uf}, Brasil`;
+        clientCoords = await getCoordinates(citySearch);
+      }
+
+      // Se ainda falhar, usar estimativa
+      if (!clientCoords) {
+        clientCoords = estimateCoordinatesByCEP(cepNumbers, data);
+      }
       
-      // Calcula distância entre restaurante e cliente
-      const distance = calculateDistance(
+      // 3. Calcular distância real de rota (OSRM)
+      const distance = await calculateRouteDistance(
         RESTAURANT_ADDRESS.lat,
         RESTAURANT_ADDRESS.lng,
         clientCoords.lat,
@@ -304,4 +334,3 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
 };
 
 export default DeliveryCalculator;
-
