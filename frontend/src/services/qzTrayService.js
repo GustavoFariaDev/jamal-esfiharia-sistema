@@ -34,7 +34,7 @@ class QZTrayService {
     }
 
     try {
-      console.log('🔐 Configurando segurança do QZ Tray com backend...');
+      console.log('🔐 Configurando segurança do QZ Tray...');
       
       // Configurar certificado - buscar do backend
       qz.security.setCertificatePromise(function(resolve, reject) {
@@ -122,7 +122,6 @@ class QZTrayService {
       this.connected = true;
       
       console.log('✅ QZ Tray conectado com sucesso!');
-      console.log('📌 Versão do QZ Tray:', await qz.websocket.getVersion());
       
       return true;
     } catch (error) {
