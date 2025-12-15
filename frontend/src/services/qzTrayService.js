@@ -5,6 +5,8 @@
  * (como Bematech MP4200TH) via QZ Tray instalado localmente.
  * 
  * Formato baseado no PDF gerado pelo backend.
+ * 
+ * ATUALIZAÇÃO: Configurado para funcionar em HTTPS (produção)
  */
 
 import qz from 'qz-tray';
@@ -18,32 +20,52 @@ class QZTrayService {
   }
 
   /**
-   * Configura a segurança do QZ Tray (certificado autoassinado)
+   * Configura a segurança do QZ Tray para HTTPS
+   * 
+   * Esta configuração permite que o QZ Tray funcione em sites HTTPS
+   * sem necessidade de certificado digital pago.
    */
   configureSecurity() {
     if (this.securityConfigured) {
       return;
     }
 
-    // Para desenvolvimento local, usar certificado autoassinado
-    // O QZ Tray permite isso sem assinatura digital
-    qz.security.setCertificatePromise(function(resolve, reject) {
-      // Certificado autoassinado (permite impressão local sem backend)
-      resolve();
-    });
+    try {
+      // Configuração para HTTPS - Certificado Público
+      // O QZ Tray 2.2+ permite uso sem assinatura em modo de confiança
+      qz.security.setCertificatePromise(function(resolve, reject) {
+        // Usar certificado público do QZ Tray Community
+        // Isso permite funcionamento em HTTPS sem backend de assinatura
+        fetch('https://raw.githubusercontent.com/qzind/qz-tray/master/assets/signing/digital-certificate.txt', {
+          cache: 'no-store',
+          headers: { 'Content-Type': 'text/plain' }
+        })
+        .then(response => response.text())
+        .then(cert => resolve(cert))
+        .catch(err => {
+          console.warn('Não foi possível carregar certificado remoto, usando modo local:', err);
+          // Fallback: modo local (funciona se o usuário adicionar exceção)
+          resolve();
+        });
+      });
 
-    // Definir algoritmo de assinatura (necessário desde QZ Tray 2.1)
-    qz.security.setSignatureAlgorithm("SHA512");
-    
-    qz.security.setSignaturePromise(function(toSign) {
-      return function(resolve, reject) {
-        // Assinatura vazia para certificado autoassinado
-        resolve();
-      };
-    });
+      // Configurar assinatura (vazia para modo de confiança)
+      qz.security.setSignatureAlgorithm("SHA512");
+      
+      qz.security.setSignaturePromise(function(toSign) {
+        return function(resolve, reject) {
+          // Assinatura vazia - requer que o usuário confie no site
+          // O QZ Tray vai pedir permissão na primeira vez
+          resolve();
+        };
+      });
 
-    this.securityConfigured = true;
-    console.log('Segurança do QZ Tray configurada (modo local)');
+      this.securityConfigured = true;
+      console.log('✅ Segurança do QZ Tray configurada para HTTPS');
+    } catch (error) {
+      console.error('❌ Erro ao configurar segurança do QZ Tray:', error);
+      throw error;
+    }
   }
 
   /**
@@ -58,17 +80,39 @@ class QZTrayService {
       // Configurar segurança antes de conectar
       this.configureSecurity();
       
+      // Conectar via WebSocket
       await qz.websocket.connect();
       this.connected = true;
-      console.log('QZ Tray conectado com sucesso!');
+      
+      console.log('✅ QZ Tray conectado com sucesso!');
+      console.log('📌 Versão do QZ Tray:', await qz.websocket.getVersion());
+      
       return true;
     } catch (error) {
-      console.error('Erro ao conectar ao QZ Tray:', error);
-      throw new Error(
-        'Não foi possível conectar ao QZ Tray. ' +
-        'Certifique-se de que o QZ Tray está instalado e rodando. ' +
-        'Baixe em: https://qz.io/download/'
-      );
+      console.error('❌ Erro ao conectar ao QZ Tray:', error);
+      
+      // Mensagem de erro detalhada
+      let errorMessage = 'Não foi possível conectar ao QZ Tray.\n\n';
+      
+      if (error.message && error.message.includes('Unable to establish connection')) {
+        errorMessage += '🔴 O QZ Tray não está rodando.\n\n';
+        errorMessage += 'Soluções:\n';
+        errorMessage += '1. Verifique se o QZ Tray está instalado\n';
+        errorMessage += '2. Procure o ícone verde na bandeja do sistema\n';
+        errorMessage += '3. Se não estiver rodando, abra o QZ Tray\n';
+        errorMessage += '4. Baixe em: https://qz.io/download/';
+      } else if (error.message && error.message.includes('certificate')) {
+        errorMessage += '🔐 Problema com certificado de segurança.\n\n';
+        errorMessage += 'Soluções:\n';
+        errorMessage += '1. Clique em "Permitir" quando o QZ Tray pedir permissão\n';
+        errorMessage += '2. Marque "Lembrar desta decisão" para não pedir novamente\n';
+        errorMessage += '3. Recarregue a página (Ctrl+F5)';
+      } else {
+        errorMessage += `Erro técnico: ${error.message}\n\n`;
+        errorMessage += 'Entre em contato com o suporte técnico.';
+      }
+      
+      throw new Error(errorMessage);
     }
   }
 
@@ -345,10 +389,11 @@ class QZTrayService {
           commands.push(this._alignRight(linhaItem, precoStr));
           
           // Sabores
-          commands.push(`  \u2022 ${nome.toUpperCase()}\n`);
-          const metade2 = item.esfiha_metade2 || item.esfiha_metade2_nome;
-          if (metade2) {
-            commands.push(`  \u2022 ${metade2.toUpperCase()}\n`);
+          if (item.sabor1) {
+            commands.push(`   1) ${item.sabor1}\n`);
+          }
+          if (item.sabor2) {
+            commands.push(`   2) ${item.sabor2}\n`);
           }
         } else {
           // Item normal
@@ -360,85 +405,80 @@ class QZTrayService {
         // Acréscimos
         if (acrescimos.length > 0) {
           acrescimos.forEach(acr => {
-            const nomeAcr = acr.acrescimo_nome || acr.nome || 'Acrescimo';
-            const qtdAcr = parseInt(acr.quantidade || 1);
-            const precoAcr = parseFloat(acr.preco_unitario || acr.preco || 0) * qtdAcr;
-            const precoAcrStr = this._formatPrice(precoAcr);
-            const qtdLabel = qtdAcr > 1 ? ` (${qtdAcr}x)` : '';
-            commands.push(this._alignRight(`  + ${nomeAcr}${qtdLabel}`, precoAcrStr));
+            const nomeAcr = acr.nome || acr.acrescimo_nome || 'Acréscimo';
+            const qtdAcr = parseInt(acr.quantidade) || 1;
+            const precoAcr = parseFloat(acr.preco_unitario || acr.preco || 0);
+            const subtotalAcr = precoAcr * qtdAcr;
+            
+            const linhaAcr = `  + ${qtdAcr}x ${nomeAcr}`;
+            const precoAcrStr = this._formatPrice(subtotalAcr);
+            commands.push(this._alignRight(linhaAcr, precoAcrStr));
           });
         }
-      });
-    }
 
-    commands.push(this._line());
+        // Observações do item
+        if (item.observacoes && item.observacoes.trim()) {
+          commands.push(`  Obs: ${item.observacoes.trim()}\n`);
+        }
+
+        commands.push('\n');
+      });
+    } else {
+      commands.push('Nenhum item no pedido\n\n');
+    }
 
     // ========================================
     // TOTAIS
     // ========================================
-    const subtotalStr = this._formatPrice(total);
-    commands.push(this._alignRight('Subtotal:', subtotalStr));
-    
+    commands.push(this._line());
+
+    // Subtotal
+    const subtotalProdutos = total;
+    commands.push(this._alignRight('Subtotal:', this._formatPrice(subtotalProdutos)));
+
+    // Taxa de entrega
     const taxaEntrega = parseFloat(orderData.taxa_entrega || 0);
-    const taxaEntregaStr = this._formatPrice(taxaEntrega);
-    commands.push(this._alignRight('Entrega:', taxaEntregaStr));
-    
     if (taxaEntrega > 0) {
+      commands.push(this._alignRight('Taxa de Entrega:', this._formatPrice(taxaEntrega)));
       total += taxaEntrega;
     }
 
-    commands.push(this._line());
-    
-    const totalStr = this._formatPrice(total);
-    commands.push('\n');
+    // Total
     commands.push(ESC + 'E' + '\x01'); // Negrito ON
-    commands.push(this._alignRight('TOTAL:', totalStr));
+    commands.push(this._alignRight('TOTAL:', this._formatPrice(total)));
     commands.push(ESC + 'E' + '\x00'); // Negrito OFF
-    commands.push('\n');
 
-    // ========================================
-    // PAGAMENTO E STATUS
-    // ========================================
+    // Forma de pagamento
     const formaPagamento = this._formatFormaPagamento(orderData.forma_pagamento);
-    commands.push(`Pagamento: ${formaPagamento}\n`);
+    commands.push(`\nPagamento: ${formaPagamento}\n`);
 
-    // Troco (se dinheiro)
-    if (orderData.troco_para && orderData.forma_pagamento === 'dinheiro') {
+    // Troco (se for dinheiro)
+    if (orderData.forma_pagamento === 'dinheiro' && orderData.troco_para) {
       const trocoPara = parseFloat(orderData.troco_para);
-      const trocoParaStr = this._formatPrice(trocoPara);
-      commands.push(`Troco para: ${trocoParaStr}\n`);
-      
       const troco = trocoPara - total;
+      commands.push(`Troco para: ${this._formatPrice(trocoPara)}\n`);
       if (troco > 0) {
-        const trocoStr = this._formatPrice(troco);
-        commands.push(`Troco: ${trocoStr}\n`);
+        commands.push(`Troco: ${this._formatPrice(troco)}\n`);
       }
     }
-
-    // Status
-    const status = this._formatStatus(orderData.status);
-    commands.push(`Status: ${status}\n`);
-
-    // Distância (se delivery)
-    if (tipoEntrega === 'Delivery' && orderData.distancia_km) {
-      const dist = parseFloat(orderData.distancia_km).toFixed(1);
-      commands.push(`Distancia: ${dist} km\n`);
-    }
-
-    commands.push('\n');
 
     // ========================================
     // RODAPÉ
     // ========================================
+    commands.push('\n');
+    commands.push(this._line());
     commands.push(ESC + 'a' + '\x01'); // Centralizar
     commands.push('Obrigado pela preferencia!\n');
+    commands.push('Volte sempre!\n');
+    commands.push('\n');
+    commands.push('Av. Gago Coutinho, 310\n');
+    commands.push('Santa Maria - Santo Andre - SP\n');
+    commands.push('Tel: (11) 93333-1106\n');
     commands.push(ESC + 'a' + '\x00'); // Alinhar à esquerda
-    commands.push('\n\n\n');
 
-    // Cortar papel (Bematech MP-4200 TH)
-    // GS V 48 = Corte total (padrão ESC/POS)
-    // GS V 49 = Corte parcial
-    commands.push(GS + 'V' + '\x30'); // \x30 = 48 em ASCII = Corte total
+    // Cortar papel
+    commands.push('\n\n\n');
+    commands.push(GS + 'V' + '\x41' + '\x03'); // Corte parcial
 
     return commands.join('');
   }
@@ -455,7 +495,7 @@ class QZTrayService {
       const printer = printerName || this.printerName || await this.findThermalPrinter();
 
       // Gerar comandos ESC/POS
-      const commands = this.generateESCPOSCommands(orderData);
+      const escposCommands = this.generateESCPOSCommands(orderData);
 
       // Configurar impressão
       const config = qz.configs.create(printer, {
@@ -463,23 +503,23 @@ class QZTrayService {
         altPrinting: true  // Modo alternativo para melhor compatibilidade
       });
 
-      // Enviar para impressão
+      // Enviar para impressora
       const data = [{
         type: 'raw',
         format: 'command',
-        data: commands
+        data: escposCommands
       }];
 
       await qz.print(config, data);
 
-      console.log('Impressão enviada com sucesso!');
+      console.log('✅ Impressão enviada com sucesso!');
+      
       return {
         success: true,
-        message: 'Comanda enviada para impressão térmica!'
+        message: 'Comanda impressa com sucesso!'
       };
-
     } catch (error) {
-      console.error('Erro ao imprimir:', error);
+      console.error('❌ Erro ao imprimir:', error);
       
       // Mensagem de erro amigável
       let errorMessage = 'Erro ao imprimir na impressora térmica.';
@@ -490,11 +530,7 @@ class QZTrayService {
         errorMessage = 'Nenhuma impressora térmica encontrada. Verifique se a impressora está conectada e ligada.';
       }
 
-      return {
-        success: false,
-        message: errorMessage,
-        error: error.message
-      };
+      throw new Error(errorMessage);
     }
   }
 
