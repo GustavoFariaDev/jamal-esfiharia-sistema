@@ -236,8 +236,9 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium text-gray-700">
+        <label className="text-sm font-medium text-gray-700 flex justify-between items-center">
           Calcular Taxa de Entrega
+          <span className="text-xs text-green-600 font-bold bg-green-100 px-2 py-0.5 rounded-full">v2.0 (GPS Ativo)</span>
         </label>
         <div className="flex gap-2">
           <div className="flex-1 relative">
