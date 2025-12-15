@@ -266,9 +266,8 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium text-gray-700 flex justify-between items-center">
+        <label className="text-sm font-medium text-gray-700">
           Calcular Taxa de Entrega
-          <span className="text-xs text-blue-600 font-bold bg-blue-100 px-2 py-0.5 rounded-full">v3.0 (Busca Inteligente)</span>
         </label>
         <div className="flex gap-2">
           <div className="flex-1 relative">
@@ -313,11 +312,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
             <div className="flex-1">
               <p className="text-sm text-gray-600 mb-1">Endereço:</p>
               <p className="text-sm font-medium text-gray-800">{deliveryInfo.address}</p>
-              {debugMsg && (
-                <p className="text-xs text-gray-500 mt-1 italic flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3" /> {debugMsg}
-                </p>
-              )}
+              
             </div>
           </div>
           
