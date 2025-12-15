@@ -10,8 +10,8 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
 
   // Endereço base do restaurante
   const RESTAURANT_ADDRESS = {
-    lat: -23.6631, // Coordenadas aproximadas de Santo André
-    lng: -46.5292,
+    lat: -23.6483853, // Coordenadas EXATAS da Av. Gago Coutinho, 310
+    lng: -46.5554242,
     address: 'Av. Gago Coutinho, 310 - Santa Maria, Santo André - SP',
     cep: '09070-000'
   };
