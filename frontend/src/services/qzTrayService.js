@@ -6,13 +6,10 @@
  * 
  * Formato baseado no PDF gerado pelo backend.
  * 
- * ATUALIZAÇÃO: Configurado para funcionar em HTTPS com assinatura via backend
+ * ATUALIZAÇÃO: Usando certificado demo do QZ Tray (sem assinatura)
  */
 
 import qz from 'qz-tray';
-
-// URL base da API (ajusta automaticamente para produção ou desenvolvimento)
-const API_BASE_URL = process.env.REACT_APP_API_URL || window.location.origin;
 
 class QZTrayService {
   constructor() {
@@ -23,10 +20,10 @@ class QZTrayService {
   }
 
   /**
-   * Configura a segurança do QZ Tray para HTTPS com assinatura via backend
+   * Configura a segurança do QZ Tray usando certificado demo
    * 
-   * Esta configuração usa o backend para assinar requisições,
-   * eliminando a necessidade de permissão manual do usuário.
+   * Esta configuração usa o certificado demo do QZ Tray que já está
+   * instalado localmente, sem necessidade de assinatura do backend.
    */
   configureSecurity() {
     if (this.securityConfigured) {
@@ -36,69 +33,22 @@ class QZTrayService {
     try {
       console.log('🔐 Configurando segurança do QZ Tray...');
       
-      // Configurar certificado - buscar do backend
+      // Usar certificado demo do QZ Tray (já configurado no Site Manager)
       qz.security.setCertificatePromise(function(resolve, reject) {
-        // Buscar certificado do backend
-        fetch(`${API_BASE_URL}/api/qz/certificate`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'text/plain'
-          }
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Erro ao buscar certificado: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then(cert => {
-          console.log('✅ Certificado carregado do backend');
-          resolve(cert);
-        })
-        .catch(err => {
-          console.error('❌ Erro ao carregar certificado:', err);
-          reject(err);
-        });
+        resolve(); // Usar certificado padrão do QZ Tray
       });
 
-      // Configurar assinatura - usar backend para assinar
+      // Assinatura vazia (aceita pelo certificado demo)
       qz.security.setSignatureAlgorithm("SHA512");
       
       qz.security.setSignaturePromise(function(toSign) {
         return function(resolve, reject) {
-          // Enviar para backend assinar
-          fetch(`${API_BASE_URL}/api/qz/sign`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              request: toSign
-            })
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`Erro ao assinar requisição: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            if (data.success && data.signature) {
-              console.log('✅ Requisição assinada pelo backend');
-              resolve(data.signature);
-            } else {
-              throw new Error(data.error || 'Erro ao assinar requisição');
-            }
-          })
-          .catch(err => {
-            console.error('❌ Erro ao assinar requisição:', err);
-            reject(err);
-          });
+          resolve(); // Sem assinatura (modo demo)
         };
       });
 
       this.securityConfigured = true;
-      console.log('✅ Segurança do QZ Tray configurada com backend');
+      console.log('✅ Segurança do QZ Tray configurada (modo demo)');
     } catch (error) {
       console.error('❌ Erro ao configurar segurança do QZ Tray:', error);
       throw error;
@@ -140,10 +90,9 @@ class QZTrayService {
       } else if (error.message && (error.message.includes('certificate') || error.message.includes('certificado'))) {
         errorMessage += '🔐 Problema com certificado de segurança.\n\n';
         errorMessage += 'Soluções:\n';
-        errorMessage += '1. Verifique se o backend está rodando\n';
-        errorMessage += '2. Recarregue a página (Ctrl+F5)\n';
-        errorMessage += '3. Limpe o cache do navegador\n';
-        errorMessage += '4. Entre em contato com o suporte';
+        errorMessage += '1. Abra o QZ Tray Site Manager (botão direito → Advanced → Site Manager)\n';
+        errorMessage += '2. Adicione o site à whitelist\n';
+        errorMessage += '3. Recarregue a página (Ctrl+F5)';
       } else {
         errorMessage += `Erro técnico: ${error.message}\n\n`;
         errorMessage += 'Entre em contato com o suporte técnico.';
