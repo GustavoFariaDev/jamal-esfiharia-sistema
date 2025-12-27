@@ -961,8 +961,7 @@ const FullMenu = () => {
                           value={customerInfo.numero || ''}
                           onChange={(e) => setCustomerInfo({...customerInfo, numero: e.target.value})}
                           placeholder="Número da residência"
-                          disabled={!customerInfo.cep || customerInfo.cep.length < 9}
-                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
                         />
                       </div>
 
@@ -971,11 +970,10 @@ const FullMenu = () => {
                         <label className="block text-sm font-semibold text-gray-700 mb-1">Complemento</label>
                         <input
                           type="text"
-                          value={customerInfo.complement}
+                          value={customerInfo.complement || ''}
                           onChange={(e) => setCustomerInfo({...customerInfo, complement: e.target.value})}
                           placeholder="Apto, Bloco, etc"
-                          disabled={!customerInfo.cep || customerInfo.cep.length < 9}
-                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
                         />
                       </div>
                     </>
