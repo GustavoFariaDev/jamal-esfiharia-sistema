@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Package, Clock, CheckCircle, Truck, XCircle, Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { formatarPreco } from '../utils/formato';
 
 const ConsultarStatus = () => {
   const navigate = useNavigate();
@@ -183,7 +184,7 @@ const ConsultarStatus = () => {
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold text-gray-900">📦 Consultar Status do Pedido</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Consultar status do pedido</h1>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate('/')}
@@ -275,7 +276,7 @@ const ConsultarStatus = () => {
                         <div className="text-right">
                           <p className="text-sm text-gray-600">Valor Total</p>
                           <p className="text-xl font-bold text-green-600">
-                            R$ {pedido.valor_total.toFixed(2)}
+                            {formatarPreco(pedido.valor_total)}
                           </p>
                         </div>
                       </div>
@@ -286,7 +287,7 @@ const ConsultarStatus = () => {
                       <div className="mb-4">
                         <p className="text-sm text-gray-600 mb-1">Tipo de Entrega:</p>
                         <p className="font-semibold text-gray-900">
-                          {pedido.forma_entrega === 'entrega' ? '🚚 Entrega' : '🏪 Retirada no Local'}
+                          {pedido.forma_entrega === 'entrega' ? 'Entrega' : 'Retirada no local'}
                         </p>
                       </div>
 
@@ -304,10 +305,10 @@ const ConsultarStatus = () => {
                               </div>
                               <div className="text-right">
                                 <p className="text-sm text-gray-600">
-                                  {item.quantidade}x R$ {item.preco_unitario.toFixed(2)}
+                                  {item.quantidade}x {formatarPreco(item.preco_unitario)}
                                 </p>
                                 <p className="font-semibold text-gray-900">
-                                  R$ {item.subtotal.toFixed(2)}
+                                  {formatarPreco(item.subtotal)}
                                 </p>
                               </div>
                             </div>

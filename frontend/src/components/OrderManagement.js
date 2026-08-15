@@ -53,7 +53,7 @@ const OrderManagement = () => {
       setNewOrdersCount(newCount);
       
       // Mostrar notificação
-      info(`🔔 ${newCount} novo${newCount > 1 ? 's' : ''} pedido${newCount > 1 ? 's' : ''}!`);
+      info(`${newCount} novo${newCount > 1 ? 's' : ''} pedido${newCount > 1 ? 's' : ''}!`);
       
       // Tocar som de notificação (opcional)
       if ('Notification' in window && Notification.permission === 'granted') {

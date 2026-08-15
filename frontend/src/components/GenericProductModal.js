@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { formatarPreco } from '../utils/formato';
 
 const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
   const [selectedExtras, setSelectedExtras] = useState([]);
@@ -150,7 +151,7 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
                             <div className={`text-sm font-bold ${
                               isBatata ? 'text-green-600' : 'text-red-600'
                             }`}>
-                              {isBatata ? 'Incluído' : `+ R$ ${extra.preco.toFixed(2)}`}
+                              {isBatata ? 'Incluído' : `+ ${formatarPreco(extra.preco)}`}
                             </div>
                           </div>
                           <div className={`w-5 h-5 ${isBatata ? 'rounded-full' : 'rounded'} border-2 flex items-center justify-center ${
@@ -198,12 +199,12 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">{product.name}</span>
-                  <span className="font-semibold">R$ {(product.price || product.preco).toFixed(2)}</span>
+                  <span className="font-semibold">{formatarPreco((product.price || product.preco))}</span>
                 </div>
                 {selectedExtras.map((extra) => (
                   <div key={extra.id} className="flex justify-between text-gray-600">
                     <span>+ {extra.nome}</span>
-                    <span>R$ {extra.preco.toFixed(2)}</span>
+                    <span>{formatarPreco(extra.preco)}</span>
                   </div>
                 ))}
                 {quantity > 1 && (
@@ -222,7 +223,7 @@ const GenericProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
           <div className="flex items-center justify-between mb-4">
             <span className="text-gray-600">Total:</span>
             <span className="text-3xl font-bold text-red-600">
-              R$ {calculateTotalPrice().toFixed(2)}
+              {formatarPreco(calculateTotalPrice())}
             </span>
           </div>
           <button

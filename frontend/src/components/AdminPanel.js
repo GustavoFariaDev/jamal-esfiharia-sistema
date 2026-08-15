@@ -7,6 +7,7 @@ import { useToastContext } from '../contexts/ToastContext';
 import ConfirmModal from './ConfirmModal';
 import RestaurantStatusControl from '../pages/admin/RestaurantStatusControl';
 import OrderManagement from './OrderManagement';
+import { formatarPreco } from '../utils/formato';
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -773,7 +774,7 @@ const AdminPanel = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-gray-600">Valor Total de Pedidos</p>
-                      <p className="text-3xl font-bold text-green-600">R$ {stats.valorTotal.toFixed(2)}</p>
+                      <p className="text-3xl font-bold text-green-600">{formatarPreco(stats.valorTotal)}</p>
                     </div>
                     <BarChart3 className="w-12 h-12 text-green-500" />
                   </div>
@@ -793,7 +794,7 @@ const AdminPanel = () => {
                           <p className="text-sm text-gray-600">{order.nome_cliente}</p>
                         </div>
                         <div className="text-right">
-                          <p className="font-bold text-green-600">R$ {order.valor_total?.toFixed(2)}</p>
+                          <p className="font-bold text-green-600">{formatarPreco(order.valor_total)}</p>
                           <p className="text-xs text-gray-500">{order.status}</p>
                         </div>
                       </div>
@@ -893,7 +894,7 @@ const AdminPanel = () => {
                                 </p>
                                 <div className="flex items-center gap-3 mt-2">
                                   <span className="text-lg font-bold text-red-600">
-                                    R$ {product.preco.toFixed(2)}
+                                    {formatarPreco(product.preco)}
                                   </span>
                                   <button
                                     onClick={() => handleToggleAvailability(product.id, product.disponivel)}
@@ -991,7 +992,7 @@ const AdminPanel = () => {
                                         </p>
                                         <div className="flex items-center gap-3 mt-2">
                                           <span className="text-lg font-bold text-red-600">
-                                            R$ {product.preco.toFixed(2)}
+                                            {formatarPreco(product.preco)}
                                           </span>
                                           <button
                                             onClick={() => handleToggleAvailability(product.id, product.disponivel)}
@@ -1218,14 +1219,14 @@ const AdminPanel = () => {
                       disabled={loading}
                       className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
                     >
-                      📄 Teste PDF
+                      Teste PDF
                     </button>
                     <button
                       onClick={() => handleTestPrint('both')}
                       disabled={loading}
                       className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
                     >
-                      🖨️📄 Ambos
+                      Ambos
                     </button>
                   </div>
                 </div>
@@ -1238,7 +1239,7 @@ const AdminPanel = () => {
                       onClick={fetchPrinters}
                       className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
                     >
-                      🔄 Atualizar Lista
+                      Atualizar lista
                     </button>
                   </div>
                   
@@ -1257,7 +1258,7 @@ const AdminPanel = () => {
 
                 {/* Informações */}
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">ℹ️ Informações</h4>
+                  <h4 className="font-semibold text-blue-900 mb-2">Informações</h4>
                   <ul className="text-sm text-blue-800 space-y-1">
                     <li>• A impressão térmica envia direto para a impressora configurada</li>
                     <li>• A geração de PDF cria um arquivo para download</li>

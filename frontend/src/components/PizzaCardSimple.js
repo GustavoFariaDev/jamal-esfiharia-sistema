@@ -1,6 +1,17 @@
 import React from 'react';
+import { formatarPreco } from '../utils/formato';
 
 const PizzaCardSimple = ({ item, onImageError, onClick }) => {
+  // Produto sem foto ganha um bloco discreto com a inicial, nao um vazio.
+  //
+  // O card apontava para https://via.placeholder.com/400x300, servico externo
+  // que nao responde mais: a imagem falhava e sobrava um retangulo BRANCO de
+  // 192px em cada produto sem foto. No celular isso e um terco da tela por
+  // item, e o card parece quebrado. O desenho agora e local — nada a carregar,
+  // nada para dar errado — e ocupa menos altura.
+  const [imagemFalhou, setImagemFalhou] = React.useState(false);
+  const temImagem = Boolean(item.imagem_url) && !imagemFalhou;
+  const inicial = (item.name || '?').trim().charAt(0).toUpperCase();
   // Verificar se é pizza
   const isPizza = item.category && (
     item.category.toLowerCase().includes('pizza') ||
@@ -27,12 +38,27 @@ const PizzaCardSimple = ({ item, onImageError, onClick }) => {
     >
       {/* Imagem */}
       <div className="relative">
-        <img
-          src={item.imagem_url || 'https://via.placeholder.com/400x300?text=Sem+Imagem'}
-          alt={item.name}
-          onError={onImageError}
-          className="w-full h-48 object-cover"
-        />
+        {temImagem ? (
+          <img
+            src={item.imagem_url}
+            alt={item.name}
+            onError={(e) => {
+              setImagemFalhou(true);
+              if (onImageError) onImageError(e);
+            }}
+            className="w-full h-48 object-cover"
+          />
+        ) : (
+          <div
+            className="w-full h-28 flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, #FEF3E2 0%, #FDE8D7 100%)' }}
+            aria-hidden="true"
+          >
+            <span className="text-4xl font-bold" style={{ color: jamalColors.secondary, opacity: 0.55 }}>
+              {inicial}
+            </span>
+          </div>
+        )}
         {/* Badge de categoria */}
         <div 
           className="absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold text-white shadow-lg"
@@ -60,19 +86,19 @@ const PizzaCardSimple = ({ item, onImageError, onClick }) => {
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-600">Broto:</span>
               <span className="font-bold" style={{ color: jamalColors.primary }}>
-                R$ {(item.preco_broto || 0).toFixed(2)}
+                {formatarPreco((item.preco_broto || item.price || item.preco || 0))}
               </span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-600">Média:</span>
               <span className="font-bold" style={{ color: jamalColors.primary }}>
-                R$ {(item.preco_media || 0).toFixed(2)}
+                {formatarPreco((item.preco_media || item.price || item.preco || 0))}
               </span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-600">Grande:</span>
               <span className="font-bold text-lg" style={{ color: jamalColors.primary }}>
-                R$ {(item.preco_grande || 0).toFixed(2)}
+                {formatarPreco((item.preco_grande || item.price || item.preco || 0))}
               </span>
             </div>
           </div>
@@ -81,20 +107,20 @@ const PizzaCardSimple = ({ item, onImageError, onClick }) => {
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-600">Pequena:</span>
               <span className="font-bold" style={{ color: jamalColors.secondary }}>
-                R$ {(item.preco_media || 0).toFixed(2)}
+                {formatarPreco((item.preco_media || item.price || item.preco || 0))}
               </span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-600">Grande:</span>
               <span className="font-bold text-lg" style={{ color: jamalColors.secondary }}>
-                R$ {(item.preco_grande || 0).toFixed(2)}
+                {formatarPreco((item.preco_grande || item.price || item.preco || 0))}
               </span>
             </div>
           </div>
         ) : (
           <div className="mb-3">
             <span className="text-2xl font-bold" style={{ color: jamalColors.primary }}>
-              R$ {(item.price || 0).toFixed(2)}
+              {formatarPreco((item.price || 0))}
             </span>
           </div>
         )}
@@ -111,7 +137,7 @@ const PizzaCardSimple = ({ item, onImageError, onClick }) => {
               background: `linear-gradient(135deg, ${jamalColors.secondary} 0%, ${jamalColors.primary} 100%)`
             }}
           >
-            🍕 Ver Opções
+            Ver opções
           </button>
         ) : (
           <button

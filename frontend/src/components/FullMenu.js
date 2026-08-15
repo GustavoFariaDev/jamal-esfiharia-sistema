@@ -12,6 +12,7 @@ import GenericProductModal from './GenericProductModal'; // ✅ NOVO: Importar G
 import BeiruteModal from './BeiruteModal'; // ✅ NOVO: Importar BeiruteModal
 import apiService from '../services/apiService';
 import { useToastContext } from '../contexts/ToastContext';
+import { formatarPreco } from '../utils/formato';
 
 const FullMenu = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -399,42 +400,42 @@ const FullMenu = () => {
 
     // Validar nome
     if (!customerInfo.name.trim()) {
-      warning('❌ Nome é obrigatório');
+      warning('Nome é obrigatório');
       return false;
     }
 
     // Validar telefone
     if (!customerInfo.phone.trim()) {
-      warning('❌ Telefone é obrigatório');
+      warning('Telefone é obrigatório');
       return false;
     }
     
     // Validar formato do telefone (deve ter 11 dígitos)
     const phoneDigits = customerInfo.phone.replace(/\D/g, '');
     if (phoneDigits.length < 10 || phoneDigits.length > 11) {
-      warning('❌ Telefone inválido. Use o formato: (11) 98765-4321');
+      warning('Telefone inválido. Use o formato: (11) 98765-4321');
       return false;
     }
 
     // Validações específicas para entrega
     if (deliveryType === 'entrega') {
       if (!customerInfo.cep || customerInfo.cep.trim().length < 9) {
-        warning('❌ CEP é obrigatório para entrega. Formato: 12345-678');
+        warning('CEP é obrigatório para entrega. Formato: 12345-678');
         return false;
       }
 
       if (!customerInfo.address.trim()) {
-        warning('❌ Endereço é obrigatório. Clique em "Calcular" no CEP para preencher automaticamente');
+        warning('Endereço é obrigatório. Clique em "Calcular" no CEP para preencher automaticamente');
         return false;
       }
 
       if (!customerInfo.numero || !customerInfo.numero.trim()) {
-        warning('❌ Número da residência é obrigatório');
+        warning('Número da residência é obrigatório');
         return false;
       }
 
       if (!deliveryInfo) {
-        warning('❌ Calcule a taxa de entrega clicando no botão "Calcular" ao lado do CEP');
+        warning('Calcule a taxa de entrega clicando no botão "Calcular" ao lado do CEP');
         return false;
       }
     }
@@ -589,7 +590,10 @@ const FullMenu = () => {
   };
 
   const handleImageError = (e) => {
-    e.target.src = 'https://via.placeholder.com/400x300?text=Sem+Imagem';
+    // Esconde a imagem quebrada e deixa o card mostrar o proprio desenho de
+    // reserva. Antes trocava por via.placeholder.com, servico externo fora do
+    // ar: a segunda imagem falhava tambem e sobrava um bloco branco.
+    e.target.style.display = 'none';
   };
 
   // ✅ NOVO: Se a loja estiver fechada, mostrar mensagem e bloquear acesso
@@ -610,8 +614,7 @@ const FullMenu = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto mt-20">
             <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center border-4 border-red-500">
-              <div className="text-6xl mb-6">🚪</div>
-              <h1 className="text-3xl md:text-4xl font-bold text-red-600 mb-4">
+                            <h1 className="text-3xl md:text-4xl font-bold text-red-600 mb-4">
                 Restaurante Fechado
               </h1>
               <p className="text-gray-700 text-lg mb-6">
@@ -652,7 +655,7 @@ const FullMenu = () => {
                 </div>
               )}
               <p className="text-gray-500 text-sm">
-                Aguardamos sua visita! 😊
+                Aguardamos sua visita.
               </p>
             </div>
           </div>
@@ -673,9 +676,9 @@ const FullMenu = () => {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}>
-            🍕 Cardápio Jamal Esfiharia
+            Cardápio
           </h1>
-          <p className="text-gray-600 text-lg">Escolha suas delícias favoritas e faça seu pedido!</p>
+          <p className="text-gray-600 text-lg">Escolha seus itens e faça o pedido.</p>
         </div>
 
         {/* Filtros */}
@@ -687,7 +690,7 @@ const FullMenu = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="Buscar esfihas..."
+                  placeholder="Buscar no cardápio..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-red-600 focus:border-transparent"
@@ -702,7 +705,7 @@ const FullMenu = () => {
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-red-600 focus:border-transparent appearance-none"
                 >
-                  <option value="all">Todas as Categorias</option>
+                  <option value="all">Todas as categorias</option>
                   {categories.map((cat) => (
                     <option key={cat.id || cat} value={(cat.name || cat).toLowerCase()}>{cat.name || cat}</option>
                   ))}
@@ -780,7 +783,7 @@ const FullMenu = () => {
               {/* Header */}
               <div className="sticky top-0 bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 flex items-center justify-between z-10">
                 <div>
-                  <h2 className="text-2xl font-bold">🛒 Carrinho</h2>
+                  <h2 className="text-2xl font-bold">Carrinho</h2>
                   <p className="text-red-100 text-sm">{getCartItemCount()} {getCartItemCount() === 1 ? 'item' : 'itens'}</p>
                 </div>
                 <button
@@ -827,8 +830,8 @@ const FullMenu = () => {
                         </button>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-gray-600">R$ {item.price.toFixed(2)} cada</p>
-                        <p className="text-lg font-bold text-red-600">R$ {(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="text-sm text-gray-600">{formatarPreco(item.price)} cada</p>
+                        <p className="text-lg font-bold text-red-600">{formatarPreco((item.price * item.quantity))}</p>
                       </div>
                     </div>
                   </div>
@@ -837,7 +840,7 @@ const FullMenu = () => {
 
               {/* Tipo de Entrega */}
               <div className="px-6 pb-4 border-b border-gray-200">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">🚚 Tipo de Entrega</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Tipo de entrega</h3>
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={() => setDeliveryType('entrega')}
@@ -847,7 +850,7 @@ const FullMenu = () => {
                         : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-red-400'
                     }`}
                   >
-                    📍 Entrega em Casa
+                    Entrega em casa
                   </button>
                   <button
                     onClick={() => setDeliveryType('retirada')}
@@ -857,7 +860,7 @@ const FullMenu = () => {
                         : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-green-400'
                     }`}
                   >
-                    🏪 Retirada no Local
+                    Retirada no local
                   </button>
                 </div>
 
@@ -871,7 +874,7 @@ const FullMenu = () => {
 
               {/* Dados do Cliente */}
               <div className="px-6 pb-4">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">👤 Dados do Cliente</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Dados do cliente</h3>
                 <div className="space-y-3">
                   {/* Nome */}
                   <div>
@@ -925,13 +928,12 @@ const FullMenu = () => {
                       className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
                     />
                     {isLoadingHistory && (
-                      <p className="text-sm text-gray-500 mt-1">🔄 Buscando histórico...</p>
+                      <p className="text-sm text-gray-500 mt-1">Buscando histórico...</p>
                     )}
                     {customerHistory && (
                       <div className="mt-2 p-3 bg-green-50 border-2 border-green-300 rounded-lg">
                         <p className="text-sm text-green-900 font-semibold flex items-center gap-2">
-                          <span className="text-xl">✅</span>
-                          Cliente cadastrado! {customerHistory.total_pedidos} pedido(s) anterior(es)
+                                                    Cliente cadastrado! {customerHistory.total_pedidos} pedido(s) anterior(es)
                         </p>
                       </div>
                     )}
@@ -983,8 +985,7 @@ const FullMenu = () => {
                   {deliveryType === 'retirada' && (
                     <div className="p-4 bg-green-50 border-2 border-green-300 rounded-lg">
                       <p className="text-sm text-green-900 font-semibold flex items-center gap-2">
-                        <span className="text-xl">🏪</span>
-                        Você escolheu retirar no local. Não é necessário informar endereço.
+                                                Você escolheu retirar no local. Não é necessário informar endereço.
                       </p>
                     </div>
                   )}
@@ -994,8 +995,7 @@ const FullMenu = () => {
                     <label className="block text-sm font-semibold text-gray-700 mb-1">Forma de Pagamento *</label>
                     <div className="mb-2 p-3 bg-blue-50 border-2 border-blue-300 rounded-lg">
                       <p className="text-sm text-blue-900 font-semibold flex items-center gap-2">
-                        <span className="text-xl">💵</span>
-                        O pagamento será feito com o motoboy na entrega
+                                                O pagamento será feito com o motoboy na entrega
                       </p>
                     </div>
                     <select
@@ -1043,17 +1043,17 @@ const FullMenu = () => {
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-gray-700">
                     <span>Subtotal:</span>
-                    <span className="font-semibold">R$ {getCartSubtotal().toFixed(2)}</span>
+                    <span className="font-semibold">{formatarPreco(getCartSubtotal())}</span>
                   </div>
                   {deliveryInfo && (
                     <div className="flex justify-between text-gray-700">
                       <span>Taxa de entrega:</span>
-                      <span className="font-semibold">R$ {deliveryInfo.fee.toFixed(2)}</span>
+                      <span className="font-semibold">{formatarPreco(deliveryInfo.fee)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-xl font-bold text-gray-900 pt-2 border-t border-gray-300">
                     <span>Total:</span>
-                    <span className="text-red-600">R$ {getCartTotal().toFixed(2)}</span>
+                    <span className="text-red-600">{formatarPreco(getCartTotal())}</span>
                   </div>
                 </div>
 

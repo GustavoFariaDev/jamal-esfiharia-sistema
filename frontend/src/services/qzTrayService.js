@@ -11,6 +11,7 @@
 
 import qz from 'qz-tray';
 import { KJUR, KEYUTIL, stob64, hextorstr } from 'jsrsasign';
+import { formatarPreco } from '../utils/formato';
 
 // ============================================================================
 // CERTIFICADO DEMO DO QZ TRAY
@@ -142,14 +143,14 @@ class QZTrayService {
       let errorMessage = 'Não foi possível conectar ao QZ Tray.\n\n';
       
       if (error.message && error.message.includes('Unable to establish connection')) {
-        errorMessage += '🔴 O QZ Tray não está rodando.\n\n';
+        errorMessage += 'O QZ Tray não está rodando.\n\n';
         errorMessage += 'Soluções:\n';
         errorMessage += '1. Verifique se o QZ Tray está instalado\n';
         errorMessage += '2. Procure o ícone verde na bandeja do sistema\n';
         errorMessage += '3. Se não estiver rodando, abra o QZ Tray\n';
         errorMessage += '4. Baixe em: https://qz.io/download/';
       } else if (error.message && (error.message.includes('certificate') || error.message.includes('certificado'))) {
-        errorMessage += '🔐 Problema com certificado de segurança.\n\n';
+        errorMessage += 'Problema com certificado de segurança.\n\n';
         errorMessage += 'Soluções:\n';
         errorMessage += '1. Abra o QZ Tray Site Manager (botão direito → Advanced → Site Manager)\n';
         errorMessage += '2. Adicione o site à whitelist\n';
@@ -304,7 +305,7 @@ class QZTrayService {
    * Formata preço
    */
   _formatPrice(value) {
-    return `R$ ${parseFloat(value).toFixed(2)}`;
+    return `${formatarPreco(parseFloat(value))}`;
   }
 
   /**

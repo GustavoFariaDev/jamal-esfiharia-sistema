@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import ExtrasSelector from './ExtrasSelector';
+import { formatarPreco } from '../utils/formato';
 
 const PizzaCard = ({ item, onAddToCart, onImageError, onHalfAndHalf, allPizzas }) => {
   const [selectedSize, setSelectedSize] = useState('grande');
@@ -117,7 +118,7 @@ const PizzaCard = ({ item, onAddToCart, onImageError, onHalfAndHalf, allPizzas }
             {/* ==================== SELETOR DE TAMANHO ==================== */}
             <div className="mb-4 bg-yellow-50 border-2 border-yellow-400 rounded-lg p-3">
               <label className="block text-sm font-bold text-gray-900 mb-2">
-                🔘 Escolha o tamanho:
+                Escolha o tamanho:
               </label>
               <div className="space-y-2">
                 {['broto', 'media', 'grande'].map((size) => {
@@ -145,7 +146,7 @@ const PizzaCard = ({ item, onAddToCart, onImageError, onHalfAndHalf, allPizzas }
                         </span>
                       </div>
                       <span className="text-lg font-bold text-red-600">
-                        R$ {sizePrice.toFixed(2)}
+                        {formatarPreco(sizePrice)}
                       </span>
                     </label>
                   );
@@ -163,7 +164,7 @@ const PizzaCard = ({ item, onAddToCart, onImageError, onHalfAndHalf, allPizzas }
                   <circle cx="12" cy="12" r="9" strokeWidth="2"/>
                   <line x1="12" y1="3" x2="12" y2="21" strokeWidth="2"/>
                 </svg>
-                🍕 Montar Pizza Meio a Meio
+                Montar pizza meio a meio
               </button>
             )}
             
@@ -182,7 +183,7 @@ const PizzaCard = ({ item, onAddToCart, onImageError, onHalfAndHalf, allPizzas }
               className="w-full bg-green-600 text-white px-4 py-4 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2 font-bold text-base shadow-md hover:shadow-lg"
             >
               <Plus className="w-6 h-6" />
-              Adicionar ao Carrinho - R$ {getCurrentPrice().toFixed(2)}
+              Adicionar ao Carrinho - {formatarPreco(getCurrentPrice())}
             </button>
           </>
         ) : (
@@ -201,7 +202,7 @@ const PizzaCard = ({ item, onAddToCart, onImageError, onHalfAndHalf, allPizzas }
             
             <div className="flex items-center justify-between">
               <span className="text-2xl font-bold text-red-600">
-                R$ {getCurrentPrice().toFixed(2)}
+                {formatarPreco(getCurrentPrice())}
               </span>
               <button
                 onClick={handleAddToCart}

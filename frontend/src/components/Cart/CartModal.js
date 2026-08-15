@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Plus, Minus, Trash2 } from 'lucide-react';
 import DeliveryCalculator from '../DeliveryCalculator';
+import { formatarPreco } from '../../utils/formato';
 
 /**
  * Modal do Carrinho de Compras
@@ -36,7 +37,7 @@ const CartModal = ({
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 flex items-center justify-between z-10">
           <div>
-            <h2 className="text-2xl font-bold">🛒 Carrinho</h2>
+            <h2 className="text-2xl font-bold">Carrinho</h2>
             <p className="text-red-100 text-sm">{getCartItemCount()} {getCartItemCount() === 1 ? 'item' : 'itens'}</p>
           </div>
           <button
@@ -83,8 +84,8 @@ const CartModal = ({
                   </button>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-gray-600">R$ {item.price.toFixed(2)} cada</p>
-                  <p className="text-lg font-bold text-red-600">R$ {(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="text-sm text-gray-600">{formatarPreco(item.price)} cada</p>
+                  <p className="text-lg font-bold text-red-600">{formatarPreco((item.price * item.quantity))}</p>
                 </div>
               </div>
             </div>
@@ -93,7 +94,7 @@ const CartModal = ({
 
         {/* Tipo de Entrega */}
         <div className="px-6 pb-4 border-b border-gray-200">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">🚚 Tipo de Entrega</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Tipo de entrega</h3>
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={() => setDeliveryType('entrega')}
@@ -103,7 +104,7 @@ const CartModal = ({
                   : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-red-400'
               }`}
             >
-              📍 Entrega em Casa
+              Entrega em casa
             </button>
             <button
               onClick={() => setDeliveryType('retirada')}
@@ -113,7 +114,7 @@ const CartModal = ({
                   : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-green-400'
               }`}
             >
-              🏪 Retirada no Local
+              Retirada no local
             </button>
           </div>
 
@@ -127,7 +128,7 @@ const CartModal = ({
 
         {/* Dados do Cliente */}
         <div className="px-6 pb-4">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">👤 Dados do Cliente</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Dados do cliente</h3>
           <div className="space-y-3">
             {/* Nome */}
             <div>
@@ -181,13 +182,12 @@ const CartModal = ({
                 className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none"
               />
               {isLoadingHistory && (
-                <p className="text-sm text-gray-500 mt-1">🔄 Buscando histórico...</p>
+                <p className="text-sm text-gray-500 mt-1">Buscando histórico...</p>
               )}
               {customerHistory && (
                 <div className="mt-2 p-3 bg-green-50 border-2 border-green-300 rounded-lg">
                   <p className="text-sm text-green-900 font-semibold flex items-center gap-2">
-                    <span className="text-xl">✅</span>
-                    Cliente cadastrado! {customerHistory.total_pedidos} pedido(s) anterior(es)
+                                        Cliente cadastrado! {customerHistory.total_pedidos} pedido(s) anterior(es)
                   </p>
                 </div>
               )}
@@ -207,7 +207,7 @@ const CartModal = ({
                     title="O endereço é preenchido automaticamente após informar o CEP"
                   />
                   {!customerInfo.address && deliveryInfo && (
-                    <p className="text-xs text-amber-600 mt-1">⚠️ Endereço será preenchido automaticamente pelo CEP</p>
+                    <p className="text-xs text-amber-600 mt-1">O endereço é preenchido pelo CEP</p>
                   )}
                 </div>
 
@@ -241,8 +241,7 @@ const CartModal = ({
             {deliveryType === 'retirada' && (
               <div className="p-4 bg-green-50 border-2 border-green-300 rounded-lg">
                 <p className="text-sm text-green-900 font-semibold flex items-center gap-2">
-                  <span className="text-xl">🏪</span>
-                  Você escolheu retirar no local. Não é necessário informar endereço.
+                                    Você escolheu retirar no local. Não é necessário informar endereço.
                 </p>
               </div>
             )}
@@ -252,8 +251,7 @@ const CartModal = ({
               <label className="block text-sm font-semibold text-gray-700 mb-1">Forma de Pagamento *</label>
               <div className="mb-2 p-3 bg-blue-50 border-2 border-blue-300 rounded-lg">
                 <p className="text-sm text-blue-900 font-semibold flex items-center gap-2">
-                  <span className="text-xl">💵</span>
-                  O pagamento será feito com o motoboy na entrega
+                                    O pagamento será feito com o motoboy na entrega
                 </p>
               </div>
               <select
@@ -301,17 +299,17 @@ const CartModal = ({
           <div className="space-y-2 mb-4">
             <div className="flex justify-between text-gray-700">
               <span>Subtotal:</span>
-              <span className="font-semibold">R$ {getCartSubtotal().toFixed(2)}</span>
+              <span className="font-semibold">{formatarPreco(getCartSubtotal())}</span>
             </div>
             {deliveryType === 'entrega' && deliveryInfo && (
               <div className="flex justify-between text-gray-700">
                 <span>Taxa de Entrega:</span>
-                <span className="font-semibold">R$ {deliveryInfo.fee.toFixed(2)}</span>
+                <span className="font-semibold">{formatarPreco(deliveryInfo.fee)}</span>
               </div>
             )}
             <div className="flex justify-between text-xl font-bold text-gray-900 pt-2 border-t-2 border-gray-200">
               <span>Total:</span>
-              <span className="text-red-600">R$ {getCartTotal().toFixed(2)}</span>
+              <span className="text-red-600">{formatarPreco(getCartTotal())}</span>
             </div>
           </div>
 
@@ -324,7 +322,7 @@ const CartModal = ({
                 : 'bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white shadow-lg hover:shadow-xl'
             }`}
           >
-            {isProcessing ? '🔄 Processando...' : '✅ Finalizar Pedido'}
+            {isProcessing ? 'Processando...' : 'Finalizar pedido'}
           </button>
         </div>
       </div>

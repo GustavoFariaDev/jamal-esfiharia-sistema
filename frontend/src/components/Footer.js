@@ -80,7 +80,7 @@ const Footer = () => {
           <div className="border-t border-white pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center text-white text-sm">
               <p>© Copyright 2024 Jamal Esfiharia - Todos os direitos reservados.</p>
-              <p className="mt-2 md:mt-0">Desenvolvido com ❤️ para você</p>
+              <p className="mt-2 md:mt-0">Desenvolvido para você</p>
             </div>
           </div>
         </div>

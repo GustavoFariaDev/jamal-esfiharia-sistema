@@ -196,7 +196,7 @@ const RestaurantStatusControl = () => {
         <CardTitle className="flex items-center justify-between">
           <span>Controle do Restaurante</span>
           <div className={`px-4 py-2 rounded-full text-white font-bold ${status.aberto ? 'bg-green-500' : 'bg-red-500'}`}>
-            {status.aberto ? '🟢 ABERTO' : '🔴 FECHADO'}
+            {status.aberto ? 'ABERTO' : 'FECHADO'}
           </div>
         </CardTitle>
       </CardHeader>
@@ -226,7 +226,7 @@ const RestaurantStatusControl = () => {
                 : 'bg-green-500 hover:bg-green-600'
             }`}
           >
-            {isUpdating ? 'Atualizando...' : status.aberto ? '🔒 FECHAR RESTAURANTE' : '🔓 ABRIR RESTAURANTE'}
+            {isUpdating ? 'Atualizando...' : status.aberto ? 'FECHAR RESTAURANTE' : 'ABRIR RESTAURANTE'}
           </Button>
         </div>
 
@@ -252,13 +252,13 @@ const RestaurantStatusControl = () => {
               <div className="flex justify-between">
                 <span>Aceita Pedidos:</span>
                 <span className={status.aceita_pedidos ? 'text-green-600' : 'text-red-600'}>
-                  {status.aceita_pedidos ? '✅ Sim' : '❌ Não'}
+                  {status.aceita_pedidos ? 'Sim' : 'Não'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span>Modo Manutenção:</span>
                 <span className={status.modo_manutencao ? 'text-orange-600' : 'text-green-600'}>
-                  {status.modo_manutencao ? '⚠️ Ativo' : '✅ Inativo'}
+                  {status.modo_manutencao ? 'Ativo' : 'Inativo'}
                 </span>
               </div>
             </div>
@@ -310,7 +310,7 @@ const RestaurantStatusControl = () => {
         {status.pausa_temporaria && status.pausa_ate && (
           <Alert className="bg-orange-50 border-orange-300">
             <AlertDescription className="text-orange-800">
-              ⏸️ <strong>Pedidos pausados temporariamente</strong>
+              <strong>Pedidos pausados temporariamente</strong>
               <br />
               Retomando em: {new Date(status.pausa_ate).toLocaleString('pt-BR')}
               <br />
@@ -334,7 +334,7 @@ const RestaurantStatusControl = () => {
             variant="outline"
             className="bg-orange-50 hover:bg-orange-100"
           >
-            ⏸️ Pausar por Tempo
+            Pausar por tempo
           </Button>
           
           <Button
@@ -342,7 +342,7 @@ const RestaurantStatusControl = () => {
             disabled={isUpdating}
             variant="outline"
           >
-            {status.aceita_pedidos ? '🚫 Pausar Pedidos' : '✅ Aceitar Pedidos'}
+            {status.aceita_pedidos ? 'Pausar pedidos' : 'Aceitar pedidos'}
           </Button>
           
           <Button
@@ -350,7 +350,7 @@ const RestaurantStatusControl = () => {
             disabled={isUpdating}
             variant="outline"
           >
-            {status.modo_manutencao ? '🔧 Desativar Manutenção' : '⚠️ Modo Manutenção'}
+            {status.modo_manutencao ? 'Desativar manutenção' : 'Modo manutenção'}
           </Button>
         </div>
 
@@ -358,7 +358,7 @@ const RestaurantStatusControl = () => {
         {showPauseModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-              <h3 className="text-lg font-bold mb-4">⏸️ Pausar Pedidos Temporariamente</h3>
+              <h3 className="text-lg font-bold mb-4">Pausar pedidos temporariamente</h3>
               <p className="text-sm text-gray-600 mb-4">
                 Útil quando a loja está muito lotada. Os pedidos serão pausados automaticamente pelo tempo escolhido.
               </p>
@@ -410,7 +410,7 @@ const RestaurantStatusControl = () => {
             variant="ghost"
             size="sm"
           >
-            🔄 Atualizar Status
+            Atualizar status
           </Button>
         </div>
       </CardContent>

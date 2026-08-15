@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, Loader2, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { formatarPreco } from '../utils/formato';
 
 const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
   const [cep, setCep] = useState('');
@@ -332,7 +333,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
           
           {deliveryInfo.isApproximate && (
             <div className="p-2 bg-yellow-100 rounded text-xs text-yellow-800 mt-2">
-              ⚠️ Localização aproximada. A distância pode variar.
+              Localização aproximada. A distância pode variar.
             </div>
           )}
 
@@ -343,7 +344,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
             </div>
             <div>
               <p className="text-xs text-gray-500">Taxa de Entrega</p>
-              <p className="text-lg font-bold text-red-600">R$ {deliveryInfo.fee.toFixed(2)}</p>
+              <p className="text-lg font-bold text-red-600">{formatarPreco(deliveryInfo.fee)}</p>
             </div>
             <div>
               <p className="text-xs text-gray-500">Tempo Estimado</p>

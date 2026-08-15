@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import ExtrasSelector from './ExtrasSelector';
 import HalfAndHalfSelector from './HalfAndHalfSelector';
+import { formatarPreco } from '../utils/formato';
 
 const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
   const [selectedSize, setSelectedSize] = useState('grande');
@@ -28,13 +29,13 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
   const getSizePrice = (size) => {
     switch (size) {
       case 'broto':
-        return pizza.preco_broto || 0;
+        return pizza.preco_broto || pizza.price || pizza.preco || 0;
       case 'media':
-        return pizza.preco_media || 0;
+        return pizza.preco_media || pizza.price || pizza.preco || 0;
       case 'grande':
-        return pizza.preco_grande || 0;
+        return pizza.preco_grande || pizza.price || pizza.preco || 0;
       default:
-        return pizza.preco_grande || 0;
+        return pizza.preco_grande || pizza.price || pizza.preco || 0;
     }
   };
 
@@ -169,7 +170,7 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
                         <div className="text-center">
                           <div className="font-bold text-gray-900">{sizeLabels[size]}</div>
                           <div className={`text-lg font-bold mt-1 ${isBatata ? 'text-orange-600' : 'text-red-600'}`}>
-                            R$ {sizePrice.toFixed(2)}
+                            {formatarPreco(sizePrice)}
                           </div>
                         </div>
                       </button>
@@ -188,7 +189,7 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
                     <circle cx="12" cy="12" r="9" strokeWidth="2"/>
                     <line x1="12" y1="3" x2="12" y2="21" strokeWidth="2"/>
                   </svg>
-                  🍕 Montar Pizza Meio a Meio
+                  Montar pizza meio a meio
                 </button>
               )}
 
@@ -227,12 +228,12 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
                   <div className="space-y-1 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">{pizza.name} ({selectedSize})</span>
-                      <span className="font-semibold">R$ {getSizePrice(selectedSize).toFixed(2)}</span>
+                      <span className="font-semibold">{formatarPreco(getSizePrice(selectedSize))}</span>
                     </div>
                     {selectedExtras.map((extra) => (
                       <div key={extra.id} className="flex justify-between text-gray-600">
                         <span>+ {extra.nome}</span>
-                        <span>R$ {extra.preco.toFixed(2)}</span>
+                        <span>{formatarPreco(extra.preco)}</span>
                       </div>
                     ))}
                     {quantity > 1 && (
@@ -251,7 +252,7 @@ const PizzaModal = ({ isOpen, onClose, pizza, allPizzas, onAddToCart }) => {
               <div className="flex items-center justify-between mb-4">
                 <span className="text-gray-600">Total:</span>
                 <span className="text-3xl font-bold text-red-600">
-                  R$ {calculateTotalPrice().toFixed(2)}
+                  {formatarPreco(calculateTotalPrice())}
                 </span>
               </div>
               <button

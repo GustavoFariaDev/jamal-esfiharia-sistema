@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, AlertDescription } from './ui/alert';
+import { AlertTriangle } from 'lucide-react';
 
 /**
  * Banner de status do restaurante para exibir aos clientes
@@ -53,9 +54,12 @@ const RestaurantStatusBanner = () => {
         }`}
       >
         <AlertDescription className="flex items-center justify-center gap-3">
-          <span className="text-2xl">
-            {status.aberto ? '⚠️' : '🔴'}
-          </span>
+          {/* Icone no lugar do emoji: acompanha a cor do aviso e nao depende
+              da fonte de emoji do aparelho. */}
+          <AlertTriangle
+            className={`h-6 w-6 shrink-0 ${status.aberto ? 'text-yellow-600' : 'text-red-600'}`}
+            aria-hidden="true"
+          />
           <div className="text-center">
             <div className={`font-bold text-lg ${
               status.aberto ? 'text-yellow-800' : 'text-red-800'

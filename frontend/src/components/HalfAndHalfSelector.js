@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, Search } from 'lucide-react';
+import { formatarPreco } from '../utils/formato';
 
 const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizzas, selectedSize }) => {
   const [firstHalf, setFirstHalf] = useState(null);
@@ -140,7 +141,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 rounded-t-2xl flex items-center justify-between z-10">
           <div>
-            <h2 className="text-2xl font-bold">🍕 Pizza Meio a Meio</h2>
+            <h2 className="text-2xl font-bold">Pizza meio a meio</h2>
             <p className="text-red-100 text-sm mt-1">Escolha 2 sabores - Tamanho: {getSizeLabel()}</p>
           </div>
           <button
@@ -238,7 +239,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
           {firstHalf && secondHalf && (
             <div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">
-                🧀 Acréscimos e Bordas
+                Acréscimos e bordas
               </h3>
               
               {/* Tabs */}
@@ -271,7 +272,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  🔲 Borda
+                  Borda
                 </button>
               </div>
 
@@ -307,7 +308,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
                             <span className="ml-3 font-semibold text-gray-900">{extra.nome}</span>
                           </div>
                           <span className="font-bold text-red-600">
-                            + R$ {extra.preco.toFixed(2)}
+                            + {formatarPreco(extra.preco)}
                           </span>
                         </label>
                       ))}
@@ -338,7 +339,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
                             <span className="ml-3 font-semibold text-gray-900">{extra.nome}</span>
                           </div>
                           <span className="font-bold text-blue-600">
-                            + R$ {extra.preco.toFixed(2)}
+                            + {formatarPreco(extra.preco)}
                           </span>
                         </label>
                       ))}
@@ -370,7 +371,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
                             <span className="ml-3 font-semibold text-gray-900">{borda.nome}</span>
                           </div>
                           <span className="font-bold text-orange-600">
-                            + R$ {borda.preco.toFixed(2)}
+                            + {formatarPreco(borda.preco)}
                           </span>
                         </label>
                       ))}
@@ -400,7 +401,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
                     {firstHalfExtras.map((extra) => (
                       <div key={extra.id} className="flex justify-between ml-4">
                         <span>+ {extra.nome}</span>
-                        <span>R$ {extra.preco.toFixed(2)}</span>
+                        <span>{formatarPreco(extra.preco)}</span>
                       </div>
                     ))}
                   </div>
@@ -412,7 +413,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
                     {secondHalfExtras.map((extra) => (
                       <div key={extra.id} className="flex justify-between ml-4">
                         <span>+ {extra.nome}</span>
-                        <span>R$ {extra.preco.toFixed(2)}</span>
+                        <span>{formatarPreco(extra.preco)}</span>
                       </div>
                     ))}
                   </div>
@@ -421,7 +422,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
                 {selectedBorda && (
                   <div className="flex justify-between text-gray-600">
                     <span>Borda: {selectedBorda.nome}</span>
-                    <span>R$ {selectedBorda.preco.toFixed(2)}</span>
+                    <span>{formatarPreco(selectedBorda.preco)}</span>
                   </div>
                 )}
               </div>
@@ -434,7 +435,7 @@ const HalfAndHalfSelector = ({ isOpen, onClose, onConfirm, currentItem, allPizza
           <div className="flex items-center justify-between mb-4">
             <span className="text-gray-600">Total:</span>
             <span className="text-3xl font-bold text-red-600">
-              R$ {calculatePrice().toFixed(2)}
+              {formatarPreco(calculatePrice())}
             </span>
           </div>
           <div className="flex gap-3">

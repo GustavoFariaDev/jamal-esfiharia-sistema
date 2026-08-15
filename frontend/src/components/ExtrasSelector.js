@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { formatarPreco } from '../utils/formato';
 
 const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, selectedExtras = [] }) => {
   const [availableExtras, setAvailableExtras] = useState({});
@@ -105,11 +106,11 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
 
   const getTabLabel = (tipo) => {
     const labels = {
-      'pizza_metade': '🍕 Por Metade',
-      'pizza_toda': '🍕 Pizza Toda',
-      'borda': '🟦 Borda',
-      'esfiha': '🥟 Acréscimos',
-      'batata_recheio': '🍟 Escolha o Recheio'
+      'pizza_metade': 'Por metade',
+      'pizza_toda': 'Pizza toda',
+      'borda': 'Borda',
+      'esfiha': 'Acréscimos',
+      'batata_recheio': 'Escolha o recheio'
     };
     return labels[tipo] || tipo;
   };
@@ -150,8 +151,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
           className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-orange-100 to-red-100 border-3 border-orange-400 rounded-lg hover:border-orange-500 transition-all shadow-md"
         >
           <div className="flex items-center gap-3">
-            <span className="text-3xl">🧀</span>
-            <div className="text-left">
+                        <div className="text-left">
               <h4 className="text-base font-bold text-gray-900 flex items-center gap-2">
                 {isPizza ? (isHalfAndHalf ? 'Acréscimos Meio a Meio' : 'Acréscimos e Bordas') : 'Acréscimos'} 
                 {totalCount > 0 && (
@@ -214,8 +214,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
                 {/* DESCRIÇÃO DA TAB */}
                 {selectedTab && (
                   <div className="mb-4 p-4 bg-blue-100 border-2 border-blue-300 rounded-lg flex items-start gap-3">
-                    <span className="text-blue-600 text-2xl">💡</span>
-                    <p className="text-sm text-blue-900 leading-relaxed font-medium">
+                                        <p className="text-sm text-blue-900 leading-relaxed font-medium">
                       {getTabDescription(selectedTab)}
                       {selectedTab === 'borda' && (
                         <strong> Você pode escolher apenas uma borda por pizza.</strong>
@@ -245,7 +244,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
                         <span className="ml-4 text-base font-bold text-gray-900">{extra.nome}</span>
                       </div>
                       <span className="text-base font-bold text-red-600">
-                        + R$ {extra.preco.toFixed(2)}
+                        + {formatarPreco(extra.preco)}
                       </span>
                     </label>
                   ))
@@ -269,7 +268,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
                         <span className="ml-4 text-base font-bold text-gray-900">{extra.nome}</span>
                       </div>
                       <span className="text-base font-bold text-red-600">
-                        + R$ {extra.preco.toFixed(2)}
+                        + {formatarPreco(extra.preco)}
                       </span>
                     </label>
                   ))
@@ -300,7 +299,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
                   ))
                 ) : (
                   <div className="text-center py-10 text-gray-500 text-base">
-                    <p className="mb-2 text-lg">😔 Nenhum acréscimo disponível</p>
+                    <p className="mb-2 text-lg">Nenhum acréscimo disponível</p>
                     <p className="text-sm text-gray-400">Entre em contato para mais informações</p>
                   </div>
                 )}
@@ -316,7 +315,7 @@ const ExtrasSelector = ({ productType, isHalfAndHalf = false, onExtrasChange, se
                   ✓ {totalCount} {totalCount === 1 ? 'acréscimo selecionado' : 'acréscimos selecionados'}
                 </span>
                 <span className="text-xl font-bold text-red-600">
-                  + R$ {selectedExtras.reduce((sum, e) => sum + (e.preco || 0), 0).toFixed(2)}
+                  + {formatarPreco(selectedExtras.reduce((sum, e) => sum + (e.preco || 0), 0))}
                 </span>
               </div>
             </div>

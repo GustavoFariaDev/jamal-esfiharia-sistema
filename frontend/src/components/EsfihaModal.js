@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { formatarPreco } from '../utils/formato';
 
 const EsfihaModal = ({ isOpen, onClose, esfiha, onAddToCart }) => {
   const [tipoMassa, setTipoMassa] = useState('aberta');
@@ -103,8 +104,7 @@ const EsfihaModal = ({ isOpen, onClose, esfiha, onAddToCart }) => {
                 }`}
               >
                 <div className="text-center">
-                  <div className="text-3xl mb-2">🥙</div>
-                  <div className="font-bold text-gray-900">Aberta</div>
+                                    <div className="font-bold text-gray-900">Aberta</div>
                   <div className="text-xs text-gray-500 mt-1">Tradicional</div>
                 </div>
               </button>
@@ -118,8 +118,7 @@ const EsfihaModal = ({ isOpen, onClose, esfiha, onAddToCart }) => {
                 }`}
               >
                 <div className="text-center">
-                  <div className="text-3xl mb-2">🥟</div>
-                  <div className="font-bold text-gray-900">Fechada</div>
+                                    <div className="font-bold text-gray-900">Fechada</div>
                   <div className="text-xs text-gray-500 mt-1">Estilo Pastel</div>
                 </div>
               </button>
@@ -158,7 +157,7 @@ const EsfihaModal = ({ isOpen, onClose, esfiha, onAddToCart }) => {
                         <div className="flex-1">
                           <div className="font-semibold text-gray-900">{extra.nome}</div>
                           <div className="text-sm text-red-600 font-bold">
-                            + R$ {extra.preco.toFixed(2)}
+                            + {formatarPreco(extra.preco)}
                           </div>
                         </div>
                         <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
@@ -205,12 +204,12 @@ const EsfihaModal = ({ isOpen, onClose, esfiha, onAddToCart }) => {
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">{esfiha.name} ({tipoMassa})</span>
-                  <span className="font-semibold">R$ {(esfiha.price || esfiha.preco).toFixed(2)}</span>
+                  <span className="font-semibold">{formatarPreco((esfiha.price || esfiha.preco))}</span>
                 </div>
                 {selectedExtras.map((extra) => (
                   <div key={extra.id} className="flex justify-between text-gray-600">
                     <span>+ {extra.nome}</span>
-                    <span>R$ {extra.preco.toFixed(2)}</span>
+                    <span>{formatarPreco(extra.preco)}</span>
                   </div>
                 ))}
                 {quantity > 1 && (
@@ -229,7 +228,7 @@ const EsfihaModal = ({ isOpen, onClose, esfiha, onAddToCart }) => {
           <div className="flex items-center justify-between mb-4">
             <span className="text-gray-600">Total:</span>
             <span className="text-3xl font-bold text-red-600">
-              R$ {calculateTotalPrice().toFixed(2)}
+              {formatarPreco(calculateTotalPrice())}
             </span>
           </div>
           <button

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { formatarPreco } from '../utils/formato';
 
 const BeiruteModal = ({ isOpen, onClose, beirute, onAddToCart }) => {
   const [selectedSize, setSelectedSize] = useState('grande');
@@ -53,13 +54,13 @@ const BeiruteModal = ({ isOpen, onClose, beirute, onAddToCart }) => {
   const getSizePrice = (size) => {
     switch (size) {
       case 'broto':
-        return beirute.preco_broto || 0;
+        return beirute.preco_broto || beirute.price || beirute.preco || 0;
       case 'media':
-        return beirute.preco_media || 0;
+        return beirute.preco_media || beirute.price || beirute.preco || 0;
       case 'grande':
-        return beirute.preco_grande || 0;
+        return beirute.preco_grande || beirute.price || beirute.preco || 0;
       default:
-        return beirute.preco_grande || 0;
+        return beirute.preco_grande || beirute.price || beirute.preco || 0;
     }
   };
 
@@ -133,7 +134,7 @@ const BeiruteModal = ({ isOpen, onClose, beirute, onAddToCart }) => {
                       <div className="font-bold text-gray-900">{sizeLabels[size]}</div>
                       <div className="text-xs text-gray-500 mt-1">{sizePieces[size]}</div>
                       <div className="text-lg font-bold text-red-600 mt-1">
-                        R$ {sizePrice.toFixed(2)}
+                        {formatarPreco(sizePrice)}
                       </div>
                     </div>
                   </button>
@@ -174,7 +175,7 @@ const BeiruteModal = ({ isOpen, onClose, beirute, onAddToCart }) => {
                         <div className="flex-1">
                           <div className="font-semibold text-gray-900">{extra.nome}</div>
                           <div className="text-sm text-red-600 font-bold">
-                            + R$ {extra.preco.toFixed(2)}
+                            + {formatarPreco(extra.preco)}
                           </div>
                         </div>
                         <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
@@ -221,12 +222,12 @@ const BeiruteModal = ({ isOpen, onClose, beirute, onAddToCart }) => {
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">{beirute.name} ({sizeLabels[selectedSize]})</span>
-                  <span className="font-semibold">R$ {getSizePrice(selectedSize).toFixed(2)}</span>
+                  <span className="font-semibold">{formatarPreco(getSizePrice(selectedSize))}</span>
                 </div>
                 {selectedExtras.map((extra) => (
                   <div key={extra.id} className="flex justify-between text-gray-600">
                     <span>+ {extra.nome}</span>
-                    <span>R$ {extra.preco.toFixed(2)}</span>
+                    <span>{formatarPreco(extra.preco)}</span>
                   </div>
                 ))}
                 {quantity > 1 && (
@@ -245,7 +246,7 @@ const BeiruteModal = ({ isOpen, onClose, beirute, onAddToCart }) => {
           <div className="flex items-center justify-between mb-4">
             <span className="text-gray-600">Total:</span>
             <span className="text-3xl font-bold text-red-600">
-              R$ {calculateTotalPrice().toFixed(2)}
+              {formatarPreco(calculateTotalPrice())}
             </span>
           </div>
           <button
