@@ -6,6 +6,18 @@ Aplicação Flask - Sistema de Gestão Jamal Esfiharia
 import os
 import secrets
 from flask import Flask, send_from_directory
+from dotenv import load_dotenv
+
+# Carrega o backend/.env antes de qualquer coisa ler os.getenv.
+#
+# O python-dotenv ja estava nas dependencias, mas ninguem chamava: as
+# credenciais so existiam escritas no codigo, e tirar de la nao deixava
+# alternativa nenhuma. Agora existe o lugar certo para elas — um arquivo que
+# fica na maquina e no servidor, e nunca no Git (ver .gitignore).
+#
+# As rotas sao importadas dentro de create_app(), depois desta linha, entao o
+# cloudinary.config() de upload.py ja encontra as chaves.
+load_dotenv(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env'))
 from flask_cors import CORS
 from src.models.user import db
 
@@ -41,7 +53,12 @@ def create_app():
     # Criar diretórios necessários
     os.makedirs(instance_path, exist_ok=True)
     
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', f'sqlite:///{db_path}')
+    # `or` em vez do padrao do getenv: variavel PRESENTE E VAZIA (o
+    # "DATABASE_URL=" do .env, quando ainda nao ha Postgres) nao e ausencia
+    # para o os.getenv — ele devolve a string vazia, o padrao nunca entra, e o
+    # SQLAlchemy morre com "Could not parse SQLAlchemy URL". Vazio aqui
+    # significa "usar o SQLite local".
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL') or f'sqlite:///{db_path}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
     

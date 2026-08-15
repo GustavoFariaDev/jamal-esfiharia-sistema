@@ -3,7 +3,9 @@ import os
 import multiprocessing
 
 # Bind na porta fornecida pelo Render
-bind = f"0.0.0.0:{os.getenv('PORT', '5000')}"
+# `or` pelo mesmo motivo do DATABASE_URL em app.py: PORT= vazio no .env faria
+# o bind virar "0.0.0.0:" e o gunicorn nem subir.
+bind = f"0.0.0.0:{os.getenv('PORT') or '5000'}"
 
 # Workers (limitado para plano free do Render)
 workers = min(multiprocessing.cpu_count() * 2 + 1, 4)
