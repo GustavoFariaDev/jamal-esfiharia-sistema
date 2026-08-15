@@ -1,171 +1,103 @@
-# 🍕 Jamal Esfiharia - Sistema de Gestão
+# Jamal Esfiharia — cardápio online e painel
 
-Sistema completo de esfiharia com cardápio online e painel administrativo.
+Sistema de pedidos da Jamal Esfiharia: cardápio para o cliente, painel para a loja. O cliente monta o pedido, calcula o frete pelo CEP e finaliza; a loja acompanha, muda status e imprime.
 
-## 🚀 Deploy Rápido
+Não há pagamento online — o pagamento acontece na entrega ou na retirada.
 
-**Quer colocar o sistema no ar?** Siga um destes guias:
-
-- 📋 **[CHECKLIST_RAPIDO.md](CHECKLIST_RAPIDO.md)** - Checklist objetivo (20-30 min)
-- 📖 **[GUIA_DEPLOY_RENDER.md](GUIA_DEPLOY_RENDER.md)** - Guia completo passo a passo
-- 📊 **[RESUMO_EXECUTIVO.md](RESUMO_EXECUTIVO.md)** - Visão geral das melhorias
-
-## ✨ Funcionalidades
-
-### Cardápio Online
-- Visualização completa de produtos
-- Busca e filtros por categoria
-- Carrinho de compras
-- Pizzas meio a meio
-- Calculadora de taxa de entrega
-- Finalização de pedidos
-
-### Painel Administrativo
-- Gerenciamento de produtos
-- Gerenciamento de pedidos
-- Gerenciamento de clientes
-- Upload de imagens
-- Controle de status do restaurante
-- Impressão de pedidos
-
-## 🏗️ Arquitetura
-
-### Frontend (React)
-- React 18
-- React Router para navegação
-- Tailwind CSS para estilização
-- shadcn/ui para componentes
-- Hooks customizados para lógica de negócio
-
-### Backend (Flask)
-- Flask REST API
-- SQLAlchemy ORM
-- Autenticação JWT
-- CORS configurado
-- Upload de imagens
-
-## 📦 Estrutura do Projeto
+## Como funciona
 
 ```
-jamal-esfiharia-sistema/
-├── frontend/                 # Aplicação React
-│   ├── src/
-│   │   ├── components/      # Componentes React
-│   │   ├── hooks/          # Hooks customizados
-│   │   ├── services/       # Serviços de API
-│   │   └── contexts/       # Contextos React
-│   └── package.json
-│
-├── backend/                 # API Flask
-│   ├── app.py              # Aplicação principal
-│   ├── requirements.txt    # Dependências Python
-│   └── gunicorn_config.py  # Configuração do servidor
-│
-└── docs/                    # Documentação
-    ├── GUIA_DEPLOY_RENDER.md
-    ├── CHECKLIST_RAPIDO.md
-    └── MELHORIAS_IMPLEMENTADAS.md
+Cliente (React)                  Loja (React, /admin)
+      |                                  |
+      +----------- API Flask ------------+
+                       |
+        SQLite (local) ou PostgreSQL (produção)
+                       |
+        Cloudinary (imagens)   Google Maps (distância)
 ```
 
-## 🛠️ Desenvolvimento Local
+O frontend é servido pelo próprio Flask em produção: o build do React é copiado para `backend/static/` e o Flask entrega o `index.html` para qualquer rota que não comece com `/api`.
 
-### Frontend
+## Rodando na sua máquina
+
+Precisa de **Python 3.11** e **Node 18+**.
 
 ```bash
-cd frontend
-yarn install
-yarn start
-```
-
-Acesse: http://localhost:3000
-
-### Backend
-
-```bash
+# backend
 cd backend
-pip install -r requirements.txt
-python app.py
+python -m venv venv
+venv\Scripts\pip install -r requirements.txt
+venv\Scripts\python app.py            # sobe em http://localhost:5000
+
+# frontend, em outro terminal
+cd frontend
+npm install
+npm start                              # sobe em http://localhost:3000
 ```
 
-API disponível em: http://localhost:5000
+Sem `DATABASE_URL`, o banco é um SQLite em `backend/instance/jamal.db`, criado sozinho na primeira execução.
 
-## 🌐 Deploy em Produção
+## Configuração
 
-### Opção 1: Render.com (Recomendado)
+Tudo por variável de ambiente. Nenhuma tem valor padrão embutido no código — credencial não mora em repositório.
 
-Siga o **[CHECKLIST_RAPIDO.md](CHECKLIST_RAPIDO.md)** para deploy em 20-30 minutos.
+| Variável | Para quê | Sem ela |
+|---|---|---|
+| `SECRET_KEY` | assina os tokens de login | sorteia uma por execução, e todo mundo é deslogado a cada reinício |
+| `DATABASE_URL` | banco de produção (PostgreSQL) | usa SQLite local |
+| `SETUP_TOKEN` | libera a criação do primeiro admin | a rota de setup responde 403 |
+| `ADMIN_EMAIL` | e-mail do admin criado no setup | `admin@jamal.com` |
+| `CLOUDINARY_CLOUD_NAME` `CLOUDINARY_API_KEY` `CLOUDINARY_API_SECRET` | upload de imagem dos produtos | o upload falha |
+| `GOOGLE_MAPS_API_KEY` | distância a partir do endereço, no cálculo do frete pelo servidor | o cálculo por endereço não funciona (o cálculo por CEP, que o site usa, continua funcionando) |
+| `PORT` | porta do gunicorn | 5000 |
 
-**Configurações necessárias:**
+No frontend, `REACT_APP_API_BASE_URL` aponta para a API. Em produção fica vazio (mesma origem, `/api`).
 
-**Backend:**
-- Runtime: Python 3
-- Build: `pip install -r requirements.txt`
-- Start: `gunicorn -c gunicorn_config.py app:app`
+## Primeiro acesso
 
-**Frontend:**
-- Build: `yarn install && yarn build`
-- Publish: `build`
-- **Rewrite Rule:** `/* → /index.html` (CRÍTICO!)
+O admin não vem pronto. Com `SETUP_TOKEN` definido no servidor:
 
-### Variáveis de Ambiente
-
-**Frontend:**
-```env
-REACT_APP_API_BASE_URL=https://seu-backend.onrender.com/api
-NODE_ENV=production
+```bash
+curl -X POST https://SEU-APP/api/setup/create-admin -H "X-Setup-Token: SEU_TOKEN"
 ```
 
-**Backend:**
-```env
-FLASK_ENV=production
-SECRET_KEY=sua-chave-secreta
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=senha-forte
-CORS_ORIGINS=https://seu-frontend.onrender.com
+A resposta traz a senha sorteada **uma única vez**. Anote e troque no primeiro login. A rota só cria o admin se ele ainda não existir.
+
+## Deploy no Render
+
+- **Build:** `./build.sh` — instala as dependências, compila o React, copia o build para `backend/static/`, cria as tabelas e o status inicial da loja
+- **Start:** `gunicorn -c gunicorn_config.py "app:create_app()"`
+- **Ambiente:** as variáveis da tabela acima, no painel do Render
+
+## Taxa de entrega
+
+A tabela de preços por distância mora em **um lugar só**: `backend/src/services/delivery_fee.py`. O navegador mede a distância (OSRM, com Haversine como reserva) e pergunta o valor ao servidor — a mesma conta que vai cobrar. Para mudar preço de frete, mexa só nesse arquivo.
+
+Acima de 20 km o sistema não calcula: o pedido é recusado com a mensagem de entrar em contato.
+
+## Impressão
+
+Os pedidos são impressos via [QZ Tray](https://qz.io/), que precisa estar rodando na máquina da loja. O certificado público fica em `backend/certs/`; a chave privada **não** vai para o repositório (`backend/certs/private-key.pem`, ignorada pelo Git).
+
+## Estrutura
+
+```
+backend/
+  app.py                 fábrica da aplicação e rotas de arquivo estático
+  src/routes/            endpoints da API, um arquivo por assunto
+  src/models/            tabelas (SQLAlchemy)
+  src/services/          frete, Google Maps, impressão, WhatsApp
+  src/middleware/        autenticação e verificação de admin
+  *.py (raiz)            scripts pontuais de importação e correção de dados
+frontend/
+  src/components/        telas e componentes
+  src/services/          apiService (chamadas) e authService (sessão)
+  src/hooks/             lógica reaproveitada
+  src/components/ui/     shadcn/ui, biblioteca de terceiros
 ```
 
-## 📝 Melhorias Recentes (v1.1.0)
+## Pendências conhecidas
 
-- ✅ Hooks customizados (useCart, useProductFilter, useProducts)
-- ✅ Componente CartModal modularizado
-- ✅ Estrutura de pastas organizada
-- ✅ Documentação completa de deploy
-- ✅ Código mais limpo e manutenível
-
-Veja detalhes em **[MELHORIAS_IMPLEMENTADAS.md](MELHORIAS_IMPLEMENTADAS.md)**
-
-## 🐛 Troubleshooting
-
-### Rotas retornam 404
-→ Configure a Rewrite Rule no Render: `/* → /index.html`
-
-### Produtos não carregam
-→ Verifique `REACT_APP_API_BASE_URL` no frontend
-
-### Erro de CORS
-→ Configure `CORS_ORIGINS` no backend
-
-Mais soluções em **[GUIA_DEPLOY_RENDER.md](GUIA_DEPLOY_RENDER.md)**
-
-## 📄 Licença
-
-Este projeto é privado e de uso exclusivo da Jamal Esfiharia.
-
-## 🤝 Contribuindo
-
-Para contribuir com o projeto:
-
-1. Crie hooks para lógica complexa
-2. Mantenha componentes pequenos e focados
-3. Documente mudanças importantes
-4. Teste antes de fazer commit
-
-## 📞 Suporte
-
-Para dúvidas ou problemas, consulte a documentação na pasta `docs/` ou os guias de deploy.
-
----
-
-**Versão:** 1.1.0  
-**Última atualização:** 07 de novembro de 2025  
-**Status:** ✅ Pronto para produção
+- **A chave do Cloudinary precisa ser trocada.** Ela esteve escrita no código deste repositório, que é público, e continua no histórico do Git. Trocar no painel do Cloudinary é o único jeito de invalidar a antiga.
+- **`SECRET_KEY` precisa estar definida no Render.** Sem ela o sistema funciona, mas derruba todos os logins a cada reinício do servidor.
+- Os scripts soltos na raiz do `backend/` são de manutenção pontual (importar cardápio, corrigir preços). Não fazem parte da aplicação e não rodam sozinhos.

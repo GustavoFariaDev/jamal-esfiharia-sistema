@@ -34,24 +34,23 @@ with app.app_context():
     db.create_all()
     print('✅ Tabelas criadas')
     
-    # Criar admin apenas se não existir (preserva senha personalizada)
+    # O admin NAO e criado aqui.
+    #
+    # Ate aqui o deploy criava 'admin' com a senha 'admin123', escrita neste
+    # arquivo, num repositorio publico. Qualquer pessoa que subisse uma copia
+    # deste sistema — ou que alcancasse este antes da senha ser trocada —
+    # entrava como administrador. Senha padrao em script de deploy e senha
+    # publicada.
+    #
+    # A criacao mora em POST /api/setup/create-admin, que exige o SETUP_TOKEN
+    # do servidor e sorteia a senha na hora. Ver o README.
     admin = User.query.filter_by(username='admin').first()
-    if not admin:
-        # Criar novo admin com senha padrão
-        novo_admin = User(
-            username='admin',
-            email='admin@jamal.com',
-            is_admin=True
-        )
-        novo_admin.set_password('admin123')
-        db.session.add(novo_admin)
-        db.session.commit()
-        print('✅ Usuário admin criado: admin / admin123')
-        print('⚠️  IMPORTANTE: Altere a senha após o primeiro login!')
+    if admin:
+        print('Usuario admin ja existe: {}'.format(admin.username))
     else:
-        print('✅ Usuário admin já existe - senha preservada')
-        print('   Username: admin')
-        print('   Email: {}'.format(admin.email))
+        print('Nenhum admin cadastrado. Para criar o primeiro:')
+        print('  curl -X POST https://SEU-APP/api/setup/create-admin \\\\')
+        print('       -H "X-Setup-Token: \$SETUP_TOKEN"')
     
     # Inicializar status do restaurante
     from src.models.configuracao import StatusRestaurante
