@@ -16,28 +16,18 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     cep: '09070-000'
   };
 
-  // Tabela de taxas de entrega por distância (em km)
-  const deliveryRates = [
-    { maxDistance: 1.5, fee: 3.00, label: '0km a 1,5km' },
-    { maxDistance: 2.5, fee: 4.00, label: '1,5km a 2,5km' },
-    { maxDistance: 3.5, fee: 5.00, label: '2,5km a 3,5km' },
-    { maxDistance: 4.5, fee: 6.00, label: '3,5km a 4,5km' },
-    { maxDistance: 5.5, fee: 7.00, label: '4,5km a 5,5km' },
-    { maxDistance: 6.5, fee: 8.00, label: '5,5km a 6,5km' },
-    { maxDistance: 7.5, fee: 9.00, label: '6,5km a 7,5km' },
-    { maxDistance: 8.5, fee: 10.00, label: '7,5km a 8,5km' },
-    { maxDistance: 9.5, fee: 11.00, label: '8,5km a 9,5km' },
-    { maxDistance: 10.0, fee: 13.00, label: '9,5km a 10,0km' },
-    { maxDistance: 12.0, fee: 15.00, label: '10,0km a 12,0km' },
-    { maxDistance: 13.0, fee: 16.00, label: '12,0km a 13,0km' },
-    { maxDistance: 14.0, fee: 18.00, label: '13,0km a 14,0km' },
-    { maxDistance: 15.0, fee: 20.00, label: '14,0km a 15,0km' },
-    { maxDistance: 16.0, fee: 22.00, label: '15,0km a 16,0km' },
-    { maxDistance: 18.0, fee: 25.00, label: '16,0km a 18,0km' },
-    { maxDistance: 19.0, fee: 27.00, label: '18,0km a 19,0km' },
-    { maxDistance: 20.1, fee: 29.00, label: '19,0km a 20,0km' },
-    { maxDistance: 999, fee: 35.00, label: 'Acima de 20km' }
-  ];
+  // A tabela de taxas NÃO mora mais aqui.
+  //
+  // Havia uma cópia dela neste arquivo, em JavaScript, ao lado da original em
+  // Python (src/services/delivery_fee.py). Duas cópias da mesma tabela de
+  // preços não ficam iguais para sempre, e estas já tinham saído do lugar: o
+  // navegador cobrava R$ 35,00 acima de 20km, faixa que não existe no
+  // servidor — lá, acima de 20km o pedido é RECUSADO. O cliente distante
+  // preenchia tudo, via um frete que a loja não pratica e tomava erro no botão
+  // de confirmar.
+  //
+  // Agora quem responde "quanto custa" é sempre o servidor, pela mesma conta
+  // que vai cobrar. O navegador só mede a distância.
 
   const formatCEP = (value) => {
     const numbers = value.replace(/\D/g, '');
@@ -151,13 +141,33 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
     return '75-90 min';
   };
 
-  const getFeeByDistance = (distance) => {
-    for (let rate of deliveryRates) {
-      if (distance <= rate.maxDistance) {
-        return rate;
+  /**
+   * Pergunta a taxa ao servidor. Devolve { fee, label } ou lança com a
+   * mensagem que o próprio servidor deu (é ele quem sabe dizer "acima de 20km,
+   * entre em contato").
+   *
+   * Falha de rede também lança, de propósito: sem resposta do servidor não há
+   * taxa para mostrar. Chutar um valor aqui recriaria o bug que este trecho
+   * existe para não ter — número na tela que a cobrança não confirma.
+   */
+  const getFeeByDistance = async (distance) => {
+    const resposta = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL || '/api'}/delivery/calcular-taxa`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ distancia_km: Number(distance.toFixed(1)) }),
       }
+    );
+
+    const corpo = await resposta.json();
+    const dados = corpo?.data || {};
+
+    if (!resposta.ok || dados.erro) {
+      throw new Error(dados.erro || corpo?.message || 'Não foi possível calcular a taxa de entrega.');
     }
-    return deliveryRates[deliveryRates.length - 1];
+
+    return { fee: dados.taxa, label: dados.faixa };
   };
 
   const calculateDeliveryFee = async () => {
@@ -222,7 +232,7 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
         distance = haversine * 1.3; // +30% margem
       }
 
-      const rateInfo = getFeeByDistance(distance);
+      const rateInfo = await getFeeByDistance(distance);
       const estimatedTime = calculateEstimatedTime(distance);
 
       const fullAddress = `${data.logradouro || ''}, ${data.bairro || ''} - ${data.localidade || ''}/${data.uf || ''}`;
@@ -250,8 +260,12 @@ const DeliveryCalculator = ({ onDeliveryFeeCalculated }) => {
       }
 
     } catch (err) {
-      setError('Erro ao consultar CEP. Tente novamente.');
-      console.error('Erro ao buscar CEP:', err);
+      // A mensagem do servidor vem na frente quando existe: "Distância acima
+      // de 20km, entre em contato" é uma resposta útil, e o texto genérico
+      // "Erro ao consultar CEP" mandava o cliente conferir um CEP que estava
+      // certo.
+      setError(err?.message || 'Erro ao consultar CEP. Tente novamente.');
+      console.error('Erro ao calcular entrega:', err);
     } finally {
       setLoading(false);
     }

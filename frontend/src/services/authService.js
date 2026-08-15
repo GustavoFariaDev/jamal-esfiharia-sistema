@@ -28,7 +28,8 @@ class AuthService {
 
   async register(username, email, password) {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      // A criacao de usuario mora em /users/register; /auth/ so tem login e verify.
+      const response = await fetch(`${API_BASE_URL}/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,11 +61,52 @@ class AuthService {
 
   getUser() {
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    if (!user) return null;
+    try {
+      return JSON.parse(user);
+    } catch {
+      // localStorage corrompido derrubava a aplicacao inteira na primeira
+      // renderizacao, com tela branca e sem como sair: o ProtectedRoute chama
+      // isAdmin() -> getUser() antes de qualquer coisa aparecer.
+      this.logout();
+      return null;
+    }
   }
 
+  /**
+   * Le a validade gravada dentro do proprio token (claim `exp`, em segundos).
+   * Devolve null quando o token nao e um JWT legivel.
+   */
+  getExpiracao() {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp ? payload.exp * 1000 : null;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Autenticado = tem token E ele ainda nao venceu.
+   *
+   * Antes bastava EXISTIR token. O do sistema dura 24h, entao no dia seguinte
+   * o painel continuava se achando logado: abria normalmente e cada tela
+   * carregava vazia ou com erro, porque toda chamada voltava 401. O caminho
+   * certo — cair na tela de login — so acontecia se a pessoa limpasse o
+   * navegador. Token vencido agora e o mesmo que token nenhum.
+   */
   isAuthenticated() {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (!token) return false;
+
+    const expiraEm = this.getExpiracao();
+    if (expiraEm && Date.now() >= expiraEm) {
+      this.logout();
+      return false;
+    }
+    return true;
   }
 
   isAdmin() {

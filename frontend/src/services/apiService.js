@@ -29,6 +29,18 @@ class ApiService {
 
       const data = await response.json();
 
+      // Sessao vencida ou invalida: derruba o login e manda para a tela de
+      // entrada, em vez de deixar o painel aberto errando em silencio a cada
+      // clique. 422 entra junto porque e o codigo que o flask-jwt-extended
+      // devolve quando o token esta malformado.
+      if (response.status === 401 || response.status === 422) {
+        authService.logout();
+        if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/admin/login')) {
+          window.location.assign('/admin/login');
+        }
+        return { success: false, error: 'Sessão expirada. Entre novamente.' };
+      }
+
       if (!response.ok) {
         throw new Error(data.message || `Erro na requisição: ${response.status}`);
       }
@@ -100,11 +112,6 @@ class ApiService {
   }
 
   // Pedidos
-  async getOrders(filters = {}) {
-    const params = new URLSearchParams(filters);
-    return this.request(`/pedidos/?${params}`);
-  }
-
   async getAdminOrders() {
     return this.request('/pedidos/admin');
   }
@@ -113,27 +120,20 @@ class ApiService {
     return this.request(`/pedidos/${id}/`);
   }
 
-  async createOrder(orderData) {
-    return this.request('/pedidos/', {
-      method: 'POST',
-      body: JSON.stringify(orderData),
-    });
-  }
-
   async updateOrderStatus(id, status) {
-    return this.request(`/pedidos/${id}/status`, {
-      method: 'PATCH',
+    // PUT /pedidos/admin/<id>/status — era PATCH /pedidos/<id>/status, que
+    // nao existe nem no metodo nem no caminho.
+    return this.request(`/pedidos/admin/${id}/status`, {
+      method: 'PUT',
       body: JSON.stringify({ status }),
     });
   }
 
-  // Taxa de entrega
-  async calculateDeliveryFee(cep) {
-    return this.request('/delivery/calculate-fee', {
-      method: 'POST',
-      body: JSON.stringify({ cep }),
-    });
-  }
+  // Taxa de entrega: ver DeliveryCalculator.js, que usa as rotas reais
+  // (/delivery/calcular-distancia-e-taxa). Havia aqui um calculateDeliveryFee
+  // apontando para /delivery/calculate-fee, rota que nunca existiu, e passando
+  // CEP quando o backend calcula por distancia. Ninguem chamava — e um metodo
+  // que nao funciona e pior do que metodo nenhum, porque parece pronto.
 
   // Usuários
   async getUsers() {
@@ -145,7 +145,10 @@ class ApiService {
   }
 
   async createUser(userData) {
-    return this.request('/users/', {
+    // /users/register, nao /users/: a rota de criacao de usuario no backend
+    // sempre foi essa. O caminho antigo caia no catch-all do React e voltava
+    // 405 — "Criar usuario" no painel nunca funcionou.
+    return this.request('/users/register', {
       method: 'POST',
       body: JSON.stringify(userData),
     });
@@ -315,7 +318,8 @@ class ApiService {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/upload`, {
+      // /upload/image: /upload sozinho nao e rota nenhuma (405).
+      const response = await fetch(`${API_BASE_URL}/upload/image`, {
         method: 'POST',
         headers,
         body: formData,
