@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 from src.models.user import db
 from src.services.notificacao_service import NotificacaoService
 from src.models.notificacao import Notificacao
+from src.middleware.auth import usuario_atual_id
 
 notificacao_bp = Blueprint("notificacao", __name__)
 
@@ -13,7 +14,7 @@ def listar_minhas_notificacoes():
     """
     Lista as notificações do cliente logado ou por telefone
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     telefone = request.args.get('telefone', None)
     apenas_nao_lidas = request.args.get('apenas_nao_lidas', 'false').lower() == 'true'
     
@@ -45,7 +46,7 @@ def marcar_notificacao_lida(notificacao_id):
     """
     Marca uma notificação como lida
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     telefone = request.args.get('telefone', None)
     
     # Buscar notificação
@@ -98,7 +99,7 @@ def marcar_todas_lidas():
     """
     Marca todas as notificações do cliente como lidas
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     telefone = request.args.get('telefone', None)
     
     if not current_user_id and not telefone:

@@ -4,6 +4,7 @@ Aplicação Flask - Sistema de Gestão Jamal Esfiharia
 """
 
 import os
+import secrets
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 from src.models.user import db
@@ -13,7 +14,24 @@ def create_app():
     app = Flask(__name__)
     
     # Configurações
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
+    #
+    # A chave assina os tokens de login. O padrao anterior era o texto fixo
+    # 'dev-secret-key-change-in-production', escrito neste arquivo, num
+    # repositorio publico: sem a variavel de ambiente definida no servidor,
+    # qualquer pessoa que lesse o codigo podia FORJAR um token de admin.
+    #
+    # Sem SECRET_KEY, agora sorteia-se uma a cada inicializacao. O efeito
+    # colateral e que os logins caem quando o servidor reinicia — chato, e
+    # infinitamente melhor do que uma chave que o mundo inteiro conhece. O
+    # aviso no log diz o que fazer para acabar com o incomodo.
+    chave = os.getenv('SECRET_KEY')
+    if not chave:
+        chave = secrets.token_urlsafe(32)
+        print(
+            "⚠️  SECRET_KEY nao definida — usando uma chave aleatoria desta execucao.\n"
+            "    Os logins vao cair a cada reinicio ate voce definir SECRET_KEY no servidor."
+        )
+    app.config['SECRET_KEY'] = chave
     
     # Caminho absoluto para o banco de dados
     basedir = os.path.abspath(os.path.dirname(__file__))

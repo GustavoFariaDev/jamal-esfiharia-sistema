@@ -2,10 +2,11 @@
 Rotas para gerenciar configurações e status do restaurante
 """
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 from src.models.user import db, User
 from src.models.configuracao import Configuracao, StatusRestaurante
 import json
+from src.middleware.auth import usuario_atual_id
 
 configuracao_status_bp = Blueprint("configuracao_status", __name__)
 
@@ -41,7 +42,7 @@ def get_status_admin():
     """Retorna o status completo do restaurante (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:
@@ -66,7 +67,7 @@ def toggle_status():
     """Abre ou fecha o restaurante manualmente (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:
@@ -102,7 +103,7 @@ def pausar_temporario():
     """Pausa pedidos temporariamente por X minutos (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:
@@ -139,7 +140,7 @@ def cancelar_pausa():
     """Cancela a pausa temporária de pedidos (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:
@@ -168,7 +169,7 @@ def update_status():
     """Atualiza configurações de status do restaurante (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:
@@ -231,7 +232,7 @@ def get_configuracoes():
     """Lista todas as configurações (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:
@@ -261,7 +262,7 @@ def criar_configuracao():
     """Cria ou atualiza uma configuração (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:
@@ -311,7 +312,7 @@ def deletar_configuracao(config_id):
     """Deleta uma configuração (apenas admin)"""
     try:
         # Verificar se é admin
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         user = User.query.get(user_id)
         
         if not user or not user.is_admin:

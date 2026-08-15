@@ -1,12 +1,12 @@
 import os
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 from src.models.user import db, User
 from src.models.pedido import Pedido, ItemPedido, ItemPedidoAcrescimo, StatusPedido
 from src.models.acrescimo import Acrescimo
 from src.models.pedido_historico import PedidoHistorico
 from src.models.esfiha import Esfiha
-from src.middleware.auth import admin_required
+from src.middleware.auth import admin_required, usuario_atual_id
 from src.services.delivery_fee import DeliveryFeeCalculator
 from src.services.google_maps import GoogleMapsService
 from src.services.notificacao_service import NotificacaoService
@@ -27,7 +27,7 @@ pedido_bp = Blueprint("pedido", __name__)
 @jwt_required()
 def listar_meus_pedidos():
     """Lista os pedidos do usuário logado."""
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     
     # Parâmetros de paginação
     page = request.args.get('page', 1, type=int)
@@ -63,7 +63,7 @@ def listar_meus_pedidos():
 @jwt_required()
 def obter_meu_pedido(id):
     """Obtém um pedido específico do usuário logado."""
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     pedido = Pedido.query.filter_by(id=id, cliente_id=current_user_id).first()
     
     if not pedido:
@@ -82,7 +82,7 @@ def obter_meu_pedido(id):
 @jwt_required()
 def cancelar_meu_pedido(id):
     """Cancela um pedido do usuário logado (se permitido)."""
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     pedido = Pedido.query.filter_by(id=id, cliente_id=current_user_id).first()
     
     if not pedido:
@@ -121,7 +121,7 @@ def cancelar_meu_pedido(id):
 def criar_pedido():
     """Cria um pedido para pagamento na entrega (sem pagamento online)."""
     dados = request.json
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
 
     # Validação básica de campos obrigatórios
     required_fields = ["nome_cliente", "telefone", "itens", "forma_entrega"]
@@ -155,7 +155,14 @@ def criar_pedido():
         esfiha_id = item_data.get("esfiha_id")
         quantidade = item_data.get("quantidade", 1)
 
-        if not esfiha_id or not isinstance(quantidade, int) or quantidade <= 0:
+        # isinstance(True, int) e True em Python: sem o teste de bool, um
+        # {"quantidade": true} virava pedido de 1 unidade em vez de erro.
+        if (
+            not esfiha_id
+            or isinstance(quantidade, bool)
+            or not isinstance(quantidade, int)
+            or quantidade <= 0
+        ):
             return jsonify({
                 "status": "error",
                 "message": f"Item inválido: {item_data}"
@@ -523,7 +530,7 @@ def atualizar_status_admin(pedido_id):
     pedido.data_atualizacao = datetime.now(ZoneInfo('America/Sao_Paulo'))
     
     # Obter ID do usuário que está fazendo a mudança
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     
     # Criar registro de histórico
     historico = PedidoHistorico(

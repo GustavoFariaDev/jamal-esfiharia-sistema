@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required
 from src.models.user import User, db
-from src.middleware.auth import admin_required
+from src.middleware.auth import admin_required, usuario_atual_id
 
 user_bp = Blueprint("user", __name__)
 
@@ -94,7 +94,10 @@ def login_user():
     if user and user.check_password(password):
         # Criar token JWT com informações adicionais
         access_token = create_access_token(
-            identity=user.id,
+            # str(): o flask-jwt-extended 4.7 recusa ler um token cujo `sub`
+            # nao seja string (RFC 7519). Com int, o login devolvia 200 e TODA
+            # rota protegida depois respondia 401/422 "Subject must be a string".
+            identity=str(user.id),
             additional_claims={
                 'is_admin': user.is_admin,
                 'username': user.username
@@ -121,7 +124,7 @@ def login_user():
 @jwt_required()
 def get_current_user():
     """Retorna informações do usuário logado."""
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     user = User.query.get(current_user_id)
     
     if not user:
@@ -140,7 +143,7 @@ def get_current_user():
 @jwt_required()
 def update_current_user():
     """Atualiza informações do usuário logado."""
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     user = User.query.get_or_404(current_user_id)
     data = request.json
 
@@ -291,7 +294,7 @@ def update_user_by_admin(user_id):
 @admin_required
 def delete_user_by_admin(user_id):
     """Deleta um usuário específico (Admin)."""
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     
     # Impedir que admin delete a si mesmo
     if current_user_id == user_id:
@@ -321,7 +324,7 @@ def delete_user_by_admin(user_id):
 @admin_required
 def toggle_admin_status(user_id):
     """Alterna o status de administrador de um usuário (Admin)."""
-    current_user_id = get_jwt_identity()
+    current_user_id = usuario_atual_id()
     
     # Impedir que admin remova seu próprio status de admin
     if current_user_id == user_id:

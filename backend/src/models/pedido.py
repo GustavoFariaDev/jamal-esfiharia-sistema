@@ -73,7 +73,15 @@ class ItemPedido(db.Model):
             'esfiha': self.esfiha.nome if self.esfiha else None,
             'quantidade': self.quantidade,
             'preco_unitario': self.preco_unitario,
-            'subtotal': self.quantidade * self.preco_unitario,
+            # Inclui os acrescimos, que ESTAO no valor cobrado.
+            #
+            # Sem eles, um item de 3 pizzas com bacon aparecia como R$ 90,00
+            # enquanto o pedido era cobrado a R$ 95,00: a soma dos itens na tela
+            # do admin e no cupom nao fechava com o total, e a diferenca parecia
+            # erro de cobranca. O numero certo ja existia em
+            # calcular_total_com_acrescimos() — faltava usa-lo aqui.
+            'subtotal': self.calcular_total_com_acrescimos(),
+            'subtotal_sem_acrescimos': round(self.quantidade * self.preco_unitario, 2),
             'observacoes': self.observacoes,
             'acrescimos': [a.to_dict() for a in self.acrescimos] if self.acrescimos else [],
             'eh_meio_a_meio': self.eh_meio_a_meio,

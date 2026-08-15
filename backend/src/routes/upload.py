@@ -3,13 +3,20 @@ import cloudinary
 import cloudinary.uploader
 import os
 
+from src.middleware.auth import admin_required
+
 upload_bp = Blueprint('upload', __name__)
 
-# Configurar Cloudinary
+# Credenciais SO por variavel de ambiente.
+#
+# Ate aqui o api_secret estava escrito no codigo como valor padrao, num
+# repositorio PUBLICO — qualquer pessoa que abrisse este arquivo podia subir e
+# apagar imagens da conta. Tirar daqui nao desfaz o vazamento: a chave antiga
+# continua no historico do Git e precisa ser TROCADA no painel do Cloudinary.
 cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dbb7oidld'),
-    api_key=os.getenv('CLOUDINARY_API_KEY', '375431172614121'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'd3UGAqGBE2kfYRPvML0U70gnaKA')
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
 )
 
 # Configurações de upload
@@ -20,6 +27,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @upload_bp.route('/image', methods=['POST'])
+@admin_required
 def upload_image():
     """
     Rota para upload de imagens no Cloudinary
@@ -95,6 +103,7 @@ def upload_image():
         }), 500
 
 @upload_bp.route('/delete', methods=['POST'])
+@admin_required
 def delete_image():
     """
     Rota para deletar imagens do Cloudinary

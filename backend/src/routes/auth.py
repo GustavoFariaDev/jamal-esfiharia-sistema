@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required
 from datetime import timedelta
 from src.models.user import User
+from src.middleware.auth import usuario_atual_id
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -35,7 +36,10 @@ def login():
         }
         
         access_token = create_access_token(
-            identity=user.id,
+            # str(): o flask-jwt-extended 4.7 recusa ler um token cujo `sub`
+            # nao seja string (RFC 7519). Com int, o login devolvia 200 e TODA
+            # rota protegida depois respondia 401/422 "Subject must be a string".
+            identity=str(user.id),
             additional_claims=additional_claims,
             expires_delta=timedelta(hours=24)
         )
@@ -63,7 +67,7 @@ def verify_token():
     """Verifica se o token é válido."""
     try:
         # Obter ID do usuário do token
-        user_id = get_jwt_identity()
+        user_id = usuario_atual_id()
         
         # Buscar usuário no banco para verificar se ainda existe e está ativo
         user = User.query.get(user_id)
