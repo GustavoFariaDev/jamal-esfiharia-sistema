@@ -8,6 +8,7 @@ from src.models.user import db
 from src.models.pedido import Pedido, ItemPedido, ItemPedidoAcrescimo, StatusPedido
 from src.models.esfiha import Esfiha
 from src.models.acrescimo import Acrescimo
+from src.services.delivery_fee import DeliveryFeeCalculator
 from src.services.whatsapp_service import WhatsAppService
 from src.services.whatsapp_cliente_service import WhatsAppClienteService
 from datetime import datetime
@@ -70,7 +71,14 @@ def criar_pedido():
         esfiha_id = item_data.get("esfiha_id") or item_data.get("id")
         quantidade = item_data.get("quantidade", 1)
 
-        if not esfiha_id or not isinstance(quantidade, int) or quantidade <= 0:
+        # isinstance(True, int) e True em Python: sem o teste de bool,
+        # {"quantidade": true} virava pedido de 1 unidade em vez de erro.
+        if (
+            not esfiha_id
+            or isinstance(quantidade, bool)
+            or not isinstance(quantidade, int)
+            or quantidade <= 0
+        ):
             return jsonify({
                 "status": "error",
                 "message": f"Item inválido: {item_data}"
@@ -158,7 +166,16 @@ def criar_pedido():
                 if acrescimo and acrescimo.disponivel:
                     total_acrescimos += acrescimo.preco * qtd_acrescimo
         
-        subtotal = (preco_base * quantidade) + total_acrescimos
+        # O acrescimo vale por UNIDADE, nao por linha do pedido.
+        #
+        # A conta era `(preco_base * quantidade) + total_acrescimos`: 3 pizzas
+        # com bacon cobravam 3 pizzas e UM bacon. So que a tela do cliente
+        # sempre somou por unidade — EsfihaModal.js faz
+        # `(basePrice + extrasPrice) * quantity` —, entao o cliente via R$
+        # 105,00, confirmava, e o sistema registrava R$ 95,00. Nao era escolha
+        # de preco: era o frontend e o backend discordando, com a loja pagando
+        # a diferenca em todo pedido de mais de uma unidade com acrescimo.
+        subtotal = (preco_base + total_acrescimos) * quantidade
         valor_total_calculado += subtotal
         
         itens_pedido_info.append({
@@ -179,10 +196,48 @@ def criar_pedido():
             "message": "O pedido deve conter pelo menos um item."
         }), 400
 
-    # Taxa de entrega (se fornecida)
-    taxa_entrega = float(dados.get("taxa_entrega", 0.0))
+    # Taxa de entrega: recalculada AQUI, não aceita como veio do navegador.
+    #
+    # Esta rota é a do checkout do cliente — pública, sem login. A linha
+    # anterior era `float(dados.get("taxa_entrega", 0.0))`: quem mandasse o
+    # POST direto escolhia a própria taxa. Com 0 saía frete grátis; com um
+    # número NEGATIVO o total do pedido caía abaixo do preço dos produtos.
+    #
+    # A distância continua vindo do navegador porque é ela que o cliente
+    # calculou na tela (por /api/delivery/calcular-distancia-e-taxa), mas o
+    # PREÇO dela sai da mesma tabela que o resto do sistema usa. Mentir na
+    # distância ainda é possível; mentir no valor, não.
     distancia_km = dados.get("distancia_km")
-    
+    taxa_entrega = 0.0
+
+    if forma_entrega == "entrega":
+        if distancia_km is not None:
+            try:
+                distancia_km = float(distancia_km)
+            except (ValueError, TypeError):
+                return jsonify({
+                    "status": "error",
+                    "message": "Distância inválida. Deve ser um número."
+                }), 400
+
+            resultado_taxa = DeliveryFeeCalculator.calcular_taxa(distancia_km)
+            if resultado_taxa["erro"]:
+                return jsonify({
+                    "status": "error",
+                    "message": resultado_taxa["erro"]
+                }), 400
+            taxa_entrega = resultado_taxa["taxa"]
+        else:
+            # Sem distância não há como recalcular. Aceita o que veio, mas nunca
+            # negativo — negativo é a única forma de a taxa DIMINUIR o pedido.
+            try:
+                taxa_entrega = max(0.0, float(dados.get("taxa_entrega") or 0.0))
+            except (ValueError, TypeError):
+                taxa_entrega = 0.0
+    else:
+        # Retirada não tem taxa, venha o que vier no corpo da requisição.
+        distancia_km = None
+
     # Calcular valor total (produtos + taxa de entrega)
     valor_total_final = round(valor_total_calculado + taxa_entrega, 2)
 

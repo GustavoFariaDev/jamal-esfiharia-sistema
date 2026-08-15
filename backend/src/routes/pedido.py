@@ -250,7 +250,16 @@ def criar_pedido():
                 if acrescimo and acrescimo.disponivel:
                     total_acrescimos += acrescimo.preco * qtd_acrescimo
         
-        subtotal = (preco_base * quantidade) + total_acrescimos
+        # O acrescimo vale por UNIDADE, nao por linha do pedido.
+        #
+        # A conta era `(preco_base * quantidade) + total_acrescimos`: 3 pizzas
+        # com bacon cobravam 3 pizzas e UM bacon. So que a tela do cliente
+        # sempre somou por unidade — EsfihaModal.js faz
+        # `(basePrice + extrasPrice) * quantity` —, entao o cliente via R$
+        # 105,00, confirmava, e o sistema registrava R$ 95,00. Nao era escolha
+        # de preco: era o frontend e o backend discordando, com a loja pagando
+        # a diferenca em todo pedido de mais de uma unidade com acrescimo.
+        subtotal = (preco_base + total_acrescimos) * quantidade
         valor_total_calculado += subtotal
         
         itens_pedido_info.append({

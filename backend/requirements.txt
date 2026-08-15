@@ -13,3 +13,8 @@ gunicorn==21.2.0
 psycopg2-binary==2.9.9
 cloudinary==1.44.1
 cryptography
+# Base de fusos horarios. src/routes/pedido_simples.py usa
+# ZoneInfo('America/Sao_Paulo') na data do pedido, e sem esta base o zoneinfo
+# nao acha o fuso e TODO pedido responde 500. O Linux do Render tem a base do
+# sistema e disfarca o problema; Windows e imagem slim nao tem.
+tzdata

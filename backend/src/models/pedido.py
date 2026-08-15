@@ -92,12 +92,25 @@ class ItemPedido(db.Model):
         }
     
     def calcular_total_com_acrescimos(self):
-        """Calcula total do item incluindo acréscimos"""
-        total = self.quantidade * self.preco_unitario
+        """
+        Total do item, acréscimos incluídos — pela mesma regra que o cliente vê
+        na tela: o acréscimo acompanha CADA unidade.
+
+        Antes o acréscimo entrava uma vez por linha, e por isso um item de 3
+        pizzas com bacon fechava R$ 95,00 aqui enquanto o cardápio mostrava
+        R$ 105,00 ao cliente (EsfihaModal.js: `(basePrice + extrasPrice) *
+        quantity`).
+
+        Efeito nos pedidos ANTIGOS: os que têm quantidade > 1 com acréscimo
+        foram cobrados pela regra velha, e agora exibem um subtotal maior que o
+        `valor_total` gravado. A diferença não é erro de conta desta função — é
+        o quanto aquele pedido deixou de ser cobrado na época.
+        """
+        acrescimos_por_unidade = 0
         if self.acrescimos:
             for acrescimo in self.acrescimos:
-                total += acrescimo.quantidade * acrescimo.preco_unitario
-        return round(total, 2)
+                acrescimos_por_unidade += acrescimo.quantidade * acrescimo.preco_unitario
+        return round(self.quantidade * (self.preco_unitario + acrescimos_por_unidade), 2)
 
 class Pedido(db.Model):
     id = db.Column(db.Integer, primary_key=True)
